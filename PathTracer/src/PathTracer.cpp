@@ -15,9 +15,9 @@ PathTracer::RESULT PathTracer::PathTracer::Init(unsigned int width, unsigned int
 	return RESULT::SUCCESS;
 }
 
-void PathTracer::PathTracer::Render()
+void PathTracer::PathTracer::Render(const Scene& scene)
 {
-	m_renderer.Render();
+	m_renderer.Render(scene);
 }
 
 void PathTracer::PathTracer::Final()

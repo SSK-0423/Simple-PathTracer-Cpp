@@ -9,7 +9,7 @@ struct Vector3 {
 	float g;
 	float b;
 
-	Vector3 operator +(Vector3 vec) {
+	Vector3 operator +(const Vector3 vec) const {
 		Vector3 ret;
 		ret.r = this->r + vec.r;
 		ret.g = this->g + vec.g;
@@ -17,7 +17,7 @@ struct Vector3 {
 		return ret;
 	}
 
-	Vector3 operator +=(Vector3 vec) {
+	Vector3 operator +=(const Vector3 vec) {
 		this->r += vec.r;
 		this->g += vec.g;
 		this->b += vec.b;
@@ -25,7 +25,7 @@ struct Vector3 {
 		return *this;
 	}
 
-	Vector3 operator -(Vector3 vec) {
+	Vector3 operator -(const Vector3 vec) const {
 		Vector3 ret;
 		ret.r = this->r - vec.r;
 		ret.g = this->g - vec.g;
@@ -41,7 +41,7 @@ struct Vector3 {
 		return *this;
 	}
 
-	Vector3 operator +(float value) {
+	Vector3 operator +(const float value) const {
 		Vector3 ret;
 		ret.r = this->r + value;
 		ret.g = this->g + value;
@@ -49,7 +49,7 @@ struct Vector3 {
 		return ret;
 	}
 
-	Vector3 operator -(float value) {
+	Vector3 operator -(const float value) const {
 		Vector3 ret;
 		ret.r = this->r - value;
 		ret.g = this->g - value;
@@ -57,7 +57,7 @@ struct Vector3 {
 		return ret;
 	}
 
-	Vector3 operator *(float value) {
+	Vector3 operator *(const float value) const {
 		Vector3 ret;
 		ret.r = this->r * value;
 		ret.g = this->g * value;
@@ -65,7 +65,7 @@ struct Vector3 {
 		return ret;
 	}
 
-	Vector3 operator /(float value) {
+	Vector3 operator /(const float value) const {
 		Vector3 ret;
 		ret.r = this->r / value;
 		ret.g = this->g / value;
@@ -73,7 +73,7 @@ struct Vector3 {
 		return ret;
 	}
 
-	float length() {
+	float Length() const {
 		return std::sqrtf(r * r + g * g + b * b);
 	}
 };
@@ -82,8 +82,8 @@ inline float Dot(Vector3 rhs, Vector3 lhs) {
 	return rhs.r * lhs.r + rhs.g * lhs.g + rhs.b * lhs.b;
 }
 
-inline Vector3 normalize(Vector3 vec) {
-	return Vector3(vec.r / vec.length(), vec.g / vec.length(), vec.b / vec.length());
+inline Vector3 Normalize(Vector3 vec) {
+	return Vector3(vec.r / vec.Length(), vec.g / vec.Length(), vec.b / vec.Length());
 }
 
 inline Vector3 Saturate(Vector3 vec) {

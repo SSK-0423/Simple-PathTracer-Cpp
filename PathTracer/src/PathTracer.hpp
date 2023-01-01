@@ -4,9 +4,6 @@
 #include "Graphics/Renderer.hpp"
 #include "Graphics/PixelBuffer.hpp"
 
-#include "Scene/Camera.hpp"
-#include "Scene/Scene.hpp"
-
 #include "Utility/Utility.hpp"
 #include "Utility/Vector.hpp"
 #include "Utility/Matrix.hpp"
@@ -16,9 +13,9 @@ namespace PathTracer {
 	public:
 		PathTracer();
 		~PathTracer();
-		
+
 		RESULT Init(unsigned int width, unsigned int height);
-		void Render();
+		void Render(const Scene& scene);
 		void Final();
 
 	private:

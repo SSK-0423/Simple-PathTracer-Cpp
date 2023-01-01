@@ -6,7 +6,7 @@ namespace PathTracer {
 	class Camera {
 	public:
 		Camera();
-		Camera(const Vector3& pos, const Vector3& forward, const Vector3& right, const Vector3& up);
+		Camera(const Vector3& pos, const Vector3& forward, const Vector3& right, const Vector3& up, const float& fovDeg);
 		~Camera() = default;
 
 		Ray GetCameraRay(unsigned int x, unsigned int y, unsigned int width, unsigned int height);

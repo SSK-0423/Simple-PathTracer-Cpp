@@ -1,5 +1,6 @@
 #pragma once
 #include "PixelBuffer.hpp"
+#include "Intersector.hpp"
 #include "../Scene/Camera.hpp"
 #include "../Scene/Scene.hpp"
 
@@ -11,11 +12,12 @@ namespace PathTracer {
 
 		void Init(unsigned int width, unsigned int height);
 
-		void Render();
+		void Render(const Scene& scene);
 	private:
 		unsigned int m_width;
 		unsigned int m_height;
 		PixelBuffer m_renderTarget;
+		Intersector m_intersector;
 
 		Camera m_camera;
 	};

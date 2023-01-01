@@ -6,12 +6,13 @@
 #include <math.h>
 
 PathTracer::Camera::Camera()
-	: m_position(0, 0, 0), m_forward(0, 1, 0), m_right(1, 0, 0), m_up(0, 1, 0)
+	: m_position(0, 0, 0), m_forward(0, 1, 0), m_right(1, 0, 0), m_up(0, 1, 0), m_fovDeg(45)
 {
 }
 
-PathTracer::Camera::Camera(const Vector3& pos, const Vector3& forward, const Vector3& right, const Vector3& up)
-	: m_position(pos), m_forward(forward), m_right(right), m_up(up)
+PathTracer::Camera::Camera(
+	const Vector3& pos, const Vector3& forward, const Vector3& right, const Vector3& up, const float& fovDeg)
+	: m_position(pos), m_forward(forward), m_right(right), m_up(up), m_fovDeg(fovDeg)
 {
 }
 
@@ -27,7 +28,7 @@ PathTracer::Ray PathTracer::Camera::GetCameraRay(unsigned int x, unsigned int y,
 	float imagePlaneHeight = tanf(fov / 2.f);
 	float imagePlaneWidth = aspect * imagePlaneHeight;
 
-	Vector3 rayDir = normalize(m_right * u + m_up * v + m_forward);
+	Vector3 rayDir = Normalize(m_right * u + m_up * v + m_forward);
 
 	return Ray(m_position, rayDir);
 }
