@@ -44,10 +44,12 @@ void PathTracer::PixelBuffer::OutputImage(const std::string& filePath)
 	ppmFile << MAX_RADIANCE << std::endl;	// 最大輝度指定
 
 	// ピクセル毎の輝度を書き込む
-	for (size_t w = 0; w < m_height; w++) {
-		for (size_t h = 0; h < m_width; h++) {
+	for (size_t h = 0; h < m_height; h++) {
+		for (size_t w = 0; w < m_width; w++) {
 			Vector3 radiance = m_pixels[h * m_width + w] * MAX_RADIANCE;
-			ppmFile << radiance.r << " " << radiance.g << " " << radiance.b << " ";
+			// 浮動小数のまま書き込むと小数点「.」が区切り文字として認識されるため
+			// レンダリング結果が正しく表示されなくなる
+			ppmFile << static_cast<unsigned int>(radiance.r) << " " << static_cast<unsigned int>(radiance.g) << " " << static_cast<unsigned int>(radiance.b) << " ";
 		}
 	}
 

@@ -28,7 +28,8 @@ PathTracer::Ray PathTracer::Camera::GetCameraRay(unsigned int x, unsigned int y,
 	float imagePlaneHeight = tanf(fov / 2.f);
 	float imagePlaneWidth = aspect * imagePlaneHeight;
 
-	Vector3 rayDir = Normalize(m_right * u + m_up * v + m_forward);
+	// ¶ãŒ´“_‚É‚µ‚½‚¢‚Ì‚Åv‚Ì’l‚ğ”»’è‚³‚¹‚é
+	Vector3 rayDir = Normalize(m_right * u + m_up * (-v) + m_forward);
 
 	return Ray(m_position, rayDir);
 }

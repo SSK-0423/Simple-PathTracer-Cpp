@@ -1,6 +1,7 @@
 #include "Renderer.hpp"
 #include "IntersectionResult.hpp"
 #include "Intersector.hpp"
+#include "Sphere.hpp"
 
 PathTracer::Renderer::Renderer()
 {
@@ -24,20 +25,22 @@ void PathTracer::Renderer::Render(const Scene& scene)
 	// パストレーシング
 	for (size_t y = 0; y < m_height; y++) {
 		for (size_t x = 0; x < m_width; x++) {
-			// カメラレイを生成
+			
 			Ray cameraRay = m_camera.GetCameraRay(x, y, m_width, m_height);
 
-			// シーンと交差判定
 			IntersectionResult result = m_intersector.Intersect(cameraRay, scene);
 
 			// シェーディング
-			if (result.GetType() == INTERSECTION_TYPE::HIT)
-				m_renderTarget.Write(x, y, 0, 1, 0);
+			if (result.GetType() == INTERSECTION_TYPE::HIT) {
+				Material material = scene.GetMesh(result.GetObjectID())->GetMaterial();
+				Vector3 baseColor = material.GetBaseColor();
+				m_renderTarget.Write(x, y, baseColor.r, baseColor.g, baseColor.b);
+			}
 			else
 				m_renderTarget.Write(x, y, 0, 1, 1);
 		}
 	}
 
 	// パストレーシング結果を出力
-	m_renderTarget.OutputImage("test.ppm");
+	m_renderTarget.OutputImage("cornellBox.ppm");
 }

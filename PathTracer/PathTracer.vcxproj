@@ -23,22 +23,29 @@
     <ClCompile Include="src\Graphics\Intersector.cpp" />
     <ClCompile Include="src\Graphics\Mesh.cpp" />
     <ClCompile Include="src\Graphics\PixelBuffer.cpp" />
+    <ClCompile Include="src\Graphics\Plane.cpp" />
     <ClCompile Include="src\Graphics\Renderer.cpp" />
+    <ClCompile Include="src\Graphics\Sphere.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\PathTracer.cpp" />
     <ClCompile Include="src\Scene\Camera.cpp" />
+    <ClCompile Include="src\Scene\CornellBox.cpp" />
+    <ClCompile Include="src\Scene\Scene.cpp" />
     <ClCompile Include="src\Scene\TestScene.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Graphics\IntersectionResult.hpp" />
     <ClInclude Include="src\Graphics\Intersector.hpp" />
+    <ClInclude Include="src\Graphics\Material.hpp" />
     <ClInclude Include="src\Graphics\Mesh.hpp" />
     <ClInclude Include="src\Graphics\PixelBuffer.hpp" />
+    <ClInclude Include="src\Graphics\Plane.hpp" />
     <ClInclude Include="src\Graphics\Ray.hpp" />
     <ClInclude Include="src\Graphics\Renderer.hpp" />
     <ClInclude Include="src\Graphics\Sphere.hpp" />
     <ClInclude Include="src\PathTracer.hpp" />
     <ClInclude Include="src\Scene\Camera.hpp" />
+    <ClInclude Include="src\Scene\CornellBox.hpp" />
     <ClInclude Include="src\Scene\Scene.hpp" />
     <ClInclude Include="src\Scene\TestScene.hpp" />
     <ClInclude Include="src\Utility\Matrix.hpp" />

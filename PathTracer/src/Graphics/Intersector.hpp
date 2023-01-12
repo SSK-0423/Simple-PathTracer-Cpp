@@ -10,7 +10,5 @@ namespace PathTracer {
 		~Intersector();
 
 		IntersectionResult Intersect(const Ray& ray, const Scene& scene);
-	private:
-		IntersectionResult IntersectSphere(const Ray& ray, const Scene& scene);
 	};
 }

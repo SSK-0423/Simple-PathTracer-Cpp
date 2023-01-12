@@ -54,6 +54,18 @@
     <ClCompile Include="src\Scene\TestScene.cpp">
       <Filter>src\Scene</Filter>
     </ClCompile>
+    <ClCompile Include="src\Scene\CornellBox.cpp">
+      <Filter>src\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Scene\Scene.cpp">
+      <Filter>src\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Graphics\Plane.cpp">
+      <Filter>src\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Graphics\Sphere.cpp">
+      <Filter>src\Graphics</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\PathTracer.hpp">
@@ -100,6 +112,15 @@
     </ClInclude>
     <ClInclude Include="src\Scene\TestScene.hpp">
       <Filter>src\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Scene\CornellBox.hpp">
+      <Filter>src\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Graphics\Material.hpp">
+      <Filter>src\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Graphics\Plane.hpp">
+      <Filter>src\Graphics</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

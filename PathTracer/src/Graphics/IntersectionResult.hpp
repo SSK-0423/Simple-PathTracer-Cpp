@@ -15,13 +15,16 @@ namespace PathTracer {
 			const unsigned int& objectID, const INTERSECTION_TYPE& type);
 		~IntersectionResult();
 
-		INTERSECTION_TYPE GetType() { return type; }
+		const Vector3& GetPosition() { return m_position; }
+		const float& GetDistance() { return m_distance; }
+		const unsigned int& GetObjectID() { return m_objectID; }
+		const INTERSECTION_TYPE& GetType() { return m_type; }
 
 	private:
-		Vector3 position;
-		float distance;
-		unsigned int objectID;
-		INTERSECTION_TYPE type;
+		Vector3 m_position;
+		float m_distance;
+		unsigned int m_objectID;
+		INTERSECTION_TYPE m_type;
 	};
 
 }
