@@ -14,7 +14,7 @@ namespace PathTracer {
 		PathTracer();
 		~PathTracer();
 
-		RESULT Init(unsigned int width, unsigned int height);
+		RESULT Init(const unsigned int& width, const unsigned int& height, const unsigned int& sampleCount);
 		void Render(const Scene& scene);
 		void Final();
 

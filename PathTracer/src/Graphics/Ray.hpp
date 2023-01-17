@@ -4,7 +4,8 @@
 namespace PathTracer {
 	class Ray {
 	public:
-		Ray(const Vector3& origin, const Vector3& direction) : m_origin(origin), m_direction(direction) {};
+		Ray(const Vector3& origin, const Vector3& direction)
+			: m_origin(origin), m_direction(direction) {};
 		~Ray() = default;
 
 		const Vector3& GetOrigin() const { return m_origin; }

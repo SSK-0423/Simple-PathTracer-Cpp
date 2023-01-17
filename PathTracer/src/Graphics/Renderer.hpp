@@ -2,15 +2,18 @@
 #include "PixelBuffer.hpp"
 #include "Intersector.hpp"
 #include "../Scene/Camera.hpp"
-#include "../Scene/Scene.hpp"
 
 namespace PathTracer {
+	class Ray;
+	class Scene;
+	class Material;
+
 	class Renderer {
 	public:
 		Renderer();
 		~Renderer();
 
-		void Init(unsigned int width, unsigned int height);
+		void Init(const unsigned int& width, const unsigned int& height, const unsigned int& sampleCount);
 
 		void Render(const Scene& scene);
 	private:
@@ -20,5 +23,10 @@ namespace PathTracer {
 		Intersector m_intersector;
 
 		Camera m_camera;
+		unsigned int m_sampleCount;
+
+		const Vector3& RayTrace(const Ray& ray, const Scene& scene, unsigned int bounce);
+		const Vector3& SamplePointOnHemisphere(const Vector3& surfaceNormal);
+		const bool& RussianRoulette(const Material& material);
 	};
 }

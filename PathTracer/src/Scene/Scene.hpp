@@ -4,7 +4,7 @@
 
 namespace PathTracer {
 	class Mesh;
-	class Sphere;
+	class LightSource;
 
 	class Scene {
 	public:
@@ -13,12 +13,11 @@ namespace PathTracer {
 
 		virtual void Init() = 0;
 		std::shared_ptr<Mesh> GetMesh(unsigned int meshID) const;
-		std::shared_ptr<Sphere> GetSphere(unsigned int objectID) const;
 
-		const std::vector<std::shared_ptr<Sphere>>& GetSpheres() const { return m_spheres; }
+		const std::vector<std::shared_ptr<LightSource>>& GetLightSources() const { return m_lights; }
 		const std::vector<std::shared_ptr<Mesh>>& GetMeshes() const { return m_meshes; }
 	protected:
 		std::vector<std::shared_ptr<Mesh>> m_meshes;
-		std::vector<std::shared_ptr<Sphere>> m_spheres;
+		std::vector<std::shared_ptr<LightSource>> m_lights;
 	};
 }

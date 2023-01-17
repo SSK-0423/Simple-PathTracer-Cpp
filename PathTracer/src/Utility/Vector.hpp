@@ -1,100 +1,129 @@
 #pragma once
 #include <cmath>
+#include "MathUtility.hpp"
 
 struct Vector3 {
-	Vector3() : r(0), g(0), b(0) {};
-	Vector3(float r, float g, float b) : r(r), g(g), b(b) {}
+	Vector3() : x(0), y(0), z(0) {};
+	Vector3(float x, float y, float z) : x(x), y(y), z(z) {}
 
-	float r;
-	float g;
-	float b;
+	float x;
+	float y;
+	float z;
 
 	Vector3 operator +(const Vector3 vec) const {
 		Vector3 ret;
-		ret.r = this->r + vec.r;
-		ret.g = this->g + vec.g;
-		ret.b = this->b + vec.b;
+		ret.x = this->x + vec.x;
+		ret.y = this->y + vec.y;
+		ret.z = this->z + vec.z;
 		return ret;
 	}
 
 	Vector3 operator +=(const Vector3 vec) {
-		this->r += vec.r;
-		this->g += vec.g;
-		this->b += vec.b;
+		this->x += vec.x;
+		this->y += vec.y;
+		this->z += vec.z;
 
 		return *this;
 	}
 
 	Vector3 operator -(const Vector3 vec) const {
 		Vector3 ret;
-		ret.r = this->r - vec.r;
-		ret.g = this->g - vec.g;
-		ret.b = this->b - vec.b;
+		ret.x = this->x - vec.x;
+		ret.y = this->y - vec.y;
+		ret.z = this->z - vec.z;
 		return ret;
 	}
 
 	Vector3 operator -=(Vector3 vec) {
-		this->r -= vec.r;
-		this->g -= vec.g;
-		this->b -= vec.b;
+		this->x -= vec.x;
+		this->y -= vec.y;
+		this->z -= vec.z;
 
 		return *this;
 	}
 
 	Vector3 operator +(const float value) const {
 		Vector3 ret;
-		ret.r = this->r + value;
-		ret.g = this->g + value;
-		ret.b = this->b + value;
+		ret.x = this->x + value;
+		ret.y = this->y + value;
+		ret.z = this->z + value;
 		return ret;
 	}
 
 	Vector3 operator -(const float value) const {
 		Vector3 ret;
-		ret.r = this->r - value;
-		ret.g = this->g - value;
-		ret.b = this->b - value;
+		ret.x = this->x - value;
+		ret.y = this->y - value;
+		ret.z = this->z - value;
 		return ret;
+	}
+
+	Vector3 operator *(const Vector3 vec) const {
+		Vector3 ret;
+		ret.x = this->x * vec.x;
+		ret.y = this->y * vec.y;
+		ret.z = this->z * vec.z;
+		return ret;
+	}
+
+	friend Vector3 operator *(const float value, const Vector3 vec) {
+		Vector3 ret;
+		ret.x = vec.x * value;
+		ret.y = vec.y * value;
+		ret.z = vec.z * value;
+		return ret;
+
 	}
 
 	Vector3 operator *(const float value) const {
 		Vector3 ret;
-		ret.r = this->r * value;
-		ret.g = this->g * value;
-		ret.b = this->b * value;
+		ret.x = this->x * value;
+		ret.y = this->y * value;
+		ret.z = this->z * value;
 		return ret;
+	}
+
+	Vector3 operator *=(const float value) {
+		this->x *= value;
+		this->y *= value;
+		this->z *= value;
+
+		return *this;
 	}
 
 	Vector3 operator /(const float value) const {
 		Vector3 ret;
-		ret.r = this->r / value;
-		ret.g = this->g / value;
-		ret.b = this->b / value;
+		ret.x = this->x / value;
+		ret.y = this->y / value;
+		ret.z = this->z / value;
 		return ret;
 	}
 
+	float r() const { return x; }
+	float g() const { return y; }
+	float b() const { return z; }
+
 	float Length() const {
-		return std::sqrtf(r * r + g * g + b * b);
+		return std::sqrtf(x * x + y * y + z * z);
 	}
 };
 
 inline float Dot(Vector3 rhs, Vector3 lhs) {
-	return rhs.r * lhs.r + rhs.g * lhs.g + rhs.b * lhs.b;
+	return rhs.x * lhs.x + rhs.y * lhs.y + rhs.z * lhs.z;
+}
+
+inline Vector3 Cross(Vector3 rhs, Vector3 lhs) {
+	float x = rhs.y * lhs.z - rhs.z * lhs.y;
+	float y = rhs.z * lhs.x - rhs.x * lhs.z;
+	float z = rhs.x * lhs.y - rhs.y * lhs.x;
+
+	return Vector3(x, y, z);
 }
 
 inline Vector3 Normalize(Vector3 vec) {
-	return Vector3(vec.r / vec.Length(), vec.g / vec.Length(), vec.b / vec.Length());
+	return Vector3(vec.x / vec.Length(), vec.y / vec.Length(), vec.z / vec.Length());
 }
 
 inline Vector3 Saturate(Vector3 vec) {
-	if (vec.r < 0.f) { vec.r = 0.f; }
-	else if (vec.r > 1.f) { vec.r = 1.f; }
-
-	if (vec.g < 0.f) { vec.g = 0.f; }
-	else if (vec.g > 1.f) { vec.g = 1.f; }
-
-	if (vec.b < 0.f) { vec.b = 0.f; }
-	else if (vec.b > 1.f) { vec.b = 1.f; }
-
-	return vec;
+	return Vector3(Saturate(vec.x), Saturate(vec.y), Saturate(vec.z));
 }

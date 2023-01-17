@@ -27,10 +27,10 @@ namespace PathTracer {
 
 			if (t1 >= 0 && t2 >= 0) {
 				float t = Min(t1, t2);
-				return IntersectionResult(
-					ray.GetOrigin() + ray.GetDirection() * t,
-					(ray.GetDirection() * t).Length(),
-					m_objectID, INTERSECTION_TYPE::HIT);
+				Vector3 pos = ray.GetOrigin() + ray.GetDirection() * t;
+				Vector3 normal = Normalize(pos - m_origin);
+				float distance = (ray.GetDirection() * t).Length();
+				return IntersectionResult(pos, normal, distance, m_objectID, INTERSECTION_TYPE::HIT);
 			}
 		}
 		// Œð“_1‚Â
@@ -38,13 +38,13 @@ namespace PathTracer {
 			float t = -B / 2.f * A;
 
 			if (t >= 0) {
-				return IntersectionResult(
-					ray.GetOrigin() + ray.GetDirection() * t,
-					(ray.GetDirection() * t).Length(),
-					m_objectID, INTERSECTION_TYPE::HIT);
+				Vector3 pos = ray.GetOrigin() + ray.GetDirection() * t;
+				Vector3 normal = Normalize(pos - m_origin);
+				float distance = (ray.GetDirection() * t).Length();
+				return IntersectionResult(pos, normal, distance, m_objectID, INTERSECTION_TYPE::HIT);
 			}
 		}
 
-		return IntersectionResult(Vector3(0.f, 0.f, 0.f), FLT_MAX, -1, INTERSECTION_TYPE::NONE);
+		return IntersectionResult(Vector3(0.f, 0.f, 0.f), Vector3(0.f, 0.f, 0.f), FLT_MAX, -1, INTERSECTION_TYPE::NONE);
 	}
 }

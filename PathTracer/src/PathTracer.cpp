@@ -8,9 +8,9 @@ PathTracer::PathTracer::~PathTracer()
 {
 }
 
-PathTracer::RESULT PathTracer::PathTracer::Init(unsigned int width, unsigned int height)
+PathTracer::RESULT PathTracer::PathTracer::Init(const unsigned int& width, const unsigned int& height, const unsigned int& sampleCount)
 {
-	m_renderer.Init(width, height);
+	m_renderer.Init(width, height,sampleCount);
 
 	return RESULT::SUCCESS;
 }

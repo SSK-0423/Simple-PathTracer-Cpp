@@ -10,5 +10,6 @@ namespace PathTracer {
 		~Intersector();
 
 		IntersectionResult Intersect(const Ray& ray, const Scene& scene);
+		IntersectionResult Intersect(const Ray& ray, const Scene& scene, bool isExitOnceFound);
 	};
 }

@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\Graphics\BRDF.cpp" />
     <ClCompile Include="src\Graphics\IntersectionResult.cpp" />
     <ClCompile Include="src\Graphics\Intersector.cpp" />
     <ClCompile Include="src\Graphics\Mesh.cpp" />
@@ -34,12 +35,16 @@
     <ClCompile Include="src\Scene\TestScene.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Graphics\BRDF.hpp" />
+    <ClInclude Include="src\Graphics\DirectionalLight.hpp" />
     <ClInclude Include="src\Graphics\IntersectionResult.hpp" />
     <ClInclude Include="src\Graphics\Intersector.hpp" />
+    <ClInclude Include="src\Graphics\LightSource.hpp" />
     <ClInclude Include="src\Graphics\Material.hpp" />
     <ClInclude Include="src\Graphics\Mesh.hpp" />
     <ClInclude Include="src\Graphics\PixelBuffer.hpp" />
     <ClInclude Include="src\Graphics\Plane.hpp" />
+    <ClInclude Include="src\Graphics\PointLight.hpp" />
     <ClInclude Include="src\Graphics\Ray.hpp" />
     <ClInclude Include="src\Graphics\Renderer.hpp" />
     <ClInclude Include="src\Graphics\Sphere.hpp" />
@@ -48,6 +53,7 @@
     <ClInclude Include="src\Scene\CornellBox.hpp" />
     <ClInclude Include="src\Scene\Scene.hpp" />
     <ClInclude Include="src\Scene\TestScene.hpp" />
+    <ClInclude Include="src\Utility\MathUtility.hpp" />
     <ClInclude Include="src\Utility\Matrix.hpp" />
     <ClInclude Include="src\Utility\PathTracerMath.hpp" />
     <ClInclude Include="src\Utility\Utility.hpp" />

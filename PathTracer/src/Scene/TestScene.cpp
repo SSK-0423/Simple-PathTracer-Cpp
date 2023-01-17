@@ -14,5 +14,4 @@ PathTracer::TestScene::~TestScene()
 void PathTracer::TestScene::Init()
 {
 	m_meshes.push_back(std::make_shared<Sphere>(1.f, Vector3(0.f, 0.f, 5.f), 0, Material()));
-	m_spheres.push_back(std::make_shared<Sphere>(1.f, Vector3(0.f, 0.f, 3.f), 0, Material()));
 }

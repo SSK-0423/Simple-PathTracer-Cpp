@@ -14,14 +14,4 @@ namespace PathTracer {
 
 		return nullptr;
 	}
-
-	std::shared_ptr<Sphere> Scene::GetSphere(unsigned int objectID) const
-	{
-		for (auto sphere : m_spheres) {
-			if (sphere->GetObjectID() == objectID)
-				return sphere;
-		}
-
-		return nullptr;
-	}
 }

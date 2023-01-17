@@ -11,9 +11,16 @@ PathTracer::Camera::Camera()
 }
 
 PathTracer::Camera::Camera(
-	const Vector3& pos, const Vector3& forward, const Vector3& right, const Vector3& up, const float& fovDeg)
+	const Vector3& pos, const Vector3& forward, const Vector3& right, const Vector3& up, const float& fovDeg, const unsigned int& width, const unsigned int& height)
 	: m_position(pos), m_forward(forward), m_right(right), m_up(up), m_fovDeg(fovDeg)
 {
+	// アスペクト比
+	float aspect = static_cast<float>(width) / static_cast<float>(height);
+	float fov = m_fovDeg * (PI / 180.f);
+	float imagePlaneHeight = tanf(fov * 0.5f);
+	float imagePlaneWidth = aspect * imagePlaneHeight;
+	m_right *= imagePlaneWidth;
+	m_up *= imagePlaneHeight;
 }
 
 PathTracer::Ray PathTracer::Camera::GetCameraRay(unsigned int x, unsigned int y, unsigned int width, unsigned int height)
@@ -21,12 +28,6 @@ PathTracer::Ray PathTracer::Camera::GetCameraRay(unsigned int x, unsigned int y,
 	// -1 1
 	float u = static_cast<float>(x) / static_cast<float>(width) * 2.f - 1.f;
 	float v = static_cast<float>(y) / static_cast<float>(height) * 2.f - 1.f;
-
-	// アスペクト比
-	float aspect = static_cast<float>(width) / static_cast<float>(height);
-	float fov = m_fovDeg * (PI / 180.f);
-	float imagePlaneHeight = tanf(fov / 2.f);
-	float imagePlaneWidth = aspect * imagePlaneHeight;
 
 	// 左上原点にしたいのでvの値を判定させる
 	Vector3 rayDir = Normalize(m_right * u + m_up * (-v) + m_forward);

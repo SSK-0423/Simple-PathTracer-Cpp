@@ -3,6 +3,7 @@
 #include <iostream>
 
 #include "PixelBuffer.hpp"
+#include "../Utility/PathTracerMath.hpp"
 
 constexpr unsigned int MAX_RADIANCE = 255;
 
@@ -19,13 +20,17 @@ void PathTracer::PixelBuffer::Create(unsigned int width, unsigned int height)
 	m_width = width;
 	m_height = height;
 	m_pixels = std::make_unique<Vector3[]>(width * height);
+
+	for (size_t i = 0; i < width * height; i++) {
+		m_pixels[i] = Vector3(0.f, 0.f, 0.f);
+	}
 }
 
 void PathTracer::PixelBuffer::Write(unsigned int x, unsigned int y, float r, float g, float b)
 {
-	m_pixels[x + y * m_width].r = r;
-	m_pixels[x + y * m_width].g = g;
-	m_pixels[x + y * m_width].b = b;
+	m_pixels[x + y * m_width].x = Saturate(r);
+	m_pixels[x + y * m_width].y = Saturate(g);
+	m_pixels[x + y * m_width].z = Saturate(b);
 }
 
 void PathTracer::PixelBuffer::OutputImage(const std::string& filePath)
@@ -47,9 +52,12 @@ void PathTracer::PixelBuffer::OutputImage(const std::string& filePath)
 	for (size_t h = 0; h < m_height; h++) {
 		for (size_t w = 0; w < m_width; w++) {
 			Vector3 radiance = m_pixels[h * m_width + w] * MAX_RADIANCE;
+			radiance.x = powf(radiance.r(), 1.f / 2.2f);
+			radiance.y = powf(radiance.g(), 1.f / 2.2f);
+			radiance.z = powf(radiance.b(), 1.f / 2.2f);
 			// 浮動小数のまま書き込むと小数点「.」が区切り文字として認識されるため
 			// レンダリング結果が正しく表示されなくなる
-			ppmFile << static_cast<unsigned int>(radiance.r) << " " << static_cast<unsigned int>(radiance.g) << " " << static_cast<unsigned int>(radiance.b) << " ";
+			ppmFile << static_cast<unsigned int>(radiance.r()) << " " << static_cast<unsigned int>(radiance.g()) << " " << static_cast<unsigned int>(radiance.b()) << " ";
 		}
 	}
 

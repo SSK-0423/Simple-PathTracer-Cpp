@@ -25,6 +25,9 @@
     <Filter Include="src\Utility">
       <UniqueIdentifier>{8a1c1cf0-0803-4655-b7a3-77db8b0b1acb}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Graphics\LightSource">
+      <UniqueIdentifier>{e70baf2c-4cd7-4366-b1f0-3f2aeefafe8d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\main.cpp">
@@ -64,6 +67,9 @@
       <Filter>src\Graphics</Filter>
     </ClCompile>
     <ClCompile Include="src\Graphics\Sphere.cpp">
+      <Filter>src\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Graphics\BRDF.cpp">
       <Filter>src\Graphics</Filter>
     </ClCompile>
   </ItemGroup>
@@ -121,6 +127,21 @@
     </ClInclude>
     <ClInclude Include="src\Graphics\Plane.hpp">
       <Filter>src\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Graphics\BRDF.hpp">
+      <Filter>src\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Utility\MathUtility.hpp">
+      <Filter>src\Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Graphics\DirectionalLight.hpp">
+      <Filter>src\Graphics\LightSource</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Graphics\PointLight.hpp">
+      <Filter>src\Graphics\LightSource</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Graphics\LightSource.hpp">
+      <Filter>src\Graphics\LightSource</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
