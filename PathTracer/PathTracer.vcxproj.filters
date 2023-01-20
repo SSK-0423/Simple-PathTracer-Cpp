@@ -143,5 +143,14 @@
     <ClInclude Include="src\Graphics\LightSource.hpp">
       <Filter>src\Graphics\LightSource</Filter>
     </ClInclude>
+    <ClInclude Include="src\Graphics\TestTriangle.hpp">
+      <Filter>src\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Graphics\Transform.hpp">
+      <Filter>src\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Utility\Quaternion.h">
+      <Filter>src\Utility</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

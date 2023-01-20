@@ -48,6 +48,8 @@
     <ClInclude Include="src\Graphics\Ray.hpp" />
     <ClInclude Include="src\Graphics\Renderer.hpp" />
     <ClInclude Include="src\Graphics\Sphere.hpp" />
+    <ClInclude Include="src\Graphics\TestTriangle.hpp" />
+    <ClInclude Include="src\Graphics\Transform.hpp" />
     <ClInclude Include="src\PathTracer.hpp" />
     <ClInclude Include="src\Scene\Camera.hpp" />
     <ClInclude Include="src\Scene\CornellBox.hpp" />
@@ -56,6 +58,7 @@
     <ClInclude Include="src\Utility\MathUtility.hpp" />
     <ClInclude Include="src\Utility\Matrix.hpp" />
     <ClInclude Include="src\Utility\PathTracerMath.hpp" />
+    <ClInclude Include="src\Utility\Quaternion.h" />
     <ClInclude Include="src\Utility\Utility.hpp" />
     <ClInclude Include="src\Utility\Vector.hpp" />
   </ItemGroup>

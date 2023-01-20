@@ -52,9 +52,9 @@ void PathTracer::PixelBuffer::OutputImage(const std::string& filePath)
 	for (size_t h = 0; h < m_height; h++) {
 		for (size_t w = 0; w < m_width; w++) {
 			Vector3 radiance = m_pixels[h * m_width + w] * MAX_RADIANCE;
-			radiance.x = powf(radiance.r(), 1.f / 2.2f);
-			radiance.y = powf(radiance.g(), 1.f / 2.2f);
-			radiance.z = powf(radiance.b(), 1.f / 2.2f);
+			//radiance.x = powf(radiance.r(), 1.f / 2.2f);
+			//radiance.y = powf(radiance.g(), 1.f / 2.2f);
+			//radiance.z = powf(radiance.b(), 1.f / 2.2f);
 			// 浮動小数のまま書き込むと小数点「.」が区切り文字として認識されるため
 			// レンダリング結果が正しく表示されなくなる
 			ppmFile << static_cast<unsigned int>(radiance.r()) << " " << static_cast<unsigned int>(radiance.g()) << " " << static_cast<unsigned int>(radiance.b()) << " ";

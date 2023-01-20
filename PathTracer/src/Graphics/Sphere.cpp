@@ -5,7 +5,7 @@
 #include <float.h>
 
 namespace PathTracer {
-	const IntersectionResult& Sphere::Intersect(const Ray& ray)
+	const IntersectionResult Sphere::Intersect(const Ray& ray)
 	{
 		// レイのベクトル方程式 p = s + td;
 		// 球のベクトル方程式 |p|^2 = r^2;

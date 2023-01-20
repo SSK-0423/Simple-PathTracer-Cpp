@@ -12,9 +12,10 @@ namespace PathTracer {
 			m_objectID = objectID;
 			m_material = material;
 		}
+		Plane(const unsigned int& objectID, const Material& material);
 		Plane() = default;
 
-		const IntersectionResult& Intersect(const Ray& ray) override;
+		const IntersectionResult Intersect(const Ray& ray) override;
 	private:
 		Vector3 m_normal;
 		Vector3 m_position;

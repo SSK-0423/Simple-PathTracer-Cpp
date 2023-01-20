@@ -16,7 +16,7 @@ namespace PathTracer {
 		}
 		~Sphere() = default;
 
-		const IntersectionResult& Intersect(const Ray& ray) override;
+		const IntersectionResult Intersect(const Ray& ray) override;
 
 		const float& GetRadius() { return m_radius; }
 		const Vector3& GetOrigin() { return m_origin; }

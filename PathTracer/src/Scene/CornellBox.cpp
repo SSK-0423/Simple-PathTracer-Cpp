@@ -42,6 +42,7 @@ void PathTracer::CornellBox::Init()
 	m_meshes.push_back(std::make_shared<Sphere>(0.35f, Vector3(0.5f, -0.65f, -0.43f), 6, whiteMaterial));
 
 	// ŒõŒ¹‚Æ‚È‚é‹…‘Ì
+	//m_meshes.push_back(std::make_shared<Sphere>(1.f, Vector3(0.f, 2 * 1.f - 0.1f, 0.f), 7, emittedMaterial));
 	m_meshes.push_back(std::make_shared<Sphere>(10.f, Vector3(0.f, 2 * 10.f - 9.00625f, 0.f), 7, emittedMaterial));
 	//float lightRadius = 1e5;
 	//m_meshes.push_back(std::make_shared<Sphere>(lightRadius, Vector3(0.f, 2 * lightRadius - 1e5 + 1.0039062500056, 0.5f), 7, emittedMaterial));

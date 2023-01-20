@@ -4,7 +4,7 @@
 #include <float.h>
 
 namespace PathTracer {
-	const IntersectionResult& PathTracer::Plane::Intersect(const Ray& ray)
+	const IntersectionResult PathTracer::Plane::Intersect(const Ray& ray)
 	{
 		float DdotN = Dot(ray.GetDirection(), m_normal);
 		// •ª•ê0‚ÍŒð“_‚È‚µ

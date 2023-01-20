@@ -9,7 +9,7 @@ namespace PathTracer {
 		Material(
 			const Vector3& baseColor, const float& metallic = 0.f, const float& roughness = 0.f,
 			const Vector3& emittedColor = Vector3(0.f, 0.f, 0.f), const bool& isReflective = false)
-			: m_baseColor(baseColor), m_metallic(metallic), m_roughness(roughness), m_emittedColor(emittedColor) {}
+			: m_baseColor(baseColor), m_metallic(metallic), m_roughness(roughness), m_emittedColor(emittedColor), m_isReflective(isReflective) {}
 		~Material() = default;
 
 		const Vector3& GetBaseColor() const { return m_baseColor; }

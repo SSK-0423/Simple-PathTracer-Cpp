@@ -17,3 +17,11 @@ inline float Min(float rhs, float lhs) {
 inline float Saturate(float num) {
 	return Min(Max(num, 0.f), 1.f);
 }
+
+inline float DegToRad(float deg) {
+	return deg * (PI / 180.f);
+}
+
+inline float RadToDeg(float rad) {
+	return rad * (180.f / PI);
+}

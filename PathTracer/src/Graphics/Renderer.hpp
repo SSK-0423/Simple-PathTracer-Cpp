@@ -25,8 +25,8 @@ namespace PathTracer {
 		Camera m_camera;
 		unsigned int m_sampleCount;
 
-		const Vector3& RayTrace(const Ray& ray, const Scene& scene, unsigned int bounce);
-		const Vector3& SamplePointOnHemisphere(const Vector3& surfaceNormal);
-		const bool& RussianRoulette(const Material& material);
+		const Vector3 RayTrace(const Ray& ray, const Scene& scene, unsigned int bounce);
+		const Vector3 SamplePointOnHemisphere(const Vector3& surfaceNormal);
+		const bool RussianRoulette(const Material& material);
 	};
 }

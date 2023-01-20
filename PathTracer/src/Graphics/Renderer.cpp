@@ -14,6 +14,24 @@ constexpr unsigned int MAX_BOUNCE = 3;
 
 PathTracer::Renderer::Renderer()
 {
+	float val[4][4] = { {1,2,3,4},{5,6,7,8},{9,10,11,12},{13,14,15,16} };
+
+	Matrix4x4 mat;
+	mat.Show();
+
+	mat = Matrix4x4::Identity();
+	mat.Show();
+
+	mat = Matrix4x4(Vector4(1, 0, 0, 0), Vector4(0, 1, 0, 0), Vector4(0, 0, 1, 0), Vector4(10, 20, 30, 1));
+	mat.Show();
+
+	Matrix4x4 mat2 = Matrix4x4(Vector4(1, 0, 0, 0), Vector4(0, 1, 0, 0), Vector4(0, 0, 1, 0), Vector4(10, -20, -30, 1));
+
+	(mat * mat2).Show();
+
+	Vector4 origin = Vector4(-5.f, 5.f, 0.f, 1.f);
+
+	(mat * origin).Show();
 }
 
 PathTracer::Renderer::~Renderer()
@@ -37,11 +55,21 @@ void PathTracer::Renderer::Render(const Scene& scene)
 		for (size_t x = 0; x < m_width; x++) {
 			Vector3 accumulatedRadiance = Vector3(0.f, 0.f, 0.f);
 			Ray cameraRay = m_camera.GetCameraRay(x, y, m_width, m_height);
-			for (size_t s = 0; s < m_sampleCount; s++) {
-				accumulatedRadiance += RayTrace(cameraRay, scene, 0);
+
+			IntersectionResult result = m_intersector.IntersectTriangles(cameraRay, scene);
+
+			if (result.GetType() == INTERSECTION_TYPE::HIT) {
+				m_renderTarget.Write(x, y, 1.f, 1.f, 1.f);
 			}
-			accumulatedRadiance = accumulatedRadiance / m_sampleCount;
-			m_renderTarget.Write(x, y, accumulatedRadiance.r(), accumulatedRadiance.g(), accumulatedRadiance.b());
+			else {
+				m_renderTarget.Write(x, y, 0.f, 1.f, 1.f);
+			}
+
+			//for (size_t s = 0; s < m_sampleCount; s++) {
+			//	accumulatedRadiance += RayTrace(cameraRay, scene, 0);
+			//}
+			//accumulatedRadiance = accumulatedRadiance / m_sampleCount;
+			//m_renderTarget.Write(x, y, accumulatedRadiance.r(), accumulatedRadiance.g(), accumulatedRadiance.b());
 		}
 	}
 
@@ -49,8 +77,12 @@ void PathTracer::Renderer::Render(const Scene& scene)
 	m_renderTarget.OutputImage("CornellBox.ppm");
 }
 
-const Vector3& PathTracer::Renderer::RayTrace(const Ray& ray, const Scene& scene, unsigned int bounce)
+const Vector3 PathTracer::Renderer::RayTrace(const Ray& ray, const Scene& scene, unsigned int bounce)
 {
+	if (bounce > MAX_BOUNCE) {
+		return Vector3(0.f, 0.f, 0.f);
+	}
+
 	// シーンとレイの交差判定
 	IntersectionResult result = m_intersector.Intersect(ray, scene);
 
@@ -59,7 +91,6 @@ const Vector3& PathTracer::Renderer::RayTrace(const Ray& ray, const Scene& scene
 		// マテリアル
 		Material material = scene.GetMesh(result.GetObjectID())->GetMaterial();
 
-		if (bounce == MAX_BOUNCE) { return material.GetEmittedColor(); }
 
 		// 半球方向の1点をサンプリング
 		Vector3 surfaceNormal = result.GetNormal();
@@ -68,10 +99,13 @@ const Vector3& PathTracer::Renderer::RayTrace(const Ray& ray, const Scene& scene
 		Vector3 halfVector = Normalize(surfaceNormal + incidentDirection);
 
 		// シェーディング
-		Vector3 diffuseBRDF = DiffuseBRDF::NormalizeLambert(material.GetBaseColor());
-		Vector3 diffuseColor = diffuseBRDF * (1.f - material.GetMetallic());
+		Vector3 diffuseBRDF = DiffuseBRDF::NormalizeLambert(material.GetBaseColor()) * (1.f - material.GetMetallic());
 		Vector3 emittion = material.GetEmittedColor();
-		Vector3 radiance = diffuseColor * Saturate(Dot(surfaceNormal, incidentDirection));
+
+		// 光源なら寄与計算終了
+		if (emittion.r() > 0.f || emittion.g() > 0.f || emittion.b() > 0.f) {
+			return material.GetEmittedColor();
+		}
 
 		// 半球方向の1点をサンプリングする
 		// 全立体角が4πで半球についてのみ考えるので確率密度関数pdfは 1 / 2π
@@ -84,6 +118,7 @@ const Vector3& PathTracer::Renderer::RayTrace(const Ray& ray, const Scene& scene
 		std::uniform_real_distribution<> randamGenerator(0.f, 1.f);
 		float random = randamGenerator(mt);
 
+
 		// 反射確率の最大値を0.5とする
 		float albedo = 1.f - material.GetMetallic();
 		// 拡散反射
@@ -91,9 +126,9 @@ const Vector3& PathTracer::Renderer::RayTrace(const Ray& ray, const Scene& scene
 			// 新しいレイを生成
 			Ray newRay = Ray(result.GetPosition() + surfaceNormal * EPSILON, incidentDirection);
 			// Li(x,ω)
-			Vector3 incidentLight = radiance * RayTrace(newRay, scene, ++bounce);
+			Vector3 incidentLight = diffuseBRDF * RayTrace(newRay, scene, ++bounce);
 			// Lo = Le(x,ω') + Li(x,ω) * BRDF * cosθ / pdf
-			return emittion + incidentLight * radiance / pdf * (1.f / albedo);
+			return emittion + incidentLight * Saturate(Dot(surfaceNormal, incidentDirection)) / pdf * (1.f / albedo);
 		}
 		// 鏡面反射
 		else if (random >= albedo && random < albedo + material.GetMetallic()) {
@@ -105,7 +140,7 @@ const Vector3& PathTracer::Renderer::RayTrace(const Ray& ray, const Scene& scene
 			// Li(x,ω)
 			Vector3 incidentLight = RayTrace(newRay, scene, ++bounce);
 			// Lo = Le(x,ω') + Li(x,ω) * BRDF * cosθ / pdf
-			return emittion + incidentLight / pdf * (1.f / material.GetMetallic());
+			return emittion + incidentLight * Saturate(Dot(surfaceNormal, incidentDirection)) / pdf * (1.f / material.GetMetallic());
 		}
 		else {
 			return emittion;
@@ -115,7 +150,7 @@ const Vector3& PathTracer::Renderer::RayTrace(const Ray& ray, const Scene& scene
 	return Vector3(0.f, 0.f, 0.f);
 }
 
-const Vector3& PathTracer::Renderer::SamplePointOnHemisphere(const Vector3& surfaceNormal)
+const Vector3 PathTracer::Renderer::SamplePointOnHemisphere(const Vector3& surfaceNormal)
 {
 	// 一様乱数を生成
 	std::random_device device;
@@ -148,7 +183,7 @@ const Vector3& PathTracer::Renderer::SamplePointOnHemisphere(const Vector3& surf
 	return Normalize(u * x + v * y + w * z);
 }
 
-const bool& PathTracer::Renderer::RussianRoulette(const Material& material)
+const bool PathTracer::Renderer::RussianRoulette(const Material& material)
 {
 	// 一様乱数を生成
 	std::random_device device;
