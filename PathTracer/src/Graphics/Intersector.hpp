@@ -12,11 +12,8 @@ namespace PathTracer {
 		Intersector();
 		~Intersector();
 
-		IntersectionResult Intersect(const Ray& ray, const Scene& scene);
 		IntersectionResult IntersectTriangles(const Ray& ray, const Scene& scene);
-		IntersectionResult Intersect(const Ray& ray, const Scene& scene, bool isExitOnceFound);
-
 	private:
-		INTERSECTION_TYPE IntersectTriangle(const Ray& ray, const Vector3& v0, const Vector3& v1, const Vector3& v2, float& enlarge);
+		INTERSECTION_TYPE IntersectTriangle(const Ray& ray, const Vector3& v0, const Vector3& v1, const Vector3& v2, float& enlarge, float& barycentricU, float& barycentricV);
 	};
 }

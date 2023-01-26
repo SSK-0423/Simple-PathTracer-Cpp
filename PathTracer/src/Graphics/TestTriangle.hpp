@@ -30,9 +30,5 @@ namespace PathTracer {
 			m_indices.push_back(2);
 		}
 		~Triangle() = default;
-
-		const IntersectionResult Intersect(const Ray& ray) override {
-			return IntersectionResult();
-		}
 	};
 }

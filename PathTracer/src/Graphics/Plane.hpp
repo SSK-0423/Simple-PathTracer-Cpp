@@ -6,18 +6,26 @@
 namespace PathTracer {
 	class Plane : public Mesh {
 	public:
-		Plane(const Vector3& position, const Vector3& normal, const unsigned int& objectID, const Material& material)
-			: m_position(position), m_normal(normal)
+		Plane(const Transform& transform, const Material& material, const unsigned int& objectID)
 		{
-			m_objectID = objectID;
+			m_transform = transform;
 			m_material = material;
-		}
-		Plane(const unsigned int& objectID, const Material& material);
-		Plane() = default;
+			m_objectID = objectID;
 
-		const IntersectionResult Intersect(const Ray& ray) override;
-	private:
-		Vector3 m_normal;
-		Vector3 m_position;
+			m_vertices = {
+				Vector3(-0.5f, 0.5f, 0.f),
+				Vector3(0.5f, 0.5f, 0.f),
+				Vector3(-0.5f, -0.5f, 0.f),
+				Vector3(0.5f, -0.5f, 0.f) };
+
+			m_indices = { 0,1,3,0,3,2 };
+
+			m_normals = {
+				Vector3(0.f,0.f,1.f),
+				Vector3(0.f,0.f,1.f),
+				Vector3(0.f,0.f,1.f),
+				Vector3(0.f,0.f,1.f) };
+		}
+		Plane() = default;
 	};
 }

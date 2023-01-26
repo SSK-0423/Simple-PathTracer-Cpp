@@ -14,24 +14,6 @@ constexpr unsigned int MAX_BOUNCE = 3;
 
 PathTracer::Renderer::Renderer()
 {
-	float val[4][4] = { {1,2,3,4},{5,6,7,8},{9,10,11,12},{13,14,15,16} };
-
-	Matrix4x4 mat;
-	mat.Show();
-
-	mat = Matrix4x4::Identity();
-	mat.Show();
-
-	mat = Matrix4x4(Vector4(1, 0, 0, 0), Vector4(0, 1, 0, 0), Vector4(0, 0, 1, 0), Vector4(10, 20, 30, 1));
-	mat.Show();
-
-	Matrix4x4 mat2 = Matrix4x4(Vector4(1, 0, 0, 0), Vector4(0, 1, 0, 0), Vector4(0, 0, 1, 0), Vector4(10, -20, -30, 1));
-
-	(mat * mat2).Show();
-
-	Vector4 origin = Vector4(-5.f, 5.f, 0.f, 1.f);
-
-	(mat * origin).Show();
 }
 
 PathTracer::Renderer::~Renderer()
@@ -50,29 +32,33 @@ void PathTracer::Renderer::Init(const unsigned int& width, const unsigned int& h
 
 void PathTracer::Renderer::Render(const Scene& scene)
 {
+	unsigned int maxProgress = m_height * m_width * m_sampleCount;
+	unsigned int progress = 0;
 	// パストレーシング
-	for (size_t y = 0; y < m_height; y++) {
-		for (size_t x = 0; x < m_width; x++) {
+#pragma omp parallel for 
+	for (int y = 0; y < m_height; y++) {
+		for (int x = 0; x < m_width; x++) {
 			Vector3 accumulatedRadiance = Vector3(0.f, 0.f, 0.f);
 			Ray cameraRay = m_camera.GetCameraRay(x, y, m_width, m_height);
 
-			IntersectionResult result = m_intersector.IntersectTriangles(cameraRay, scene);
-
-			if (result.GetType() == INTERSECTION_TYPE::HIT) {
-				m_renderTarget.Write(x, y, 1.f, 1.f, 1.f);
-			}
-			else {
-				m_renderTarget.Write(x, y, 0.f, 1.f, 1.f);
-			}
-
-			//for (size_t s = 0; s < m_sampleCount; s++) {
-			//	accumulatedRadiance += RayTrace(cameraRay, scene, 0);
+			//IntersectionResult result = m_intersector.IntersectTriangles(cameraRay, scene);
+			//if (result.GetType() == INTERSECTION_TYPE::HIT) {
+			//	Vector3 color = scene.GetMesh(result.GetObjectID())->GetMaterial().GetBaseColor();
+			//	m_renderTarget.Write(x, y, color.r(), color.g(), color.b());
 			//}
-			//accumulatedRadiance = accumulatedRadiance / m_sampleCount;
-			//m_renderTarget.Write(x, y, accumulatedRadiance.r(), accumulatedRadiance.g(), accumulatedRadiance.b());
+			//else {
+			//	m_renderTarget.Write(x, y, 0.f, 0.f, 0.f);
+			//}
+			for (int s = 0; s < m_sampleCount; s++) {
+				accumulatedRadiance += RayTrace(cameraRay, scene, 0);
+				progress++;
+				printf("\r%7.2f%%", static_cast<float>(progress) / static_cast<float>(maxProgress) * 100.f);
+			}
+			accumulatedRadiance = accumulatedRadiance / m_sampleCount;
+			m_renderTarget.Write(x, y, accumulatedRadiance.r(), accumulatedRadiance.g(), accumulatedRadiance.b());
 		}
 	}
-
+	printf("\n");
 	// パストレーシング結果を出力
 	m_renderTarget.OutputImage("CornellBox.ppm");
 }
@@ -84,13 +70,12 @@ const Vector3 PathTracer::Renderer::RayTrace(const Ray& ray, const Scene& scene,
 	}
 
 	// シーンとレイの交差判定
-	IntersectionResult result = m_intersector.Intersect(ray, scene);
+	IntersectionResult result = m_intersector.IntersectTriangles(ray, scene);
 
 	// シェーディング
 	if (result.GetType() == INTERSECTION_TYPE::HIT) {
 		// マテリアル
 		Material material = scene.GetMesh(result.GetObjectID())->GetMaterial();
-
 
 		// 半球方向の1点をサンプリング
 		Vector3 surfaceNormal = result.GetNormal();
@@ -118,8 +103,6 @@ const Vector3 PathTracer::Renderer::RayTrace(const Ray& ray, const Scene& scene,
 		std::uniform_real_distribution<> randamGenerator(0.f, 1.f);
 		float random = randamGenerator(mt);
 
-
-		// 反射確率の最大値を0.5とする
 		float albedo = 1.f - material.GetMetallic();
 		// 拡散反射
 		if (random < albedo) {

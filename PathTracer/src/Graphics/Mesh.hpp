@@ -14,7 +14,6 @@ namespace PathTracer {
 		Mesh();
 		~Mesh();
 
-		virtual const IntersectionResult Intersect(const Ray& ray) = 0;
 		const Material& GetMaterial() { return m_material; }
 		const Transform& GetTransform() { return m_transform; }
 		const unsigned int& GetObjectID() { return m_objectID; }
