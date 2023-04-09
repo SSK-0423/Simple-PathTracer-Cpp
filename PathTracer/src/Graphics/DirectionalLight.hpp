@@ -8,7 +8,7 @@ namespace PathTracer {
 			: m_direction(Normalize(direction)), m_color(color), m_type(LIGHT_TYPE::DIRECTIONAL) {}
 		~DirectionalLight() = default;
 
-		const LightInfo GetLightInfo(const Vector3& position) override
+		const LightInfo Sample(const Vector3& position) override
 		{
 			LightInfo info;
 			info.color = m_color;

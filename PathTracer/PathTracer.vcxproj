@@ -19,23 +19,28 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\Graphics\AreaLight.cpp" />
     <ClCompile Include="src\Graphics\BRDF.cpp" />
     <ClCompile Include="src\Graphics\Cube.cpp" />
     <ClCompile Include="src\Graphics\IntersectionResult.cpp" />
     <ClCompile Include="src\Graphics\Intersector.cpp" />
     <ClCompile Include="src\Graphics\Mesh.cpp" />
+    <ClCompile Include="src\Graphics\OBJModel.cpp" />
     <ClCompile Include="src\Graphics\PixelBuffer.cpp" />
     <ClCompile Include="src\Graphics\Plane.cpp" />
     <ClCompile Include="src\Graphics\Renderer.cpp" />
     <ClCompile Include="src\Graphics\Sphere.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\PathTracer.cpp" />
+    <ClCompile Include="src\Scene\BVH.cpp" />
     <ClCompile Include="src\Scene\Camera.cpp" />
     <ClCompile Include="src\Scene\CornellBox.cpp" />
     <ClCompile Include="src\Scene\Scene.cpp" />
     <ClCompile Include="src\Scene\TestScene.cpp" />
+    <ClCompile Include="src\Utility\Utility.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Graphics\AreaLight.hpp" />
     <ClInclude Include="src\Graphics\BRDF.hpp" />
     <ClInclude Include="src\Graphics\Cube.hpp" />
     <ClInclude Include="src\Graphics\DirectionalLight.hpp" />
@@ -44,15 +49,17 @@
     <ClInclude Include="src\Graphics\LightSource.hpp" />
     <ClInclude Include="src\Graphics\Material.hpp" />
     <ClInclude Include="src\Graphics\Mesh.hpp" />
+    <ClInclude Include="src\Graphics\OBJModel.hpp" />
     <ClInclude Include="src\Graphics\PixelBuffer.hpp" />
     <ClInclude Include="src\Graphics\Plane.hpp" />
     <ClInclude Include="src\Graphics\PointLight.hpp" />
     <ClInclude Include="src\Graphics\Ray.hpp" />
     <ClInclude Include="src\Graphics\Renderer.hpp" />
     <ClInclude Include="src\Graphics\Sphere.hpp" />
-    <ClInclude Include="src\Graphics\TestTriangle.hpp" />
+    <ClInclude Include="src\Graphics\Polygon.hpp" />
     <ClInclude Include="src\Graphics\Transform.hpp" />
     <ClInclude Include="src\PathTracer.hpp" />
+    <ClInclude Include="src\Scene\BVH.hpp" />
     <ClInclude Include="src\Scene\Camera.hpp" />
     <ClInclude Include="src\Scene\CornellBox.hpp" />
     <ClInclude Include="src\Scene\Scene.hpp" />

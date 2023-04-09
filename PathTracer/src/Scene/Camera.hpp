@@ -10,7 +10,7 @@ namespace PathTracer {
 			const float& fovDeg, const unsigned int& width, const unsigned int& height);
 		~Camera() = default;
 
-		Ray GetCameraRay(unsigned int x, unsigned int y, unsigned int width, unsigned int height);
+		Ray GetCameraRay(float x, float y, unsigned int width, unsigned int height);
 		const Vector3& GetPosition() { return m_position; }
 	private:
 		// ˆÊ’u

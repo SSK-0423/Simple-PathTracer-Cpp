@@ -23,11 +23,11 @@ PathTracer::Camera::Camera(
 	m_up *= imagePlaneHeight;
 }
 
-PathTracer::Ray PathTracer::Camera::GetCameraRay(unsigned int x, unsigned int y, unsigned int width, unsigned int height)
+PathTracer::Ray PathTracer::Camera::GetCameraRay(float x, float y, unsigned int width, unsigned int height)
 {
 	// -1 1
-	float u = static_cast<float>(x) / static_cast<float>(width) * 2.f - 1.f;
-	float v = static_cast<float>(y) / static_cast<float>(height) * 2.f - 1.f;
+	float u = x / static_cast<float>(width) * 2.f - 1.f;
+	float v = y / static_cast<float>(height) * 2.f - 1.f;
 
 	// ¶ãŒ´“_‚É‚µ‚½‚¢‚Ì‚Åv‚Ì’l‚ğ”»’è‚³‚¹‚é
 	Vector3 rayDir = Normalize(m_right * u + m_up * (-v) + m_forward);

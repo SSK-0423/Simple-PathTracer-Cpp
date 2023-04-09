@@ -78,6 +78,18 @@
     <ClCompile Include="src\Graphics\Sphere.cpp">
       <Filter>src\Graphics\Geometry</Filter>
     </ClCompile>
+    <ClCompile Include="src\Graphics\AreaLight.cpp">
+      <Filter>src\Graphics\LightSource</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Graphics\OBJModel.cpp">
+      <Filter>src\Graphics\Geometry</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Utility\Utility.cpp">
+      <Filter>src\Utility</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Scene\BVH.cpp">
+      <Filter>src\Scene</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\PathTracer.hpp">
@@ -158,8 +170,17 @@
     <ClInclude Include="src\Graphics\Sphere.hpp">
       <Filter>src\Graphics\Geometry</Filter>
     </ClInclude>
-    <ClInclude Include="src\Graphics\TestTriangle.hpp">
+    <ClInclude Include="src\Graphics\Polygon.hpp">
       <Filter>src\Graphics\Geometry</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Graphics\AreaLight.hpp">
+      <Filter>src\Graphics\LightSource</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Graphics\OBJModel.hpp">
+      <Filter>src\Graphics\Geometry</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Scene\BVH.hpp">
+      <Filter>src\Scene</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -1,10 +1,12 @@
 #include "Intersector.hpp"
 #include "IntersectionResult.hpp"
 #include "Ray.hpp"
-#include "Sphere.hpp"
+#include "Mesh.hpp"
 #include "../Scene/Scene.hpp"
 
 namespace PathTracer {
+	constexpr float EP = 0.1f;//0.025f;
+
 	Intersector::Intersector()
 	{
 	}
@@ -12,7 +14,7 @@ namespace PathTracer {
 	{
 	}
 
-	IntersectionResult Intersector::IntersectTriangles(const Ray& ray, const Scene& scene)
+	IntersectionResult Intersector::Intersect(const Ray& ray, const Scene& scene, bool isWireFrame, bool exitOnceFound)
 	{
 		float minDistance = FLT_MAX;
 		IntersectionResult intersectResult = IntersectionResult();
@@ -20,48 +22,158 @@ namespace PathTracer {
 		for (auto mesh : scene.GetMeshes()) {
 			Matrix4x4 modelMatrix = mesh->GetTransform().GetModelMatrix();
 
-			const std::vector<Vector3>& meshVertices = mesh->GetVertices();
-			std::vector<Vector3> transformedVertices(mesh->GetVertices().size());
-			// 座標変換
-			for (size_t i = 0; i < meshVertices.size(); i++) {
-				Vector4 pos = Vector4(meshVertices[i], 1.f);
-				transformedVertices[i] = (modelMatrix * pos).xyz();
-			}
+			for (auto& polygon : mesh->GetPolygons()) {
+				const std::vector<Vector3>& polygonVertices = polygon.GetVertices();
+				std::vector<Vector3> transformedVertices(polygonVertices.size());
 
-			const std::vector<unsigned int>& indices = mesh->GetIndices();
-			const std::vector<Vector3>& normals = mesh->GetNormals();
-
-			// メッシュの全ポリゴンに対して交差判定
-			for (size_t i = 0; i < mesh->GetIndices().size(); i += 3) {
-				// 三角形ポリゴンの頂点を取り出す
-				Vector3 v0 = transformedVertices[indices[i]];
-				Vector3 v1 = transformedVertices[indices[i + 1]];
-				Vector3 v2 = transformedVertices[indices[i + 2]];
+				// 座標変換
+				for (size_t i = 0; i < 3; i++) {
+					Vector4 pos = Vector4(polygonVertices[i], 1.f);
+					transformedVertices[i] = (modelMatrix * pos).xyz();
+				}
 
 				float t = 0.f;
 				// バリセントリック座標(u,v)
 				float u = 0.f;
 				float v = 0.f;
-				INTERSECTION_TYPE type = IntersectTriangle(ray, v0, v1, v2, t, u, v);
+				INTERSECTION_TYPE type = IntersectTriangle(ray, transformedVertices[0], transformedVertices[1], transformedVertices[2], t, u, v);
 
 				if (type == INTERSECTION_TYPE::NONE) continue;
 
+				// 三角形のエッジではない部分の交差判定は無視する
+				if (isWireFrame) {
+					if (u > EPSILON && v > EPSILON && (1.f - u - v) > EPSILON) {
+						continue;
+					}
+				}
+
 				float distance = (t * ray.GetDirection()).Length();
+				if (distance > ray.GetMaxDistance()) continue;
+
+				// シャドウイング用
+				if (exitOnceFound) {
+					return IntersectionResult(Vector3(), Vector3(), FLT_MAX, -1, TRIANGLE_MASK::NONE, type);
+				}
+
 				if (distance < minDistance) {
 					Vector3 pos = ray.GetOrigin() + t * ray.GetDirection();
 
 					// バリセントリック座標を用いて交差点における法線を算出する
-					Vector3 n0 = normals[indices[i]];
-					Vector3 n1 = normals[indices[i + 1]];
-					Vector3 n2 = normals[indices[i + 2]];
-					Vector3 normal = Normalize(n1 * u + n2 * v + n0 * (1.f - u - v));
+					const std::vector<Vector3>& polygonNormals = polygon.GetNormals();
+					Vector3 normal = Normalize(polygonNormals[1] * u + polygonNormals[2] * v + polygonNormals[0] * (1.f - u - v));
 					normal = Normalize(modelMatrix * Vector4(normal, 0.f)).xyz();
 
 					minDistance = distance;
-					intersectResult = IntersectionResult(pos, normal, distance, mesh->GetObjectID(), type);
+					intersectResult = IntersectionResult(pos, normal, distance, mesh->GetObjectID(), mesh->GetTriangleMask(), type);
 				}
 			}
 		}
+		return intersectResult;
+	}
+
+	IntersectionResult Intersector::IntersectBVH(const Ray& ray, const Scene& scene, bool exitOnceFound)
+	{
+		BVH bvh = scene.GetBVH();
+		const std::vector<AABB> bvhNodes = bvh.GetNodes();
+		AABB node = bvhNodes[0];
+
+		IntersectionResult result = IntersectionResult();
+
+		while (true) {
+			// 親ノード交差判定
+			if (node.Intersect(ray)) {
+				// 葉ノードかどうか
+				if (node.IsLeafNode()) {
+					// 交差するポリゴンを判定する
+					return IntersctPolygons(ray, node.GetPolygons(), exitOnceFound);
+				}
+				const int* const childIndex = node.GetChildIndex();
+
+				// 子ノード交差判定
+				if (bvhNodes[childIndex[0]].Intersect(ray)) {
+					node = bvhNodes[childIndex[0]];
+				}
+				else if (bvhNodes[childIndex[1]].Intersect(ray)) {
+					node = bvhNodes[childIndex[1]];
+				}
+				continue;
+			}
+			break;
+		}
+
+		return result;
+	}
+
+	IntersectionResult Intersector::IntersectBVH(const Ray& ray, const std::vector<AABB>& bvhNodes, int nodeIndex, bool isWireFrame, bool exitOnceFound)
+	{
+		const AABB& node = bvhNodes[nodeIndex];
+		bool isIntersect = node.Intersect(ray);
+
+		// 親ノード交差判定
+		if (isIntersect) {
+			// 葉ノードかどうか
+			if (node.IsLeafNode()) {
+				// 交差するポリゴンを判定する
+				return IntersctPolygons(ray, node.GetPolygons(), isWireFrame, exitOnceFound);
+			}
+			const int* const childIndex = node.GetChildIndex();
+
+			// 子ノード交差判定
+			IntersectionResult result1 = IntersectBVH(ray, bvhNodes, childIndex[0], exitOnceFound);
+			IntersectionResult result2 = IntersectBVH(ray, bvhNodes, childIndex[1], exitOnceFound);
+
+			// 子ノードの交差判定結果で一番手前のモノを採用
+			if (result1.GetDistance() < result2.GetDistance())
+				return result1;
+
+			return result2;
+		}
+		return IntersectionResult();
+	}
+
+	IntersectionResult Intersector::IntersctPolygons(const Ray& ray, const std::vector<Polygon>& polygons, bool isWireFrame, bool exitOnceFound)
+	{
+		float minDistance = FLT_MAX;
+		IntersectionResult intersectResult = IntersectionResult();
+
+		// 交差するポリゴンを判定する
+		for (auto& polygon : polygons) {
+			const std::vector<Vector3>& vertices = polygon.GetVertices();
+
+			float t = 0.f;
+			// バリセントリック座標(u,v)
+			float u = 0.f;
+			float v = 0.f;
+			INTERSECTION_TYPE type = IntersectTriangle(ray, vertices[0], vertices[1], vertices[2], t, u, v);
+
+			if (type == INTERSECTION_TYPE::NONE) continue;
+
+			// 三角形のエッジではない部分の交差判定は無視する
+			if (isWireFrame) {
+				if (u > EPSILON && v > EPSILON && (1.f - u - v) > EPSILON) {
+					continue;
+				}
+			}
+
+			float distance = (t * ray.GetDirection()).Length();
+			if (distance > ray.GetMaxDistance()) continue;
+
+			// シャドウイング用
+			if (exitOnceFound && polygon.GetTriangleMask() != TRIANGLE_MASK::GEOMETRY) {
+				return IntersectionResult(Vector3(), Vector3(), FLT_MAX, -1, TRIANGLE_MASK::NONE, type);
+			}
+
+			if (distance <= minDistance) {
+				Vector3 pos = ray.GetOrigin() + t * ray.GetDirection();
+
+				// バリセントリック座標を用いて交差点における法線を算出する
+				const std::vector<Vector3>& polygonNormals = polygon.GetNormals();
+				Vector3 normal = Normalize(polygonNormals[1] * u + polygonNormals[2] * v + polygonNormals[0] * (1.f - u - v));
+				minDistance = distance;
+				intersectResult = IntersectionResult(pos, normal, distance, polygon.GetObjectID(), polygon.GetTriangleMask(), type);
+			}
+		}
+
 		return intersectResult;
 	}
 
@@ -100,6 +212,8 @@ namespace PathTracer {
 
 		// 交点あり
 		enlarge = t;
+		barycentricU = u;
+		barycentricV = v;
 		return INTERSECTION_TYPE::HIT;
 	}
 }

@@ -11,7 +11,8 @@ int main() {
 	testScene.Init();
 	cornellBox.Init();
 
-	if (pathTracer.Init(512, 512, 256) == PathTracer::RESULT::FAILED) {
+
+	if (pathTracer.Init(512, 512, 32) == PathTracer::RESULT::FAILED) {
 		std::cout << "パストレーサーの初期化に失敗" << std::endl;
 	}
 	pathTracer.Render(cornellBox);

@@ -68,6 +68,14 @@ struct Vector3 {
 		return ret;
 	}
 
+	Vector3 operator *=(const Vector3 vec) {
+		this->x *= vec.x;
+		this->y *= vec.y;
+		this->z *= vec.z;
+
+		return *this;
+	}
+
 	friend Vector3 operator *(const float value, const Vector3 vec) {
 		Vector3 ret;
 		ret.x = vec.x * value;
@@ -99,6 +107,49 @@ struct Vector3 {
 		ret.y = this->y / value;
 		ret.z = this->z / value;
 		return ret;
+	}
+
+	Vector3 operator /=(const float value) {
+		this->x /= value;
+		this->y /= value;
+		this->z /= value;
+
+		return *this;
+	}
+
+	bool operator ==(const Vector3 vec) const {
+		if (this->x == vec.x || this->y == vec.y || this->z == vec.z) { return true; }
+		return false;
+	}
+
+	bool operator !=(const Vector3 vec) const {
+		if (this->x != vec.x || this->y != vec.y || this->z != vec.z) { return true; }
+		return false;
+	}
+
+	float operator [](size_t index) const {
+		assert(index < 3 && index >= 0);
+		switch (index)
+		{
+		case 0:
+			return x;
+		case 1:
+			return y;
+		case 2:
+			return z;
+		}
+	}
+	float& operator [](size_t index) {
+		assert(index < 3 && index >= 0);
+		switch (index)
+		{
+		case 0:
+			return x;
+		case 1:
+			return y;
+		case 2:
+			return z;
+		}
 	}
 
 	float r() const { return x; }
@@ -241,7 +292,7 @@ struct Vector4 {
 	}
 
 	float operator [](const size_t index) const {
-		assert(index < 4);
+		assert(index < 4 && index >= 0);
 
 		switch (index)
 		{
@@ -257,7 +308,7 @@ struct Vector4 {
 	}
 
 	float& operator [](const size_t index) {
-		assert(index < 4);
+		assert(index < 4 && index >= 0);
 
 		switch (index)
 		{

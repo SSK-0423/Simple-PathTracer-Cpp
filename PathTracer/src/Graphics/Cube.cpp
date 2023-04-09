@@ -1,7 +1,7 @@
 #include "Cube.hpp"
 
 namespace PathTracer {
-	void Cube::CreateVertexAttributes()
+	void Cube::CreatePolygons()
 	{
 		m_vertices = {
 			// positiveX
@@ -70,9 +70,6 @@ namespace PathTracer {
 			Vector3(0, 0, -1),
 			Vector3(0, 0, -1)
 		};
-	}
-	void Cube::CreateIndices()
-	{
 		m_indices = {
 			// positiveX
 			0, 1, 3,
@@ -93,5 +90,15 @@ namespace PathTracer {
 			20, 22, 23,
 			20, 23, 21
 		};
+
+		m_polygons.resize(m_indices.size() / 3);
+		size_t polygonIndex = 0;
+		for (size_t i = 0; i < m_indices.size(); i += 3) {
+			m_polygons[polygonIndex] = Polygon(
+				m_vertices[m_indices[i]], m_vertices[m_indices[i + 1]], m_vertices[m_indices[i + 2]],
+				m_normals[m_indices[i]], m_normals[m_indices[i + 1]], m_normals[m_indices[i + 2]],
+				m_objectID, m_triangleMask);
+			polygonIndex++;
+		}
 	}
 }

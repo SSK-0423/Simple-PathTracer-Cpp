@@ -4,20 +4,19 @@
 namespace PathTracer {
 	class Cube : public Mesh {
 	public:
-		Cube(const Transform& transform, const Material& material, const unsigned int& objectID)
+		Cube(const Transform& transform, const Material& material, const unsigned int& objectID, const TRIANGLE_MASK& mask = TRIANGLE_MASK::GEOMETRY)
 		{
 			m_objectID = objectID;
 			m_material = material;
 			m_transform = transform;
+			m_triangleMask = mask;
 
-			CreateVertexAttributes();
-			CreateIndices();
+			CreatePolygons();
 		}
 
 		~Cube() = default;
 
 	private:
-		void CreateVertexAttributes();
-		void CreateIndices();
+		void CreatePolygons();
 	};
 }
