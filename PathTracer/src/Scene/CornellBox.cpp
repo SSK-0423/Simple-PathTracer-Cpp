@@ -26,7 +26,8 @@ void PathTracer::CornellBox::Init()
 	Material whiteMaterial = Material(Vector3(0.75, 0.75, 0.75), 0.f, 1.f);
 	Material greenMaterial = Material(Vector3(0.25, 0.75, 0.25), 0.f, 1.f);
 	Material grayMaterial = Material(Vector3(0.725f, 0.71f, 0.68f), 0.f, 1.f);
-	Material emittedMaterial = Material(Vector3(1.f, 1.f, 1.f), 0.f, 1.f, Vector3(4.5f, 1.5f, 0.25f));
+	Material skyBlueMaterial = Material(Vector3(0.f, 0.5f, 0.9f), 0.f, 1.f);
+	Material emittedMaterial = Material(Vector3(1.f, 1.f, 1.f), 0.f, 1.f, Vector3(4.f, 1.5f, 0.25f));
 	//Material emittedMaterial = Material(Vector3(1.f, 1.f, 1.f), 0.f, 1.f, Vector3(5.f, 5.f, 5.f));
 	Material reflectiveMaterial = Material(Vector3(1.f, 1.f, 1.f), 1.f, 0.f, Vector3(0.f, 0.f, 0.f), true);
 
@@ -44,14 +45,21 @@ void PathTracer::CornellBox::Init()
 	// óŒï«
 	m_meshes.push_back(std::make_shared<Plane>(Transform(Vector3(1.f, 0.f, 0.f), Vector3(0.f, -90.f, 0.f), Vector3(2.f, 2.f, 2.f)), greenMaterial, 5));
 
+	// ãæ
+	//m_meshes.push_back(std::make_shared<Plane>(Transform(Vector3(-0.99f, 0.f, 0.f), Vector3(0.f, 90.f, 0.f), Vector3(0.5f, 0.5f, 0.5f)), reflectiveMaterial, 12));
 	// ÉLÉÖÅ[Éu
 	//m_meshes.push_back(std::make_shared<Cube>(
-	//	Transform(Vector3(0.3275f, -0.7f, -0.3725f), Vector3(0.f, RadToDeg(0.3f), 0.f), Vector3(0.6f, 0.6f, 0.6f)), grayMaterial, 8));
+	//	Transform(Vector3(0.3275f, -0.7f, -0.3725f), Vector3(0.f, RadToDeg(0.3f), 0.f), Vector3(0.6f, 0.6f, 0.6f)), grayMaterial, 6));
 	//m_meshes.push_back(std::make_shared<Cube>(
-	//	Transform(Vector3(-0.335f, -0.4f, 0.29f), Vector3(0.f, RadToDeg(-0.3f), 0.f), Vector3(0.6f, 1.2f, 0.6f)), grayMaterial, 9));
+	//	Transform(Vector3(-0.335f, -0.4f, 0.29f), Vector3(0.f, RadToDeg(-0.3f), 0.f), Vector3(0.6f, 1.2f, 0.6f)), grayMaterial, 7));
+
+	m_meshes.push_back(std::make_shared<Cube>(
+		Transform(Vector3(-0.335f, -0.7f, -0.1f), Vector3(0.f, RadToDeg(0.3f), 0.f), Vector3(0.6f, 0.6f, 0.6f)), grayMaterial, 7));
+	//m_meshes.push_back(std::make_shared<Cube>(
+	//	Transform(Vector3(-0.335f, 0.f, 0.5f), Vector3(0.f, 0.f, 0.f), Vector3(0.3f, 0.3f, 0.3f)), skyBlueMaterial, 13));
 
 	m_meshes.push_back(std::make_shared<OBJModel>(
-		"low_poly_bunny.obj", Transform(Vector3(-0.1f, -1.06f, 0.f), Vector3(0.f, 180.f, 0.f), Vector3(0.01, 0.01, 0.01)), blueMaterial, 10));
+		"low_poly_bunny.obj", Transform(Vector3(-0.1f, -0.45f, 0.f), Vector3(0.f, 180.f - RadToDeg(0.15f), 0.f), Vector3(0.008, 0.008, 0.008)), blueMaterial, 10));
 
 	//m_meshes.push_back(std::make_shared<OBJModel>(
 	//	"bunny.obj", Transform(Vector3(0.f, -0.5f, 0.f), Vector3(0.f, 0.f, 0.f), Vector3(0.5f, 0.5f, 0.5f)), blueMaterial, 10));
@@ -60,7 +68,7 @@ void PathTracer::CornellBox::Init()
 	//	"bunny2.obj", Transform(Vector3(0.f, -0.5f, 0.f), Vector3(0.f, 0.f, 0.f), Vector3(0.125f, 0.125f, 0.125f)), whiteMaterial, 10));
 
 	// ñ åıåπ
-	m_lights.push_back(std::make_shared<AreaLight>(emittedMaterial.GetEmittedColor(), Transform(Vector3(0.f, 0.99f, 0.f), Vector3(90.f, 0.f, 0.f), Vector3(0.75f, 0.75f, 0.75f))));
+	m_lights.push_back(std::make_shared<AreaLight>(emittedMaterial.GetEmittedColor(), Transform(Vector3(0.f, 0.98f, 0.f), Vector3(90.f, 0.f, 0.f), Vector3(0.75f, 0.75f, 0.75f))));
 
 	// ãÖëÃ
 	//m_meshes.push_back(std::make_shared<Sphere>(0.35f, 16, 16, Transform(Vector3(-0.45f, -0.65f, 0.29f)), blueMaterial, 6));

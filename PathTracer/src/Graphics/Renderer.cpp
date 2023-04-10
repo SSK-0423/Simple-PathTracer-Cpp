@@ -12,9 +12,11 @@
 #include "../Scene/Scene.hpp"
 #include "../Scene/BVH.hpp"
 
+#define TIME_RENDERING
+
 constexpr unsigned int MINIMUM_BOUNCE = 3;
 constexpr unsigned int BOUNCE_LIMIT = 3;
-constexpr clock_t RENDER_TIME_LIMIT = 1000 * 60 * 10 * 1;
+constexpr clock_t RENDER_TIME_LIMIT = 1000 * 60 * 60 * 6;
 
 PathTracer::Renderer::Renderer()
 {
@@ -59,6 +61,7 @@ void PathTracer::Renderer::Render(const Scene& scene)
 	std::uniform_real_distribution<> randamGenerator(0.f, 1.f);
 
 	// パストレーシング
+#ifdef TIME_RENDERING
 	while (true)
 	{
 #pragma omp parallel for
@@ -68,8 +71,8 @@ void PathTracer::Renderer::Render(const Scene& scene)
 				float v = randamGenerator(mt);
 				Ray cameraRay = m_camera.GetCameraRay(x + u, y + v, m_width, m_height);
 
-				accumulatedRadiance[y * m_width + x] += RayTraceBVH(cameraRay, scene, 0);
-				//accumulatedRadiance[y * m_width + x] += RayTraceNEEBVH(cameraRay, scene);
+				//accumulatedRadiance[y * m_width + x] += RayTraceBVH(cameraRay, scene, 0);
+				accumulatedRadiance[y * m_width + x] += RayTraceNEEBVH(cameraRay, scene);
 				sampledCount[y * m_width + x] += 1;
 
 				clock_t now = clock();
@@ -83,25 +86,26 @@ void PathTracer::Renderer::Render(const Scene& scene)
 		}
 		if (isEnd) break;
 	}
+#else
+#pragma omp parallel for
+	for (int s = 0; s < m_sampleCount; s++) {
+		for (int y = 0; y < m_height; y++) {
+			for (int x = 0; x < m_width; x++) {
+				float u = randamGenerator(mt);
+				float v = randamGenerator(mt);
+				Ray cameraRay = m_camera.GetCameraRay(x + u, y + v, m_width, m_height);
 
+				//accumulatedRadiance[y * m_width + x] += RayTraceBVH(cameraRay, scene, 0);
+				accumulatedRadiance[y * m_width + x] += RayTraceNEEBVH(cameraRay, scene);
 
-	//#pragma omp parallel for
-	//	for (int s = 0; s < m_sampleCount; s++) {
-	//		for (int y = 0; y < m_height; y++) {
-	//			for (int x = 0; x < m_width; x++) {
-	//				float u = randamGenerator(mt);
-	//				float v = randamGenerator(mt);
-	//				Ray cameraRay = m_camera.GetCameraRay(x + u, y + v, m_width, m_height);
-	//
-	//				accumulatedRadiance[y * m_width + x] += RayTraceBVH(cameraRay, scene, 0);
-	//
-	//				sampledCount[y * m_width + x] += 1;
-	//
-	//				progress++;
-	//				printf("\r%7.2f%%", static_cast<double>(progress) / static_cast<double>(maxProgress) * 100.f);
-	//			}
-	//		}
-	//	}
+				sampledCount[y * m_width + x] += 1;
+
+				progress++;
+				printf("\r%7.2f%%", static_cast<double>(progress) / static_cast<double>(maxProgress) * 100.f);
+			}
+		}
+	}
+#endif // TIME_RENDERING
 
 	printf("\n");
 	printf("\nレンダリング終了\n");
@@ -319,6 +323,7 @@ const Vector3 PathTracer::Renderer::RayTraceNEE(const Ray& cameraRay, const Scen
 			Vector3 halfVector = Normalize(surfaceNormal + incidentDirection);
 
 			Vector3 diffuseBRDF = DiffuseBRDF::NormalizeLambert(material.GetBaseColor()) * (1.f - material.GetMetallic());
+			//Vector3 specularBRDF = SpecularBRDF::GGX(material, surfaceNormal, halfVector, viewDir, incidentDirection);
 			Vector3 emittion = material.GetEmittedColor();
 
 			// ロシアンルーレット
@@ -388,6 +393,7 @@ const Vector3 PathTracer::Renderer::RayTraceNEEBVH(const Ray& cameraRay, const S
 	Vector3 alpha = Vector3(1.f, 1.f, 1.f);
 	Ray ray = cameraRay;
 	unsigned int bounce = 0;
+	bool isReflected = false;
 
 	std::random_device device;
 	std::mt19937_64 mt(device());
@@ -407,10 +413,10 @@ const Vector3 PathTracer::Renderer::RayTraceNEEBVH(const Ray& cameraRay, const S
 			Material material = scene.GetMesh(result.GetObjectID())->GetMaterial();
 
 			// 光源に当たったなら寄与計算終了
-			// triangleMaskを作成したがバグがあるのでemissionで判定
-			if (material.GetEmittedColor().Length() > 0.f) {
-				if (bounce == 0) {
-					return material.GetEmittedColor();
+			if (scene.GetMesh(result.GetObjectID())->GetTriangleMask() == TRIANGLE_MASK::LIGHT) {
+				if (bounce == 0 || isReflected) {
+					radiance += material.GetEmittedColor();
+					isReflected = false;
 				}
 				break;
 			}
@@ -450,8 +456,9 @@ const Vector3 PathTracer::Renderer::RayTraceNEEBVH(const Ray& cameraRay, const S
 					float cos2 = std::abs(Dot(-1.f * lightInfo.direction, lightInfo.normal));
 					float G = cos1 * cos2 / powf(lightInfo.distance, 2.f);
 					// Li(x,ω)
-					radiance += emittion + alpha * (lightInfo.color * diffuseBRDF * G) / lightInfo.pdf * Saturate(Dot(surfaceNormal, lightInfo.direction));
+					radiance += alpha * (lightInfo.color * diffuseBRDF * G) / lightInfo.pdf;
 				}
+
 				// 新しいレイを生成
 				ray = Ray(result.GetPosition() + surfaceNormal * EPSILON, incidentDirection);
 
@@ -462,6 +469,7 @@ const Vector3 PathTracer::Renderer::RayTraceNEEBVH(const Ray& cameraRay, const S
 
 				// Fr(ω,ω',x) * cosθ / pdf * (1 / Prr);
 				alpha *= diffuseBRDF * Saturate(Dot(surfaceNormal, incidentDirection)) / pdf * (1.f / albedo);
+
 			}
 			// 鏡面反射
 			else if (random >= albedo && random < albedo + material.GetMetallic()) {
@@ -470,9 +478,7 @@ const Vector3 PathTracer::Renderer::RayTraceNEEBVH(const Ray& cameraRay, const S
 				// 今はとりあえず完全鏡面反射のみを考える
 				Vector3 reflectDir = Normalize(2.f * Dot(viewDir, surfaceNormal) * surfaceNormal - viewDir);
 				ray = Ray(result.GetPosition() + surfaceNormal * EPSILON, reflectDir);
-			}
-			else {
-				break;
+				isReflected = true;
 			}
 		}
 		else {

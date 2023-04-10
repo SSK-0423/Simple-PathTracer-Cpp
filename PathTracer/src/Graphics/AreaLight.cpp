@@ -20,8 +20,8 @@ namespace PathTracer {
 		auto right = m_transform.GetRight();
 		auto up = m_transform.GetUp();
 		Vector3 worldSamplePointPos = m_transform.GetPosition()
-			+ right * u * m_transform.GetScale().x / 2.f
-			+ up * v * m_transform.GetScale().y / 2.f;
+			+ right * u * (m_transform.GetScale().x / 2.f)
+			+ up * v * (m_transform.GetScale().y / 2.f);
 
 		Vector3 toSamplePoint = worldSamplePointPos - position;
 

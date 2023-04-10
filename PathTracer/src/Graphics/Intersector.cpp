@@ -119,8 +119,13 @@ namespace PathTracer {
 			const int* const childIndex = node.GetChildIndex();
 
 			// 子ノード交差判定
-			IntersectionResult result1 = IntersectBVH(ray, bvhNodes, childIndex[0], exitOnceFound);
-			IntersectionResult result2 = IntersectBVH(ray, bvhNodes, childIndex[1], exitOnceFound);
+			IntersectionResult result1 = IntersectBVH(ray, bvhNodes, childIndex[0], isWireFrame, exitOnceFound);
+			IntersectionResult result2 = IntersectBVH(ray, bvhNodes, childIndex[1], isWireFrame, exitOnceFound);
+
+			if (exitOnceFound) {
+				if (result1.GetType() == INTERSECTION_TYPE::HIT || result1.GetType() == INTERSECTION_TYPE::HIT)
+					return IntersectionResult(Vector3(), Vector3(), FLT_MAX, -1, TRIANGLE_MASK::GEOMETRY, INTERSECTION_TYPE::HIT);
+			}
 
 			// 子ノードの交差判定結果で一番手前のモノを採用
 			if (result1.GetDistance() < result2.GetDistance())
@@ -159,11 +164,11 @@ namespace PathTracer {
 			if (distance > ray.GetMaxDistance()) continue;
 
 			// シャドウイング用
-			if (exitOnceFound && polygon.GetTriangleMask() != TRIANGLE_MASK::GEOMETRY) {
+			if (exitOnceFound) {
 				return IntersectionResult(Vector3(), Vector3(), FLT_MAX, -1, TRIANGLE_MASK::NONE, type);
 			}
 
-			if (distance <= minDistance) {
+			if (distance < minDistance) {
 				Vector3 pos = ray.GetOrigin() + t * ray.GetDirection();
 
 				// バリセントリック座標を用いて交差点における法線を算出する
