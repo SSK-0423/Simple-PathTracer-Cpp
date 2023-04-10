@@ -1,1 +1,4 @@
 # PathTracerCpp
+
+Simple PathTracer C++
+
