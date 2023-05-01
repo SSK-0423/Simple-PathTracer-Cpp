@@ -27,11 +27,10 @@ namespace PathTracer {
 
 		const Vector3 RayTrace(const Ray& ray, const Scene& scene, unsigned int bounce);
 		const Vector3 RayTraceBVH(const Ray& ray, const Scene& scene, unsigned int bounce);
-		const Vector3 RayTraceNEE(const Ray& ray, const Scene& scene, unsigned int bounce);
-		const Vector3 RayTraceNEE(const Ray& ray, const Scene& scene, Vector3 weight, unsigned int bounce);
 		const Vector3 RayTraceNEE(const Ray& ray, const Scene& scene);
 		const Vector3 RayTraceNEEBVH(const Ray& ray, const Scene& scene);
 		const Vector3 SamplePointOnHemisphere(const Vector3& surfaceNormal);
+		const float SchlickFresnel(float etai, float etat, float cos);
 		const bool RussianRoulette(const Material& material);
 	};
 }

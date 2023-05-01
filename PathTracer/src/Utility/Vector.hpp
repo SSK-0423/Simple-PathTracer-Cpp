@@ -3,6 +3,7 @@
 #include <stdio.h>
 #include <cassert>
 #include "MathUtility.hpp"
+#include <cfloat>
 
 struct Vector3 {
 	Vector3() : x(0), y(0), z(0) {};
@@ -179,6 +180,39 @@ inline Vector3 Normalize(Vector3 vec) {
 
 inline Vector3 Saturate(Vector3 vec) {
 	return Vector3(Saturate(vec.x), Saturate(vec.y), Saturate(vec.z));
+}
+
+/// <summary>
+/// 反射ベクトルを求める
+/// </summary>
+/// <param name="in">反射面から見た入射方向(正規化済み)</param>
+/// <param name="normal">反射面の法線(正規化済み)</param>
+/// <returns>反射ベクトル</returns>
+inline Vector3 Reflect(const Vector3 in, const Vector3 normal) {
+	return Normalize(2.f * Dot(in, normal) * normal - in);
+}
+
+/// <summary>
+/// 屈折ベクトルを求める
+/// </summary>
+/// <param name="in">反射面から見た入射方向(正規化済み)</param>
+/// <param name="normal">反射面の法線(正規化済み)</param>
+/// <param name="etai_over_etat">入射光側の屈折率と屈折光側の屈折率の割合</param>
+/// <returns></returns>
+inline Vector3 Refract(const Vector3 in, const Vector3 normal, float etai_over_etat, bool isInto) {
+	float inDotN = Dot(in, normal);
+	float cos2t = 1.f - powf(etai_over_etat, 2.f) * (1.f - powf(inDotN, 2.f));
+	if (cos2t < 0.f) { return Vector3(-FLT_MAX, -FLT_MAX, -FLT_MAX); }
+
+	return Normalize(etai_over_etat * in * (-1.f) - normal * (isInto ? 1.0 : -1.0) * (etai_over_etat * inDotN + sqrtf(cos2t)));
+
+	//float D = 1.f - powf(etai_over_etat, 2.f) * (1.f - powf(inDotN, 2.f));
+	//if (D > 0.f) {
+	//	return -etai_over_etat * (in - inDotN * normal) - normal * sqrtf(D);
+	//}
+	//else {
+	//	return Reflect(in, normal);
+	//}
 }
 
 struct Vector4 {

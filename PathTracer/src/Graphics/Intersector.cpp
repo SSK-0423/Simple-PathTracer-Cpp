@@ -161,7 +161,7 @@ namespace PathTracer {
 			}
 
 			float distance = (t * ray.GetDirection()).Length();
-			if (distance > ray.GetMaxDistance()) continue;
+			if (distance >= ray.GetMaxDistance()) continue;
 
 			// シャドウイング用
 			if (exitOnceFound) {

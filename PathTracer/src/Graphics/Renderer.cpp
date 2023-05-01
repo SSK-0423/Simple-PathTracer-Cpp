@@ -15,8 +15,8 @@
 #define TIME_RENDERING
 
 constexpr unsigned int MINIMUM_BOUNCE = 3;
-constexpr unsigned int BOUNCE_LIMIT = 3;
-constexpr clock_t RENDER_TIME_LIMIT = 1000 * 60 * 60 * 6;
+constexpr unsigned int BOUNCE_LIMIT = 5;
+constexpr clock_t RENDER_TIME_LIMIT = 1000 * 60 * 60 * 10;
 
 PathTracer::Renderer::Renderer()
 {
@@ -34,7 +34,7 @@ void PathTracer::Renderer::Init(const unsigned int& width, const unsigned int& h
 	m_sampleCount = sampleCount;
 	m_renderTarget.Create(width, height);
 
-	m_camera = Camera(Vector3(0, 0, -3.38), Vector3(0, 0, 1), Vector3(1, 0, 0), Vector3(0, 1, 0), 45.f, width, height);
+	m_camera = Camera(Vector3(0, 0, -3.38 * 4.f), Vector3(0, 0, 1), Vector3(1, 0, 0), Vector3(0, 1, 0), 45.f, width, height);
 }
 
 void PathTracer::Renderer::Render(const Scene& scene)
@@ -109,7 +109,7 @@ void PathTracer::Renderer::Render(const Scene& scene)
 
 	printf("\n");
 	printf("\nレンダリング終了\n");
-	printf("サンプリング数：%7d\n", std::min(sampledCount[0], sampledCount[m_width * m_height - 1]));
+	printf("サンプリング数：%7d\n", std::min(sampledCount[0], sampledCount[static_cast<size_t>(m_width) * m_height - 1]));
 
 #pragma omp parallel for
 	for (int y = 0; y < m_height; y++) {
@@ -125,7 +125,7 @@ void PathTracer::Renderer::Render(const Scene& scene)
 
 	printf("\n");
 	// パストレーシング結果を出力
-	m_renderTarget.OutputImage("CornelBox.ppm");
+	m_renderTarget.OutputImage("CornellBoxInWater_Specular_NEE_50spp.ppm");
 }
 
 const Vector3 PathTracer::Renderer::RayTrace(const Ray& ray, const Scene& scene, unsigned int bounce)
@@ -169,32 +169,91 @@ const Vector3 PathTracer::Renderer::RayTrace(const Ray& ray, const Scene& scene,
 		std::uniform_real_distribution<> randamGenerator(0.f, 1.f);
 		float random = randamGenerator(mt);
 
-		float albedo = 1.f - material.GetMetallic();
+		float russianRouletteProb = 1.f - material.GetMetallic();
 
 		if (bounce > MINIMUM_BOUNCE) {
-			albedo *= powf(EPSILON, bounce - MINIMUM_BOUNCE + 1);
+			russianRouletteProb *= powf(EPSILON, bounce - MINIMUM_BOUNCE + 1);
 		}
 
 		// 拡散反射
-		if (random < albedo) {
+		if (random < russianRouletteProb) {
 			// 新しいレイを生成
 			Ray newRay = Ray(result.GetPosition() + surfaceNormal * EPSILON, incidentDirection);
 			// Li(x,ω)
-			Vector3 incidentLight = diffuseBRDF * RayTrace(newRay, scene, ++bounce);
+			Vector3 incidentLight = diffuseBRDF * RayTrace(newRay, scene, bounce + 1);
 			// Lo = Le(x,ω') + Li(x,ω) * BRDF * cosθ / pdf
-			return emittion + incidentLight * Saturate(Dot(surfaceNormal, incidentDirection)) / pdf * (1.f / albedo);
+			return emittion + incidentLight * Saturate(Dot(surfaceNormal, incidentDirection)) / pdf * (1.f / russianRouletteProb);
 		}
-		// 鏡面反射
-		else if (random >= albedo && random < albedo + material.GetMetallic()) {
-			// 新しいレイを生成
-			// TODO: 鏡面反射BRDFに基づいた重点的サンプリング
-			// 今はとりあえず完全鏡面反射のみを考える
-			Vector3 reflectDir = Normalize(2.f * Dot(viewDir, surfaceNormal) * surfaceNormal - viewDir);
-			Ray newRay = Ray(result.GetPosition() + surfaceNormal * EPSILON, reflectDir);
-			// Li(x,ω)
-			Vector3 incidentLight = RayTrace(newRay, scene, ++bounce);
-			// Lo = Le(x,ω') + Li(x,ω) * BRDF * cosθ / pdf
-			return emittion + incidentLight * Saturate(Dot(surfaceNormal, incidentDirection)) / pdf * (1.f / material.GetMetallic());
+		// 完全鏡面反射
+		else if (random >= russianRouletteProb && random < russianRouletteProb + material.GetMetallic()) {
+			if (material.isReflective()) {
+				// TODO: 鏡面反射BRDFに基づいた重点的サンプリング
+				Vector3 reflectDir = Reflect(viewDir, surfaceNormal);
+				Ray newRay = Ray(result.GetPosition() + surfaceNormal * EPSILON, reflectDir);
+				// Li(x,ω)
+				Vector3 incidentLight = RayTrace(newRay, scene, bounce + 1);
+				// Lo = Le(x,ω') + Li(x,ω) * BRDF * cosθ / pdf
+				// 完全鏡面反射BRDFの定義 Fr(ω)/cosθ Fr(ω)はフレネル ここでは鏡面反射しかしないのでFr(ω) = 1
+				// により,pdf = 1となる。また、 cosθは打ち消される
+				// 完全鏡面反射は入射角と反射角が等しいため、投影面積が変わらないのでこのような定義となる
+				return emittion + incidentLight * (1.f - russianRouletteProb);
+
+			}
+			// 屈折
+			if (material.isRefractive()) {
+
+				// 反射ベクトル
+				Vector3 reflectDir = Reflect(viewDir, surfaceNormal);
+				Ray reflectionRay = Ray(result.GetPosition() + surfaceNormal * EPSILON, reflectDir);
+
+				// レイがオブジェクトから入るのか、出るのか 入る：true 出る：false
+				bool into = Dot(viewDir, surfaceNormal) > 0.f;
+
+				const float nc = 1.f; // 真空の屈折率
+				const float ng = material.GetIOR(); // ガラスの屈折率
+				const float nng = into ? nc / ng : ng / nc;
+
+				// 屈折ベクトル
+				Vector3 refractDir = Refract(viewDir, surfaceNormal, nng, into);
+
+				// 全反射の場合は反射成分のみを追跡する
+				if (refractDir == Vector3(-FLT_MAX, -FLT_MAX, -FLT_MAX)) {
+					return emittion + RayTrace(reflectionRay, scene, bounce + 1) * (1.f - russianRouletteProb);
+				}
+				Ray refractionRay = Ray(result.GetPosition() + surfaceNormal * EPSILON * (into ? -1.f : 1.f), refractDir);
+
+				// SchlickのFrenel近似式
+				const float cos = into ? Dot(surfaceNormal, viewDir) : Dot(surfaceNormal * (into ? -1.f : 1.f), refractDir);
+
+				// ここが完全鏡面反射・完全屈折のBSDFに該当する
+				const float fr = SchlickFresnel(nc, ng, cos);	// 反射光の割合
+				// 屈折レイの運ぶ放射輝度は屈折率の異なる物体を移動するとき、屈折率の比の二乗変化する
+				const float ft = into ? powf(ng / nc, 2.f) : powf(nc / ng, 2.f);
+
+				Vector3 incidentLight = Vector3();
+				// レイが指数的に増えるのを防ぐため、
+				// 一定以上のバウンス以降はロシアンルーレットで反射か屈折どちらかのみを追跡する
+				const float prob = fr;
+				if (bounce > 2) {
+					// 反射
+					if (randamGenerator(mt) < prob) {
+						// Li(x,ω) * BRDF / prob
+						incidentLight = RayTrace(reflectionRay, scene, bounce + 1) * fr / prob;
+					}
+					// 屈折
+					else {
+						// Li(x,ω) * BRDF / prob
+						incidentLight = RayTrace(refractionRay, scene, bounce + 1) * (1.f - fr) * ft / (1.f - prob);
+					}
+				}
+				// 反射と屈折
+				else {
+					incidentLight =
+						RayTrace(reflectionRay, scene, bounce + 1) * fr +
+						RayTrace(refractionRay, scene, bounce + 1) * (1.f - fr) * ft;
+				}
+				return emittion + incidentLight * (1.f - russianRouletteProb);
+			}
 		}
 		else {
 			return emittion;
@@ -244,32 +303,91 @@ const Vector3 PathTracer::Renderer::RayTraceBVH(const Ray& ray, const Scene& sce
 		std::uniform_real_distribution<> randamGenerator(0.f, 1.f);
 		float random = randamGenerator(mt);
 
-		float albedo = 1.f - material.GetMetallic();
+		float russianRouletteProb = 1.f - material.GetMetallic();
 
 		if (bounce > MINIMUM_BOUNCE) {
-			albedo *= powf(EPSILON, bounce - MINIMUM_BOUNCE + 1);
+			russianRouletteProb *= powf(0.5, bounce - MINIMUM_BOUNCE);
 		}
 
 		// 拡散反射
-		if (random < albedo) {
+		if (random < russianRouletteProb) {
 			// 新しいレイを生成
 			Ray newRay = Ray(result.GetPosition() + surfaceNormal * EPSILON, incidentDirection);
 			// Li(x,ω)
-			Vector3 incidentLight = diffuseBRDF * RayTraceBVH(newRay, scene, ++bounce);
+			Vector3 incidentLight = diffuseBRDF * RayTraceBVH(newRay, scene, bounce + 1);
 			// Lo = Le(x,ω') + Li(x,ω) * BRDF * cosθ / pdf
-			return emittion + incidentLight * Saturate(Dot(surfaceNormal, incidentDirection)) / pdf * (1.f / albedo);
+			return emittion + incidentLight * Saturate(Dot(surfaceNormal, incidentDirection)) / pdf * (1.f / russianRouletteProb);
 		}
-		// 鏡面反射
-		else if (random >= albedo && random < albedo + material.GetMetallic()) {
-			// 新しいレイを生成
-			// TODO: 鏡面反射BRDFに基づいた重点的サンプリング
-			// 今はとりあえず完全鏡面反射のみを考える
-			Vector3 reflectDir = Normalize(2.f * Dot(viewDir, surfaceNormal) * surfaceNormal - viewDir);
-			Ray newRay = Ray(result.GetPosition() + surfaceNormal * EPSILON, reflectDir);
-			// Li(x,ω)
-			Vector3 incidentLight = RayTraceBVH(newRay, scene, ++bounce);
-			// Lo = Le(x,ω') + Li(x,ω) * BRDF * cosθ / pdf
-			return emittion + incidentLight * Saturate(Dot(surfaceNormal, incidentDirection)) / pdf * (1.f / material.GetMetallic());
+		// 完全鏡面反射
+		else if (random >= russianRouletteProb && random < russianRouletteProb + material.GetMetallic()) {
+			if (material.isReflective()) {
+				// TODO: 鏡面反射BRDFに基づいた重点的サンプリング
+				Vector3 reflectDir = Reflect(viewDir, surfaceNormal);
+				Ray newRay = Ray(result.GetPosition() + surfaceNormal * EPSILON, reflectDir);
+				// Li(x,ω)
+				Vector3 incidentLight = RayTraceBVH(newRay, scene, bounce + 1);
+				// Lo = Le(x,ω') + Li(x,ω) * BRDF * cosθ / pdf
+				// 完全鏡面反射BRDFの定義 Fr(ω)/cosθ Fr(ω)はフレネル ここでは鏡面反射しかしないのでFr(ω) = 1
+				// により,pdf = 1となる。また、 cosθは打ち消される
+				// 完全鏡面反射は入射角と反射角が等しいため、投影面積が変わらないのでこのような定義となる
+				return emittion + incidentLight * (1.f - russianRouletteProb);
+
+			}
+			// 屈折
+			if (material.isRefractive()) {
+
+				// 反射ベクトル
+				Vector3 reflectDir = Reflect(viewDir, surfaceNormal);
+				Ray reflectionRay = Ray(result.GetPosition() + surfaceNormal * EPSILON, reflectDir);
+
+				// レイがオブジェクトから入るのか、出るのか 入る：true 出る：false
+				bool into = Dot(viewDir, surfaceNormal) > 0.f;
+
+				const float nc = 1.f; // 真空の屈折率
+				const float ng = material.GetIOR(); // ガラスの屈折率
+				const float nng = into ? nc / ng : ng / nc;
+
+				// 屈折ベクトル
+				Vector3 refractDir = Refract(viewDir, surfaceNormal, nng, into);
+
+				// 全反射の場合は反射成分のみを追跡する
+				if (refractDir == Vector3(-FLT_MAX, -FLT_MAX, -FLT_MAX)) {
+					return emittion + RayTraceBVH(reflectionRay, scene, bounce + 1) * (1.f - russianRouletteProb);
+				}
+				Ray refractionRay = Ray(result.GetPosition() + surfaceNormal * EPSILON * (into ? -1.f : 1.f), refractDir);
+
+				// SchlickのFrenel近似式
+				const float cos = into ? Dot(surfaceNormal, viewDir) : Dot(surfaceNormal * (into ? -1.f : 1.f), refractDir);
+
+				// ここが完全鏡面反射・完全屈折のBSDFに該当する
+				const float fr = SchlickFresnel(nc, ng, cos);	// 反射光の割合
+				// 屈折レイの運ぶ放射輝度は屈折率の異なる物体を移動するとき、屈折率の比の二乗変化する
+				const float ft = into ? powf(ng / nc, 2.f) : powf(nc / ng, 2.f);
+
+				Vector3 incidentLight = Vector3();
+				// レイが指数的に増えるのを防ぐため、
+				// 一定以上のバウンス以降はロシアンルーレットで反射か屈折どちらかのみを追跡する
+				const float prob = fr;
+				if (bounce > 2) {
+					// 反射
+					if (randamGenerator(mt) < prob) {
+						// Li(x,ω) * BRDF / prob
+						incidentLight = RayTraceBVH(reflectionRay, scene, bounce + 1) * fr / prob;
+					}
+					// 屈折
+					else {
+						// Li(x,ω) * BRDF / prob
+						incidentLight = RayTraceBVH(refractionRay, scene, bounce + 1) * (1.f - fr) * ft / (1.f - prob);
+					}
+				}
+				// 反射と屈折
+				else {
+					incidentLight =
+						RayTraceBVH(reflectionRay, scene, bounce + 1) * fr +
+						RayTraceBVH(refractionRay, scene, bounce + 1) * (1.f - fr) * ft;
+				}
+				return emittion + incidentLight * (1.f - russianRouletteProb);
+			}
 		}
 		else {
 			return emittion;
@@ -285,6 +403,11 @@ const Vector3 PathTracer::Renderer::RayTraceNEE(const Ray& cameraRay, const Scen
 	Vector3 alpha = Vector3(1.f, 1.f, 1.f);
 	Ray ray = cameraRay;
 	unsigned int bounce = 0;
+	bool isReflected = false;
+
+	std::random_device device;
+	std::mt19937_64 mt(device());
+	std::uniform_real_distribution<> randamGenerator(0.f, 1.f);
 
 	while (true)
 	{
@@ -292,29 +415,21 @@ const Vector3 PathTracer::Renderer::RayTraceNEE(const Ray& cameraRay, const Scen
 			break;
 		}
 		// シーンとレイの交差判定
-		IntersectionResult result = m_intersector.Intersect(ray, scene);
+		IntersectionResult result = m_intersector.Intersect(ray, scene, 0);
 
 		// シェーディング
 		if (result.GetType() == INTERSECTION_TYPE::HIT) {
 			// マテリアル
 			Material material = scene.GetMesh(result.GetObjectID())->GetMaterial();
 
-			if (material.GetEmittedColor().x > 0.f) {
-				if (bounce == 0) {
-					return material.GetEmittedColor();
+			// 光源に当たったなら寄与計算終了
+			if (scene.GetMesh(result.GetObjectID())->GetTriangleMask() == TRIANGLE_MASK::LIGHT) {
+				if (bounce == 0 || isReflected) {
+					radiance += material.GetEmittedColor();
+					isReflected = false;
 				}
 				break;
 			}
-
-			// 光源に当たったなら寄与計算終了(バグッてる)
-			// triangleMaskが正しくセットされていなさそう
-			//if (static_cast<TRIANGLE_MASK>(result.GetTriangleMask()) == TRIANGLE_MASK::LIGHT) {
-			//	printf("LightHit bounce = %d\n", bounce);
-			//	if (bounce == 0) {
-			//		return material.GetEmittedColor();
-			//	}
-			//	break;
-			//}
 
 			// 半球方向の1点をサンプリング
 			Vector3 surfaceNormal = result.GetNormal();
@@ -323,24 +438,20 @@ const Vector3 PathTracer::Renderer::RayTraceNEE(const Ray& cameraRay, const Scen
 			Vector3 halfVector = Normalize(surfaceNormal + incidentDirection);
 
 			Vector3 diffuseBRDF = DiffuseBRDF::NormalizeLambert(material.GetBaseColor()) * (1.f - material.GetMetallic());
-			//Vector3 specularBRDF = SpecularBRDF::GGX(material, surfaceNormal, halfVector, viewDir, incidentDirection);
 			Vector3 emittion = material.GetEmittedColor();
 
 			// ロシアンルーレット
-			std::random_device device;
-			std::mt19937_64 mt(device());
-			std::uniform_real_distribution<> randamGenerator(0.f, 1.f);
 			float random = randamGenerator(mt);
 
 			// 色の反射率の平均値をロシアンルーレットの闘値として扱う
-			float albedo = 1.f - material.GetMetallic();
+			float russianRouletteProb = 1.f - material.GetMetallic();
 
 			if (bounce > MINIMUM_BOUNCE) {
-				albedo *= powf(EPSILON, bounce - MINIMUM_BOUNCE);
+				russianRouletteProb *= powf(EPSILON, bounce - MINIMUM_BOUNCE);
 			}
 
 			// 拡散反射
-			if (random < albedo) {
+			if (random < russianRouletteProb) {
 				// シャドウイング
 				//光源上の１点をサンプルしてシャドウレイを生成
 				auto light = scene.GetLightSources()[0];
@@ -357,6 +468,7 @@ const Vector3 PathTracer::Renderer::RayTraceNEE(const Ray& cameraRay, const Scen
 					// Li(x,ω)
 					radiance += alpha * (lightInfo.color * diffuseBRDF * G) / lightInfo.pdf;
 				}
+
 				// 新しいレイを生成
 				ray = Ray(result.GetPosition() + surfaceNormal * EPSILON, incidentDirection);
 
@@ -366,15 +478,69 @@ const Vector3 PathTracer::Renderer::RayTraceNEE(const Ray& cameraRay, const Scen
 				float pdf = 1.f / (2.f * PI);
 
 				// Fr(ω,ω',x) * cosθ / pdf * (1 / Prr);
-				alpha *= diffuseBRDF * Saturate(Dot(surfaceNormal, incidentDirection)) / pdf * (1.f / albedo);
+				alpha *= diffuseBRDF * Saturate(Dot(surfaceNormal, incidentDirection)) / pdf * (1.f / russianRouletteProb);
+
+				isReflected = false;
+
 			}
 			// 鏡面反射
-			else if (random >= albedo && random < albedo + material.GetMetallic()) {
-				// 新しいレイを生成
-				// TODO: 鏡面反射BRDFに基づいた重点的サンプリング
-				// 今はとりあえず完全鏡面反射のみを考える
-				Vector3 reflectDir = Normalize(2.f * Dot(viewDir, surfaceNormal) * surfaceNormal - viewDir);
-				ray = Ray(result.GetPosition() + surfaceNormal * EPSILON, reflectDir);
+			else if (random >= russianRouletteProb && random < russianRouletteProb + material.GetMetallic()) {
+				// 反射
+				if (material.isReflective()) {
+					isReflected = true;
+					Vector3 reflectDir = Reflect(viewDir, surfaceNormal);
+					ray = Ray(result.GetPosition() + surfaceNormal * EPSILON, reflectDir);
+					alpha *= 1.f / (1.f - russianRouletteProb);
+				}
+				// 屈折
+				if (material.isRefractive()) {
+					isReflected = true;
+					// 反射ベクトル
+					Vector3 reflectDir = Reflect(viewDir, surfaceNormal);
+
+					// レイがオブジェクトから入るのか、出るのか 入る：true 出る：false
+					bool into = Dot(viewDir, surfaceNormal) > 0.f;
+
+					const float nc = 1.f; // 真空の屈折率
+					const float ng = material.GetIOR(); // ガラスの屈折率
+					const float nng = into ? nc / ng : ng / nc;
+
+					// 屈折ベクトル
+					Vector3 refractDir = Refract(viewDir, surfaceNormal, nng, into);
+
+					// 全反射の場合は反射成分のみを追跡する
+					if (refractDir == Vector3(-FLT_MAX, -FLT_MAX, -FLT_MAX)) {
+						isReflected = true;
+						ray = Ray(result.GetPosition() + surfaceNormal * EPSILON, reflectDir);
+					}
+
+					Ray refractionRay = Ray(result.GetPosition() + surfaceNormal * EPSILON * (into ? -1.f : 1.f), refractDir);
+
+					// SchlickのFrenel近似式
+					const float cos = into ? Dot(surfaceNormal, viewDir) : Dot(surfaceNormal * (into ? -1.f : 1.f), refractDir);
+
+					// ここが完全鏡面反射・完全屈折のBSDFに該当する
+					const float fr = SchlickFresnel(nc, ng, cos);	// 反射光の割合
+					// 屈折レイの運ぶ放射輝度は屈折率の異なる物体を移動するとき、屈折率の比の二乗変化する
+					const float ft = into ? powf(ng / nc, 2.f) : powf(nc / ng, 2.f);
+
+					// レイが指数的に増えるのを防ぐため、
+					// 一定以上のバウンス以降はロシアンルーレットで反射か屈折どちらかのみを追跡する
+					const float prob = fr;
+
+					// 反射
+					if (randamGenerator(mt) < prob) {
+						// Li(x,ω) * BRDF / prob
+						ray = Ray(result.GetPosition() + surfaceNormal * EPSILON, reflectDir);
+						alpha *= fr / prob / (1.f - russianRouletteProb);
+					}
+					// 屈折
+					else {
+						// Li(x,ω) * BRDF / prob
+						ray = Ray(result.GetPosition() + surfaceNormal * EPSILON * (into ? -1.f : 1.f), refractDir);
+						alpha *= (1.f - fr) * ft / (1.f - prob) / (1.f - russianRouletteProb);
+					}
+				}
 			}
 		}
 		else {
@@ -434,14 +600,14 @@ const Vector3 PathTracer::Renderer::RayTraceNEEBVH(const Ray& cameraRay, const S
 			float random = randamGenerator(mt);
 
 			// 色の反射率の平均値をロシアンルーレットの闘値として扱う
-			float albedo = 1.f - material.GetMetallic();
+			float russianRouletteProb = 1.f - material.GetMetallic();
 
 			if (bounce > MINIMUM_BOUNCE) {
-				albedo *= powf(EPSILON, bounce - MINIMUM_BOUNCE);
+				russianRouletteProb *= powf(EPSILON, bounce - MINIMUM_BOUNCE);
 			}
 
 			// 拡散反射
-			if (random < albedo) {
+			if (random < russianRouletteProb) {
 				// シャドウイング
 				//光源上の１点をサンプルしてシャドウレイを生成
 				auto light = scene.GetLightSources()[0];
@@ -468,17 +634,69 @@ const Vector3 PathTracer::Renderer::RayTraceNEEBVH(const Ray& cameraRay, const S
 				float pdf = 1.f / (2.f * PI);
 
 				// Fr(ω,ω',x) * cosθ / pdf * (1 / Prr);
-				alpha *= diffuseBRDF * Saturate(Dot(surfaceNormal, incidentDirection)) / pdf * (1.f / albedo);
+				alpha *= diffuseBRDF * Saturate(Dot(surfaceNormal, incidentDirection)) / pdf * (1.f / russianRouletteProb);
+
+				isReflected = false;
 
 			}
 			// 鏡面反射
-			else if (random >= albedo && random < albedo + material.GetMetallic()) {
-				// 新しいレイを生成
-				// TODO: 鏡面反射BRDFに基づいた重点的サンプリング
-				// 今はとりあえず完全鏡面反射のみを考える
-				Vector3 reflectDir = Normalize(2.f * Dot(viewDir, surfaceNormal) * surfaceNormal - viewDir);
-				ray = Ray(result.GetPosition() + surfaceNormal * EPSILON, reflectDir);
-				isReflected = true;
+			else if (random >= russianRouletteProb && random < russianRouletteProb + material.GetMetallic()) {
+				// 反射
+				if (material.isReflective()) {
+					isReflected = true;
+					Vector3 reflectDir = Reflect(viewDir, surfaceNormal);
+					ray = Ray(result.GetPosition() + surfaceNormal * EPSILON, reflectDir);
+					alpha *= 1.f / (1.f - russianRouletteProb);
+				}
+				// 屈折
+				if (material.isRefractive()) {
+					isReflected = true;
+					// 反射ベクトル
+					Vector3 reflectDir = Reflect(viewDir, surfaceNormal);
+
+					// レイがオブジェクトから入るのか、出るのか 入る：true 出る：false
+					bool into = Dot(viewDir, surfaceNormal) > 0.f;
+
+					const float nc = 1.f; // 真空の屈折率
+					const float ng = material.GetIOR(); // ガラスの屈折率
+					const float nng = into ? nc / ng : ng / nc;
+
+					// 屈折ベクトル
+					Vector3 refractDir = Refract(viewDir, surfaceNormal, nng, into);
+
+					// 全反射の場合は反射成分のみを追跡する
+					if (refractDir == Vector3(-FLT_MAX, -FLT_MAX, -FLT_MAX)) {
+						isReflected = true;
+						ray = Ray(result.GetPosition() + surfaceNormal * EPSILON, reflectDir);
+					}
+
+					Ray refractionRay = Ray(result.GetPosition() + surfaceNormal * EPSILON * (into ? -1.f : 1.f), refractDir);
+
+					// SchlickのFrenel近似式
+					const float cos = into ? Dot(surfaceNormal, viewDir) : Dot(surfaceNormal * (into ? -1.f : 1.f), refractDir);
+
+					// ここが完全鏡面反射・完全屈折のBSDFに該当する
+					const float fr = SchlickFresnel(nc, ng, cos);	// 反射光の割合
+					// 屈折レイの運ぶ放射輝度は屈折率の異なる物体を移動するとき、屈折率の比の二乗変化する
+					const float ft = into ? powf(ng / nc, 2.f) : powf(nc / ng, 2.f);
+
+					// レイが指数的に増えるのを防ぐため、
+					// 一定以上のバウンス以降はロシアンルーレットで反射か屈折どちらかのみを追跡する
+					const float prob = fr;
+
+					// 反射
+					if (randamGenerator(mt) < prob) {
+						// Li(x,ω) * BRDF / prob
+						ray = Ray(result.GetPosition() + surfaceNormal * EPSILON, reflectDir);
+						alpha *= fr / prob / (1.f - russianRouletteProb);
+					}
+					// 屈折
+					else {
+						// Li(x,ω) * BRDF / prob
+						ray = Ray(result.GetPosition() + surfaceNormal * EPSILON * (into ? -1.f : 1.f), refractDir);
+						alpha *= (1.f - fr) * ft / (1.f - prob) / (1.f - russianRouletteProb);
+					}
+				}
 			}
 		}
 		else {
@@ -524,6 +742,13 @@ const Vector3 PathTracer::Renderer::SamplePointOnHemisphere(const Vector3& surfa
 	return Normalize(u * x + v * y + w * z);
 }
 
+const float PathTracer::Renderer::SchlickFresnel(float etai, float etat, float cos)
+{
+	float f0 = powf((etai - etat), 2.f) / powf((etai + etat), 2.f);
+
+	return f0 + (1.f - f0) * powf((1.f - cos), 5.f);
+}
+
 const bool PathTracer::Renderer::RussianRoulette(const Material& material)
 {
 	// 一様乱数を生成
@@ -532,8 +757,8 @@ const bool PathTracer::Renderer::RussianRoulette(const Material& material)
 	std::uniform_real_distribution<> randamGenerator(0.f, 1.f);
 	float random = randamGenerator(mt);
 	// 反射確率の最大値を0.5とする
-	float albedo = Min(1.f - material.GetMetallic(), 0.5f);
-	if (random < albedo) {
+	float russianRouletteProb = Min(1.f - material.GetMetallic(), 0.5f);
+	if (random < russianRouletteProb) {
 		return true;
 	}
 	else {

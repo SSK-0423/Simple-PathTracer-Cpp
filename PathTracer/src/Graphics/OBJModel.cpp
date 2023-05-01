@@ -74,7 +74,7 @@ namespace PathTracer {
 					// フォーマット判定
 					// 頂点インデックス//頂点法線
 					if (list[i].find("//") != std::string::npos) {
-						// 頂点インデックス/UVインデックス/法線インデックスの場合を想定
+						// 頂点インデックス//法線インデックスの場合を想定
 						std::vector<std::string> subLists = SplitString(list[i], "//");
 
 						// TODO: UVは必要になったらやる
@@ -100,10 +100,8 @@ namespace PathTracer {
 					}
 					// 頂点のみ
 					else {
-						// TODO: 頂点から法線生成の実装
-						face.vertexIndices[0] = static_cast<unsigned int>(std::stoi(list[1])) - 1;
-						face.vertexIndices[1] = static_cast<unsigned int>(std::stoi(list[2])) - 1;
-						face.vertexIndices[2] = static_cast<unsigned int>(std::stoi(list[3])) - 1;
+						std::cout << "非対応形式です。" << std::endl;
+						assert(true);
 					}
 				}
 				faces.push_back(face);

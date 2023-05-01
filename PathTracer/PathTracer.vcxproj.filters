@@ -90,6 +90,9 @@
     <ClCompile Include="src\Scene\BVH.cpp">
       <Filter>src\Scene</Filter>
     </ClCompile>
+    <ClCompile Include="src\Scene\CornellBoxInWater.cpp">
+      <Filter>src\Scene</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\PathTracer.hpp">
@@ -180,6 +183,9 @@
       <Filter>src\Graphics\Geometry</Filter>
     </ClInclude>
     <ClInclude Include="src\Scene\BVH.hpp">
+      <Filter>src\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Scene\CornellBoxInWater.hpp">
       <Filter>src\Scene</Filter>
     </ClInclude>
   </ItemGroup>
