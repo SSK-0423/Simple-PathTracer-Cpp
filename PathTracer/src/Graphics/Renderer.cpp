@@ -12,11 +12,11 @@
 #include "../Scene/Scene.hpp"
 #include "../Scene/BVH.hpp"
 
-#define TIME_RENDERING
+//#define TIME_RENDERING
 
 constexpr unsigned int MINIMUM_BOUNCE = 3;
 constexpr unsigned int BOUNCE_LIMIT = 5;
-constexpr clock_t RENDER_TIME_LIMIT = 1000 * 60 * 60 * 10;
+constexpr clock_t RENDER_TIME_LIMIT = 1000 * 60 * 60 * 16;
 
 PathTracer::Renderer::Renderer()
 {
@@ -34,7 +34,7 @@ void PathTracer::Renderer::Init(const unsigned int& width, const unsigned int& h
 	m_sampleCount = sampleCount;
 	m_renderTarget.Create(width, height);
 
-	m_camera = Camera(Vector3(0, 0, -3.38 * 4.f), Vector3(0, 0, 1), Vector3(1, 0, 0), Vector3(0, 1, 0), 45.f, width, height);
+	m_camera = Camera(Vector3(0, 0, -3.38 * 5.f), Vector3(0, 0, 1), Vector3(1, 0, 0), Vector3(0, 1, 0), 45.f, width, height);
 }
 
 void PathTracer::Renderer::Render(const Scene& scene)
@@ -71,8 +71,8 @@ void PathTracer::Renderer::Render(const Scene& scene)
 				float v = randamGenerator(mt);
 				Ray cameraRay = m_camera.GetCameraRay(x + u, y + v, m_width, m_height);
 
-				//accumulatedRadiance[y * m_width + x] += RayTraceBVH(cameraRay, scene, 0);
-				accumulatedRadiance[y * m_width + x] += RayTraceNEEBVH(cameraRay, scene);
+				accumulatedRadiance[y * m_width + x] += RayTraceBVH(cameraRay, scene, 0);
+				//accumulatedRadiance[y * m_width + x] += RayTraceNEEBVH(cameraRay, scene);
 				sampledCount[y * m_width + x] += 1;
 
 				clock_t now = clock();
@@ -125,7 +125,7 @@ void PathTracer::Renderer::Render(const Scene& scene)
 
 	printf("\n");
 	// パストレーシング結果を出力
-	m_renderTarget.OutputImage("CornellBoxInWater_Specular_NEE_50spp.ppm");
+	m_renderTarget.OutputImage("../RenderImage/CornellBox.ppm");
 }
 
 const Vector3 PathTracer::Renderer::RayTrace(const Ray& ray, const Scene& scene, unsigned int bounce)
@@ -479,8 +479,6 @@ const Vector3 PathTracer::Renderer::RayTraceNEE(const Ray& cameraRay, const Scen
 
 				// Fr(ω,ω',x) * cosθ / pdf * (1 / Prr);
 				alpha *= diffuseBRDF * Saturate(Dot(surfaceNormal, incidentDirection)) / pdf * (1.f / russianRouletteProb);
-
-				isReflected = false;
 
 			}
 			// 鏡面反射

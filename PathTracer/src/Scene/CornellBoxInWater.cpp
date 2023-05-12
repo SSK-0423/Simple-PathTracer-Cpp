@@ -34,7 +34,7 @@ void PathTracer::CornellBoxInWater::Init()
 	Material waterMaterial = Material(Vector3(0.f, 0.8f, 0.9f), 1.f, 0.f, Vector3(0.f, 0.f, 0.f), false, true, 1.333f);
 
 	// ƒ‚ƒfƒ‹‚ª¬‚³‚·‚¬‚é‚ÆŒğ·”»’è‚ª‚¤‚Ü‚­‚¢‚©‚È‚¢‚Ì‚Å‘å‚«‚­‚·‚é
-	float scale = 4.f;
+	float scale = 5.f;
 
 	// ŒõŒ¹
 	m_meshes.push_back(std::make_shared<Plane>(Transform(Vector3(0.f, 0.99f * scale, 0.f), Vector3(90.f, 0.f, 0.f), Vector3(0.75f * scale, 0.75f * scale, 0.75f * scale)), emittedMaterial, 0, TRIANGLE_MASK::LIGHT));
