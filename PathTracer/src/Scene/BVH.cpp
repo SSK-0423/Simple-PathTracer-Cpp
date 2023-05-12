@@ -6,7 +6,7 @@
 namespace PathTracer {
 	constexpr float T_tri = 1.f;
 	constexpr float T_aabb = 1.f;
-	constexpr int MAX_DEPTH = 5;
+	constexpr int MAX_DEPTH = 4;
 
 	AABB::AABB(std::vector<Polygon>& polygons)
 		: m_polygons(polygons), m_center(0.f, 0.f, 0.f), m_maxCoord(-FLT_MAX, -FLT_MAX, -FLT_MAX), m_minCoord(FLT_MAX, FLT_MAX, FLT_MAX)
@@ -333,6 +333,7 @@ namespace PathTracer {
 			std::sort(polygons.begin(), polygons.end(),
 				[axis](const Polygon& lhs, const Polygon& rhs) {
 					return lhs.GetCenter()[axis] < rhs.GetCenter()[axis];
+					//return AABB(lhs).GetCenter()[axis] < AABB(rhs).GetCenter()[axis];
 				});
 			//
 			std::vector<Polygon> s1;
@@ -402,7 +403,8 @@ namespace PathTracer {
 			// 最良と判断された軸でポリゴンを昇順ソート
 			std::sort(polygons.begin(), polygons.end(),
 				[bestAxis](const Polygon& lhs, const Polygon& rhs) {
-					return AABB(lhs).GetCenter()[bestAxis] < AABB(rhs).GetCenter()[bestAxis];
+					return lhs.GetCenter()[bestAxis] < rhs.GetCenter()[bestAxis];
+					//return AABB(lhs).GetCenter()[bestAxis] < AABB(rhs).GetCenter()[bestAxis];
 				});
 			std::vector<Polygon> right(polygons.begin(), polygons.begin() + bestSplitIndex);
 			std::vector<Polygon> left(polygons.begin() + bestSplitIndex, polygons.end());
