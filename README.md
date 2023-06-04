@@ -13,7 +13,3 @@
 
 ## Future Work
 - Importance Sampling
-
-## Assets
-- Low Poly Stanford Bunny
-https://www.thingiverse.com/thing:151081
