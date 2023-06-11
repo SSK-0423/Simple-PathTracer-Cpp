@@ -2,6 +2,7 @@
 ![CornellBox_Specular](https://github.com/SSK-0423/Simple-PathTracer-Cpp/assets/83057130/40421b15-e6f1-4959-89aa-83d60e700990)
 
 ## Feature
+- Implemented on CPU
 - Normalize Lambert
 - Reflection
 - Refraction
