@@ -11,6 +11,3 @@
 - Obj Loader
 - Simple BVH
 - Next Event Estimation
-
-## Future Work
-- Importance Sampling
