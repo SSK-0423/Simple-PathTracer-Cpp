@@ -40,10 +40,11 @@ void PathTracer::CornellBox::Init()
 	float scale = 5.f;
 
 	// 光源
-	m_meshes.push_back(std::make_shared<Plane>(Transform(Vector3(0.f, 0.99f * scale, 0.f), Vector3(90.f, 0.f, 0.f), Vector3(0.75f * scale, 0.75f * scale, 0.75f * scale)), whiteMaterial, 0, TRIANGLE_MASK::LIGHT));
+	m_meshes.push_back(std::make_shared<Plane>(Transform(Vector3(0.f, 0.99f * scale, 0.f), Vector3(90.f, 0.f, 0.f), Vector3(0.75f * scale, 0.75f * scale, 0.75f * scale)), emittedMaterial, 0, TRIANGLE_MASK::LIGHT));
+	//m_meshes.push_back(std::make_shared<OBJModel>("sphere.obj", Transform(Vector3(0.f, 0.99f * scale, 0.f), Vector3(0.f, 0.f, 0.f), Vector3(0.5f * scale, 0.01f * scale, 0.5f * scale)), emittedMaterial, 0, TRIANGLE_MASK::LIGHT));
 
 	// 白床
-	m_meshes.push_back(std::make_shared<Plane>(Transform(Vector3(0.f, -1.f * scale, 0.f), Vector3(-90.f, 0.f, 0.f), Vector3(2.f * scale, 2.f * scale, 2.f * scale)), metallicMaterial, 1));
+	m_meshes.push_back(std::make_shared<Plane>(Transform(Vector3(0.f, -1.f * scale, 0.f), Vector3(-90.f, 0.f, 0.f), Vector3(2.f * scale, 2.f * scale, 2.f * scale)), whiteMaterial, 1));
 	// 白天井
 	m_meshes.push_back(std::make_shared<Plane>(Transform(Vector3(0.f, 1.f * scale, 0.f), Vector3(90.f, 0.f, 0.f), Vector3(2.f * scale, 2.f * scale, 2.f * scale)), whiteMaterial, 2));
 	// 白壁
@@ -51,15 +52,15 @@ void PathTracer::CornellBox::Init()
 	// 赤壁
 	m_meshes.push_back(std::make_shared<Plane>(Transform(Vector3(-1.f * scale, 0.f, 0.f), Vector3(0.f, 90.f, 0.f), Vector3(2.f * scale, 2.f * scale, 2.f * scale)), redMaterial, 4));
 	// 緑壁
-	m_meshes.push_back(std::make_shared<Plane>(Transform(Vector3(1.f * scale, 0.f, 0.f), Vector3(0.f, -90.f, 0.f), Vector3(2.f * scale, 2.f * scale, 2.f * scale)), greenMaterial, 5));
+	m_meshes.push_back(std::make_shared<Plane>(Transform(Vector3(1.f * scale, 0.f, 0.f), Vector3(0.f, -90.f, 0.f), Vector3(2.f * scale, 2.f * scale, 2.f * scale)), blueMaterial, 5));
 
 	// キューブ
-	m_meshes.push_back(std::make_shared<Cube>(
-		Transform(Vector3(0.3275f * scale, -0.7f * scale, -0.3725f * scale), Vector3(0.f, -18.f, 0.f), Vector3(0.6f * scale, 0.6f * scale, 0.6f * scale)), blueMaterial, 6));
-	
+	//m_meshes.push_back(std::make_shared<Cube>(
+	//	Transform(Vector3(0.3275f * scale, -0.7f * scale, -0.3725f * scale), Vector3(0.f, -18.f, 0.f), Vector3(0.6f * scale, 0.6f * scale, 0.6f * scale)), blueMaterial, 6));
+
 	// バニー
-	m_meshes.push_back(std::make_shared<OBJModel>(
-		"bunny.obj", Transform(Vector3(0.3275f * scale, -0.4f * scale, -0.3725f * scale), Vector3(0.f, 180.f, 0.f), Vector3(0.5f * scale, 0.5f * scale, 0.5f * scale)), glassMaterial, 7));
+	//m_meshes.push_back(std::make_shared<OBJModel>(
+	//	"bunny.obj", Transform(Vector3(0.3275f * scale, -0.4f * scale, -0.3725f * scale), Vector3(0.f, 180.f, 0.f), Vector3(0.5f * scale, 0.5f * scale, 0.5f * scale)), glassMaterial, 7));
 	//m_meshes.push_back(std::make_shared<OBJModel>(
 	//	"bunny.obj", Transform(Vector3(0.f, -1.f * scale, 0.f), Vector3(0.f, 180.f, 0.f), Vector3(0.75f * scale, 0.75f * scale, 0.75f * scale)), whiteMaterial, 7));
 
@@ -67,8 +68,11 @@ void PathTracer::CornellBox::Init()
 	m_lights.push_back(std::make_shared<AreaLight>(emittedMaterial.GetEmittedColor(), Transform(Vector3(0.f, 0.98f * scale, 0.f), Vector3(90.f, 0.f, 0.f), Vector3(0.75f * scale, 0.75f * scale, 0.75f * scale))));
 
 	// 球体
-	m_meshes.push_back(std::make_shared<OBJModel>("sphere.obj", Transform(Vector3(0.3f * scale, -0.65f * scale, 0.29f * scale), Vector3(), Vector3(0.35 * scale, 0.35 * scale, 0.35 * scale)), yellowMaterial, 8));
-	m_meshes.push_back(std::make_shared<OBJModel>("sphere.obj", Transform(Vector3(-0.45f * scale, -0.65f * scale, 0.29f * scale), Vector3(), Vector3(0.35 * scale, 0.35 * scale, 0.35 * scale)), reflectionMaterial, 9));
+	//m_meshes.push_back(std::make_shared<OBJModel>("sphere.obj", Transform(Vector3(0.3f * scale, -0.65f * scale, 0.29f * scale), Vector3(), Vector3(0.35 * scale, 0.35 * scale, 0.35 * scale)), yellowMaterial, 8));
+	//m_meshes.push_back(std::make_shared<OBJModel>("sphere.obj", Transform(Vector3(-0.45f * scale, -0.65f * scale, 0.29f * scale), Vector3(), Vector3(0.35 * scale, 0.35 * scale, 0.35 * scale)), reflectionMaterial, 9));
+	m_meshes.push_back(std::make_shared<OBJModel>("sphere.obj", Transform(Vector3(-0.45f * scale, -0.65f * scale, 0.29f * scale), Vector3(), Vector3(0.35 * scale, 0.35 * scale, 0.35 * scale)), reflectionMaterial, 6));
+	m_meshes.push_back(std::make_shared<OBJModel>("sphere.obj", Transform(Vector3(0.5f * scale, -0.65f * scale, -0.43f * scale), Vector3(), Vector3(0.35 * scale, 0.35 * scale, 0.35 * scale)), glassMaterial, 7));
+	m_meshes.push_back(std::make_shared<OBJModel>("sphere.obj", Transform(Vector3(0.f * scale, -0.8f * scale, -0.07f * scale), Vector3(), Vector3(0.2 * scale, 0.2 * scale, 0.2 * scale)), grayMaterial, 8));
 
 	m_bvh.Construct(*this);
 }

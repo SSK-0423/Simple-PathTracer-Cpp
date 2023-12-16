@@ -95,8 +95,8 @@ void PathTracer::Renderer::Render(const Scene& scene)
 				float v = randamGenerator(mt);
 				Ray cameraRay = m_camera.GetCameraRay(x + u, y + v, m_width, m_height);
 
-				//accumulatedRadiance[y * m_width + x] += RayTraceBVH(cameraRay, scene, 0);
-				accumulatedRadiance[y * m_width + x] += RayTraceNEEBVH(cameraRay, scene);
+				accumulatedRadiance[y * m_width + x] += RayTraceBVH(cameraRay, scene, 0);
+				//accumulatedRadiance[y * m_width + x] += RayTraceNEEBVH(cameraRay, scene);
 
 				sampledCount[y * m_width + x] += 1;
 
@@ -125,7 +125,7 @@ void PathTracer::Renderer::Render(const Scene& scene)
 
 	printf("\n");
 	// パストレーシング結果を出力
-	m_renderTarget.OutputImage("../RenderImage/CornellBox.ppm");
+	m_renderTarget.OutputImage("../RenderImage/CornellBox2.ppm");
 }
 
 const Vector3 PathTracer::Renderer::RayTrace(const Ray& ray, const Scene& scene, unsigned int bounce)

@@ -1,0 +1,993 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentStyleType="text/css" height="1866px" preserveAspectRatio="none" style="width:8572px;height:1866px;background:#FFFFFF;" version="1.1" viewBox="0 0 8572 1866" width="8572px" zoomAndPan="magnify"><defs/><g><!--MD5=[019a52136d34ee4e1d78c608eb460d89]
+cluster PathTracer--><g id="cluster_PathTracer"><path d="M8.5,6 L85.5,6 A3.75,3.75 0 0 1 88,8.5 L95,29.6094 L8562.5,29.6094 A2.5,2.5 0 0 1 8565,32.1094 L8565,1856.5 A2.5,2.5 0 0 1 8562.5,1859 L8.5,1859 A2.5,2.5 0 0 1 6,1856.5 L6,8.5 A2.5,2.5 0 0 1 8.5,6 " fill="none" style="stroke:#000000;stroke-width:1.5;"/><line style="stroke:#000000;stroke-width:1.5;" x1="6" x2="95" y1="29.6094" y2="29.6094"/><text fill="#000000" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacing" textLength="76" x="10" y="22.5332">PathTracer</text></g><!--MD5=[20acfe40ab32b5612b82b962e0b3ff52]
+class PathTracer.AABB--><g id="elem_PathTracer.AABB"><rect codeLine="9" fill="#F1F1F1" height="505.8438" id="PathTracer.AABB" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="394" x="4913" y="733"/><ellipse cx="5087.75" cy="749" fill="#ADD1B2" rx="11" ry="11" style="stroke:#181818;stroke-width:1.0;"/><path d="M5091.4375,750.2031 Q5091.1875,753.6875 5090.0469,754.8438 Q5089.0156,755.8594 5087.6094,755.8594 Q5086.2031,755.8594 5085.1719,754.8438 Q5083.4219,753.0781 5083.4219,749.4063 Q5083.4219,745.1563 5085.2969,743.25 Q5086.3438,742.2344 5087.6719,742.2344 Q5089.0781,742.2344 5089.9219,743.0469 Q5091.4063,744.5625 5091.3281,747.4375 L5089.2031,747.4375 Q5089.125,745.1094 5088.4844,744.4688 Q5088.2031,744.1719 5087.6719,744.1719 Q5087.2188,744.1719 5086.8594,744.5469 Q5085.625,745.7656 5085.625,749.2813 Q5085.625,752.3281 5086.6719,753.3438 Q5087.0938,753.7813 5087.6094,753.7813 Q5088.0625,753.7813 5088.5,753.3438 Q5089.0625,752.7969 5089.1406,750.2031 L5091.4375,750.2031 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="36" x="5108.25" y="754.7285">AABB</text><line style="stroke:#181818;stroke-width:0.5;" x1="4914" x2="5306" y1="765" y2="765"/><rect fill="none" height="6" style="stroke:#C82930;stroke-width:1.0;" width="6" x="4921" y="776.3047"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="120" x="4933" y="783.5332">m_center : Vector3</text><rect fill="none" height="6" style="stroke:#C82930;stroke-width:1.0;" width="6" x="4921" y="793.9141"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="144" x="4933" y="801.1426">m_maxCoord : Vector3</text><rect fill="none" height="6" style="stroke:#C82930;stroke-width:1.0;" width="6" x="4921" y="811.5234"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="141" x="4933" y="818.752">m_minCoord : Vector3</text><rect fill="none" height="6" style="stroke:#C82930;stroke-width:1.0;" width="6" x="4921" y="829.1328"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="108" x="4933" y="836.3613">m_childIndex : int</text><rect fill="none" height="6" style="stroke:#C82930;stroke-width:1.0;" width="6" x="4921" y="846.7422"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="199" x="4933" y="853.9707">m_children : std::vector&lt;AABB&gt;</text><rect fill="none" height="6" style="stroke:#C82930;stroke-width:1.0;" width="6" x="4921" y="864.3516"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="254" x="4933" y="871.5801">m_aabbPolygons : std::vector&lt;Polygon&gt;</text><rect fill="none" height="6" style="stroke:#C82930;stroke-width:1.0;" width="6" x="4921" y="881.9609"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="221" x="4933" y="889.1895">m_polygons : std::vector&lt;Polygon&gt;</text><line style="stroke:#181818;stroke-width:0.5;" x1="4914" x2="5306" y1="896.2656" y2="896.2656"/><ellipse cx="4924" cy="910.5703" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="46" x="4933" y="914.7988">AABB()</text><ellipse cx="4924" cy="928.1797" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="249" x="4933" y="932.4082">AABB(std::vector&lt;Polygon&gt;&amp; polygons)</text><ellipse cx="4924" cy="945.7891" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="198" x="4933" y="950.0176">AABB(const Polygon&amp; polygon)</text><ellipse cx="4924" cy="963.3984" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="54" x="4933" y="967.627">~AABB()</text><ellipse cx="4924" cy="981.0078" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" text-decoration="underline" textLength="318" x="4933" y="985.2363">Merge(const AABB&amp; lhs, const AABB&amp; rhs) : AABB</text><ellipse cx="4924" cy="998.6172" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="196" x="4933" y="1002.8457">GetCenter() : Vector3&amp; {query}</text><ellipse cx="4924" cy="1016.2266" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="217" x="4933" y="1020.4551">GetMaxCoord() : Vector3&amp; {query}</text><ellipse cx="4924" cy="1033.8359" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="214" x="4933" y="1038.0645">GetMinCoord() : Vector3&amp; {query}</text><ellipse cx="4924" cy="1051.4453" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="249" x="4933" y="1055.6738">Intersect(const Ray&amp; ray) : bool {query}</text><ellipse cx="4924" cy="1069.0547" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="170" x="4933" y="1073.2832">IsLeafNode() : bool {query}</text><ellipse cx="4924" cy="1086.6641" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="178" x="4933" y="1090.8926">SurfaceArea() : float {query}</text><ellipse cx="4924" cy="1104.2734" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="180" x="4933" y="1108.502">GetChildIndex() : int* {query}</text><ellipse cx="4924" cy="1121.8828" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="275" x="4933" y="1126.1113">GetChildren() : std::vector&lt;AABB&gt;&amp; {query}</text><ellipse cx="4924" cy="1139.4922" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="331" x="4933" y="1143.7207">GetAABBPolygons() : std::vector&lt;Polygon&gt;&amp; {query}</text><ellipse cx="4924" cy="1157.1016" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="295" x="4933" y="1161.3301">GetPolygons() : std::vector&lt;Polygon&gt;&amp; {query}</text><rect fill="#F24D5C" height="6" style="stroke:#C82930;stroke-width:1.0;" width="6" x="4921" y="1171.7109"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="178" x="4933" y="1178.9395">CreateAABBPolygon() : void</text><ellipse cx="4924" cy="1192.3203" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="254" x="4933" y="1196.5488">SetChildIndex(int child0, int child1) : void</text><ellipse cx="4924" cy="1209.9297" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="241" x="4933" y="1214.1582">SetChildren(const AABB&amp; aabb) : void</text><ellipse cx="4924" cy="1227.5391" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="368" x="4933" y="1231.7676">SetPolygons(const std::vector&lt;Polygon&gt;&amp; polygons) : void</text></g><!--MD5=[70fd1ff3d1e497d87dec8d28449e567a]
+class PathTracer.AreaLight--><g id="elem_PathTracer.AreaLight"><rect codeLine="38" fill="#F1F1F1" height="136.0469" id="PathTracer.AreaLight" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="412" x="1091" y="918"/><ellipse cx="1262.25" cy="934" fill="#ADD1B2" rx="11" ry="11" style="stroke:#181818;stroke-width:1.0;"/><path d="M1265.9375,935.2031 Q1265.6875,938.6875 1264.5469,939.8438 Q1263.5156,940.8594 1262.1094,940.8594 Q1260.7031,940.8594 1259.6719,939.8438 Q1257.9219,938.0781 1257.9219,934.4063 Q1257.9219,930.1563 1259.7969,928.25 Q1260.8438,927.2344 1262.1719,927.2344 Q1263.5781,927.2344 1264.4219,928.0469 Q1265.9063,929.5625 1265.8281,932.4375 L1263.7031,932.4375 Q1263.625,930.1094 1262.9844,929.4688 Q1262.7031,929.1719 1262.1719,929.1719 Q1261.7188,929.1719 1261.3594,929.5469 Q1260.125,930.7656 1260.125,934.2813 Q1260.125,937.3281 1261.1719,938.3438 Q1261.5938,938.7813 1262.1094,938.7813 Q1262.5625,938.7813 1263,938.3438 Q1263.5625,937.7969 1263.6406,935.2031 L1265.9375,935.2031 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="61" x="1282.75" y="939.7285">AreaLight</text><line style="stroke:#181818;stroke-width:0.5;" x1="1092" x2="1502" y1="950" y2="950"/><rect fill="none" height="6" style="stroke:#C82930;stroke-width:1.0;" width="6" x="1099" y="961.3047"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="156" x="1111" y="968.5332">m_transform : Transform</text><rect fill="none" height="6" style="stroke:#C82930;stroke-width:1.0;" width="6" x="1099" y="978.9141"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="111" x="1111" y="986.1426">m_color : Vector3</text><line style="stroke:#181818;stroke-width:0.5;" x1="1092" x2="1502" y1="993.2188" y2="993.2188"/><ellipse cx="1102" cy="1007.5234" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="386" x="1111" y="1011.752">AreaLight(const Vector3&amp; color, const Transform&amp; transform)</text><ellipse cx="1102" cy="1025.1328" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="79" x="1111" y="1029.3613">~AreaLight()</text><ellipse cx="1102" cy="1042.7422" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="272" x="1111" y="1046.9707">Sample(const Vector3&amp; position) : LightInfo</text></g><!--MD5=[e2a7189d2ea9b937e0f590ebd60487d9]
+class PathTracer.BVH--><g id="elem_PathTracer.BVH"><rect codeLine="46" fill="#F1F1F1" height="224.0938" id="PathTracer.BVH" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="596" x="3206" y="449"/><ellipse cx="3486.25" cy="465" fill="#ADD1B2" rx="11" ry="11" style="stroke:#181818;stroke-width:1.0;"/><path d="M3489.9375,466.2031 Q3489.6875,469.6875 3488.5469,470.8438 Q3487.5156,471.8594 3486.1094,471.8594 Q3484.7031,471.8594 3483.6719,470.8438 Q3481.9219,469.0781 3481.9219,465.4063 Q3481.9219,461.1563 3483.7969,459.25 Q3484.8438,458.2344 3486.1719,458.2344 Q3487.5781,458.2344 3488.4219,459.0469 Q3489.9063,460.5625 3489.8281,463.4375 L3487.7031,463.4375 Q3487.625,461.1094 3486.9844,460.4688 Q3486.7031,460.1719 3486.1719,460.1719 Q3485.7188,460.1719 3485.3594,460.5469 Q3484.125,461.7656 3484.125,465.2813 Q3484.125,468.3281 3485.1719,469.3438 Q3485.5938,469.7813 3486.1094,469.7813 Q3486.5625,469.7813 3487,469.3438 Q3487.5625,468.7969 3487.6406,466.2031 L3489.9375,466.2031 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="27" x="3506.75" y="470.7285">BVH</text><line style="stroke:#181818;stroke-width:0.5;" x1="3207" x2="3801" y1="481" y2="481"/><rect fill="none" height="6" style="stroke:#C82930;stroke-width:1.0;" width="6" x="3214" y="492.3047"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="125" x="3226" y="499.5332">m_rootNode : AABB</text><rect fill="none" height="6" style="stroke:#C82930;stroke-width:1.0;" width="6" x="3214" y="509.9141"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="143" x="3226" y="517.1426">m_usedNodeIndex : int</text><rect fill="none" height="6" style="stroke:#C82930;stroke-width:1.0;" width="6" x="3214" y="527.5234"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="188" x="3226" y="534.752">m_nodes : std::vector&lt;AABB&gt;</text><line style="stroke:#181818;stroke-width:0.5;" x1="3207" x2="3801" y1="541.8281" y2="541.8281"/><ellipse cx="3217" cy="556.1328" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="37" x="3226" y="560.3613">BVH()</text><ellipse cx="3217" cy="573.7422" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="45" x="3226" y="577.9707">~BVH()</text><ellipse cx="3217" cy="591.3516" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="203" x="3226" y="595.5801">GetRootNode() : AABB&amp; {query}</text><ellipse cx="3217" cy="608.9609" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="262" x="3226" y="613.1895">GetNodes() : std::vector&lt;AABB&gt;&amp; {query}</text><ellipse cx="3217" cy="626.5703" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="238" x="3226" y="630.7988">Construct(const Scene&amp; scene) : void</text><rect fill="#F24D5C" height="6" style="stroke:#C82930;stroke-width:1.0;" width="6" x="3214" y="641.1797"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="494" x="3226" y="648.4082">ConstructBVH(std::vector&lt;Polygon&gt;&amp; polygons, int nodeIndex, int depth) : void</text><rect fill="#F24D5C" height="6" style="stroke:#C82930;stroke-width:1.0;" width="6" x="3214" y="658.7891"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="570" x="3226" y="666.0176">CreateTransformedPolygons(const Scene&amp; scene, std::vector&lt;Polygon&gt;&amp; polygons) : void</text></g><!--MD5=[2a4541298f258c0334d1bbae8423d885]
+class PathTracer.Camera--><g id="elem_PathTracer.Camera"><rect codeLine="59" fill="#F1F1F1" height="224.0938" id="PathTracer.Camera" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="1098" x="4451" y="449"/><ellipse cx="4970.75" cy="465" fill="#ADD1B2" rx="11" ry="11" style="stroke:#181818;stroke-width:1.0;"/><path d="M4974.4375,466.2031 Q4974.1875,469.6875 4973.0469,470.8438 Q4972.0156,471.8594 4970.6094,471.8594 Q4969.2031,471.8594 4968.1719,470.8438 Q4966.4219,469.0781 4966.4219,465.4063 Q4966.4219,461.1563 4968.2969,459.25 Q4969.3438,458.2344 4970.6719,458.2344 Q4972.0781,458.2344 4972.9219,459.0469 Q4974.4063,460.5625 4974.3281,463.4375 L4972.2031,463.4375 Q4972.125,461.1094 4971.4844,460.4688 Q4971.2031,460.1719 4970.6719,460.1719 Q4970.2188,460.1719 4969.8594,460.5469 Q4968.625,461.7656 4968.625,465.2813 Q4968.625,468.3281 4969.6719,469.3438 Q4970.0938,469.7813 4970.6094,469.7813 Q4971.0625,469.7813 4971.5,469.3438 Q4972.0625,468.7969 4972.1406,466.2031 L4974.4375,466.2031 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="50" x="4991.25" y="470.7285">Camera</text><line style="stroke:#181818;stroke-width:0.5;" x1="4452" x2="5548" y1="481" y2="481"/><rect fill="none" height="6" style="stroke:#C82930;stroke-width:1.0;" width="6" x="4459" y="492.3047"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="127" x="4471" y="499.5332">m_forward : Vector3</text><rect fill="none" height="6" style="stroke:#C82930;stroke-width:1.0;" width="6" x="4459" y="509.9141"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="129" x="4471" y="517.1426">m_position : Vector3</text><rect fill="none" height="6" style="stroke:#C82930;stroke-width:1.0;" width="6" x="4459" y="527.5234"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="108" x="4471" y="534.752">m_right : Vector3</text><rect fill="none" height="6" style="stroke:#C82930;stroke-width:1.0;" width="6" x="4459" y="545.1328"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="96" x="4471" y="552.3613">m_up : Vector3</text><rect fill="none" height="6" style="stroke:#C82930;stroke-width:1.0;" width="6" x="4459" y="562.7422"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="103" x="4471" y="569.9707">m_fovDeg : float</text><line style="stroke:#181818;stroke-width:0.5;" x1="4452" x2="5548" y1="577.0469" y2="577.0469"/><ellipse cx="4462" cy="591.3516" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="60" x="4471" y="595.5801">Camera()</text><ellipse cx="4462" cy="608.9609" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="1072" x="4471" y="613.1895">Camera(const Vector3&amp; pos, const Vector3&amp; forward, const Vector3&amp; right, const Vector3&amp; up, const float&amp; fovDeg, const unsigned int&amp; width, const unsigned int&amp; height)</text><ellipse cx="4462" cy="626.5703" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="68" x="4471" y="630.7988">~Camera()</text><ellipse cx="4462" cy="644.1797" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="477" x="4471" y="648.4082">GetCameraRay(float x, float y, unsigned int width, unsigned int height) : Ray</text><ellipse cx="4462" cy="661.7891" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="153" x="4471" y="666.0176">GetPosition() : Vector3&amp;</text></g><!--MD5=[8e916c5ce3b1b226d1efb80b3285ae87]
+class PathTracer.CornellBox--><g id="elem_PathTracer.CornellBox"><rect codeLine="72" fill="#F1F1F1" height="100.8281" id="PathTracer.CornellBox" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="112" x="3837" y="510.5"/><ellipse cx="3857.4" cy="526.5" fill="#ADD1B2" rx="11" ry="11" style="stroke:#181818;stroke-width:1.0;"/><path d="M3861.0875,527.7031 Q3860.8375,531.1875 3859.6969,532.3438 Q3858.6656,533.3594 3857.2594,533.3594 Q3855.8531,533.3594 3854.8219,532.3438 Q3853.0719,530.5781 3853.0719,526.9063 Q3853.0719,522.6563 3854.9469,520.75 Q3855.9938,519.7344 3857.3219,519.7344 Q3858.7281,519.7344 3859.5719,520.5469 Q3861.0563,522.0625 3860.9781,524.9375 L3858.8531,524.9375 Q3858.775,522.6094 3858.1344,521.9688 Q3857.8531,521.6719 3857.3219,521.6719 Q3856.8688,521.6719 3856.5094,522.0469 Q3855.275,523.2656 3855.275,526.7813 Q3855.275,529.8281 3856.3219,530.8438 Q3856.7438,531.2813 3857.2594,531.2813 Q3857.7125,531.2813 3858.15,530.8438 Q3858.7125,530.2969 3858.7906,527.7031 L3861.0875,527.7031 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="68" x="3872.6" y="532.2285">CornellBox</text><line style="stroke:#181818;stroke-width:0.5;" x1="3838" x2="3948" y1="542.5" y2="542.5"/><line style="stroke:#181818;stroke-width:0.5;" x1="3838" x2="3948" y1="550.5" y2="550.5"/><ellipse cx="3848" cy="564.8047" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="78" x="3857" y="569.0332">CornellBox()</text><ellipse cx="3848" cy="582.4141" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="86" x="3857" y="586.6426">~CornellBox()</text><ellipse cx="3848" cy="600.0234" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="66" x="3857" y="604.252">Init() : void</text></g><!--MD5=[da2d69b20c0b60b6aeaf1723a4296fce]
+class PathTracer.CornellBoxInWater--><g id="elem_PathTracer.CornellBoxInWater"><rect codeLine="78" fill="#F1F1F1" height="100.8281" id="PathTracer.CornellBoxInWater" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="161" x="3984.5" y="510.5"/><ellipse cx="4004.9" cy="526.5" fill="#ADD1B2" rx="11" ry="11" style="stroke:#181818;stroke-width:1.0;"/><path d="M4008.5875,527.7031 Q4008.3375,531.1875 4007.1969,532.3438 Q4006.1656,533.3594 4004.7594,533.3594 Q4003.3531,533.3594 4002.3219,532.3438 Q4000.5719,530.5781 4000.5719,526.9063 Q4000.5719,522.6563 4002.4469,520.75 Q4003.4938,519.7344 4004.8219,519.7344 Q4006.2281,519.7344 4007.0719,520.5469 Q4008.5563,522.0625 4008.4781,524.9375 L4006.3531,524.9375 Q4006.275,522.6094 4005.6344,521.9688 Q4005.3531,521.6719 4004.8219,521.6719 Q4004.3688,521.6719 4004.0094,522.0469 Q4002.775,523.2656 4002.775,526.7813 Q4002.775,529.8281 4003.8219,530.8438 Q4004.2438,531.2813 4004.7594,531.2813 Q4005.2125,531.2813 4005.65,530.8438 Q4006.2125,530.2969 4006.2906,527.7031 L4008.5875,527.7031 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="117" x="4020.1" y="532.2285">CornellBoxInWater</text><line style="stroke:#181818;stroke-width:0.5;" x1="3985.5" x2="4144.5" y1="542.5" y2="542.5"/><line style="stroke:#181818;stroke-width:0.5;" x1="3985.5" x2="4144.5" y1="550.5" y2="550.5"/><ellipse cx="3995.5" cy="564.8047" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="127" x="4004.5" y="569.0332">CornellBoxInWater()</text><ellipse cx="3995.5" cy="582.4141" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="135" x="4004.5" y="586.6426">~CornellBoxInWater()</text><ellipse cx="3995.5" cy="600.0234" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="66" x="4004.5" y="604.252">Init() : void</text></g><!--MD5=[88aeefe53ee0596c5cd435f5003cf4f8]
+class PathTracer.Cube--><g id="elem_PathTracer.Cube"><rect codeLine="84" fill="#F1F1F1" height="100.8281" id="PathTracer.Cube" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="798" x="2991" y="1440"/><ellipse cx="3368.75" cy="1456" fill="#ADD1B2" rx="11" ry="11" style="stroke:#181818;stroke-width:1.0;"/><path d="M3372.4375,1457.2031 Q3372.1875,1460.6875 3371.0469,1461.8438 Q3370.0156,1462.8594 3368.6094,1462.8594 Q3367.2031,1462.8594 3366.1719,1461.8438 Q3364.4219,1460.0781 3364.4219,1456.4063 Q3364.4219,1452.1563 3366.2969,1450.25 Q3367.3438,1449.2344 3368.6719,1449.2344 Q3370.0781,1449.2344 3370.9219,1450.0469 Q3372.4063,1451.5625 3372.3281,1454.4375 L3370.2031,1454.4375 Q3370.125,1452.1094 3369.4844,1451.4688 Q3369.2031,1451.1719 3368.6719,1451.1719 Q3368.2188,1451.1719 3367.8594,1451.5469 Q3366.625,1452.7656 3366.625,1456.2813 Q3366.625,1459.3281 3367.6719,1460.3438 Q3368.0938,1460.7813 3368.6094,1460.7813 Q3369.0625,1460.7813 3369.5,1460.3438 Q3370.0625,1459.7969 3370.1406,1457.2031 L3372.4375,1457.2031 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="34" x="3389.25" y="1461.7285">Cube</text><line style="stroke:#181818;stroke-width:0.5;" x1="2992" x2="3788" y1="1472" y2="1472"/><line style="stroke:#181818;stroke-width:0.5;" x1="2992" x2="3788" y1="1480" y2="1480"/><ellipse cx="3002" cy="1494.3047" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="772" x="3011" y="1498.5332">Cube(const Transform&amp; transform, const Material&amp; material, const unsigned int&amp; objectID, const TRIANGLE_MASK&amp; mask)</text><ellipse cx="3002" cy="1511.9141" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="52" x="3011" y="1516.1426">~Cube()</text><rect fill="#F24D5C" height="6" style="stroke:#C82930;stroke-width:1.0;" width="6" x="2999" y="1526.5234"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="149" x="3011" y="1533.752">CreatePolygons() : void</text></g><!--MD5=[5cf97e2a9d47310116ea9a19c95a1dba]
+class PathTracer.DiffuseBRDF--><g id="elem_PathTracer.DiffuseBRDF"><rect codeLine="90" fill="#F1F1F1" height="65.6094" id="PathTracer.DiffuseBRDF" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="375" x="7546.5" y="182.5"/><ellipse cx="7688.75" cy="198.5" fill="#ADD1B2" rx="11" ry="11" style="stroke:#181818;stroke-width:1.0;"/><path d="M7692.4375,199.7031 Q7692.1875,203.1875 7691.0469,204.3438 Q7690.0156,205.3594 7688.6094,205.3594 Q7687.2031,205.3594 7686.1719,204.3438 Q7684.4219,202.5781 7684.4219,198.9063 Q7684.4219,194.6563 7686.2969,192.75 Q7687.3438,191.7344 7688.6719,191.7344 Q7690.0781,191.7344 7690.9219,192.5469 Q7692.4063,194.0625 7692.3281,196.9375 L7690.2031,196.9375 Q7690.125,194.6094 7689.4844,193.9688 Q7689.2031,193.6719 7688.6719,193.6719 Q7688.2188,193.6719 7687.8594,194.0469 Q7686.625,195.2656 7686.625,198.7813 Q7686.625,201.8281 7687.6719,202.8438 Q7688.0938,203.2813 7688.6094,203.2813 Q7689.0625,203.2813 7689.5,202.8438 Q7690.0625,202.2969 7690.1406,199.7031 L7692.4375,199.7031 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="82" x="7709.25" y="204.2285">DiffuseBRDF</text><line style="stroke:#181818;stroke-width:0.5;" x1="7547.5" x2="7920.5" y1="214.5" y2="214.5"/><line style="stroke:#181818;stroke-width:0.5;" x1="7547.5" x2="7920.5" y1="222.5" y2="222.5"/><ellipse cx="7557.5" cy="236.8047" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" text-decoration="underline" textLength="349" x="7566.5" y="241.0332">NormalizeLambert(const Vector3&amp; baseColor) : Vector3</text></g><!--MD5=[fe7b603908a496871c9c1f0b366173a9]
+class PathTracer.DirectionalLight--><g id="elem_PathTracer.DirectionalLight"><rect codeLine="94" fill="#F1F1F1" height="153.6563" id="PathTracer.DirectionalLight" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="427" x="444.5" y="909"/><ellipse cx="604.75" cy="925" fill="#ADD1B2" rx="11" ry="11" style="stroke:#181818;stroke-width:1.0;"/><path d="M608.4375,926.2031 Q608.1875,929.6875 607.0469,930.8438 Q606.0156,931.8594 604.6094,931.8594 Q603.2031,931.8594 602.1719,930.8438 Q600.4219,929.0781 600.4219,925.4063 Q600.4219,921.1563 602.2969,919.25 Q603.3438,918.2344 604.6719,918.2344 Q606.0781,918.2344 606.9219,919.0469 Q608.4063,920.5625 608.3281,923.4375 L606.2031,923.4375 Q606.125,921.1094 605.4844,920.4688 Q605.2031,920.1719 604.6719,920.1719 Q604.2188,920.1719 603.8594,920.5469 Q602.625,921.7656 602.625,925.2813 Q602.625,928.3281 603.6719,929.3438 Q604.0938,929.7813 604.6094,929.7813 Q605.0625,929.7813 605.5,929.3438 Q606.0625,928.7969 606.1406,926.2031 L608.4375,926.2031 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="98" x="625.25" y="930.7285">DirectionalLight</text><line style="stroke:#181818;stroke-width:0.5;" x1="445.5" x2="870.5" y1="941" y2="941"/><rect fill="none" height="6" style="stroke:#C82930;stroke-width:1.0;" width="6" x="452.5" y="952.3047"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="142" x="464.5" y="959.5332">m_type : LIGHT_TYPE</text><rect fill="none" height="6" style="stroke:#C82930;stroke-width:1.0;" width="6" x="452.5" y="969.9141"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="111" x="464.5" y="977.1426">m_color : Vector3</text><rect fill="none" height="6" style="stroke:#C82930;stroke-width:1.0;" width="6" x="452.5" y="987.5234"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="134" x="464.5" y="994.752">m_direction : Vector3</text><line style="stroke:#181818;stroke-width:0.5;" x1="445.5" x2="870.5" y1="1001.8281" y2="1001.8281"/><ellipse cx="455.5" cy="1016.1328" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="401" x="464.5" y="1020.3613">DirectionalLight(const Vector3&amp; direction, const Vector3&amp; color)</text><ellipse cx="455.5" cy="1033.7422" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="116" x="464.5" y="1037.9707">~DirectionalLight()</text><ellipse cx="455.5" cy="1051.3516" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="272" x="464.5" y="1055.5801">Sample(const Vector3&amp; position) : LightInfo</text></g><!--MD5=[bec2fe2bb55526e8d488b709e7371e23]
+class PathTracer.IntersectionResult--><g id="elem_PathTracer.IntersectionResult"><rect codeLine="103" fill="#F1F1F1" height="312.1406" id="PathTracer.IntersectionResult" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="1258" x="7291" y="1334.5"/><ellipse cx="7859.25" cy="1350.5" fill="#ADD1B2" rx="11" ry="11" style="stroke:#181818;stroke-width:1.0;"/><path d="M7862.9375,1351.7031 Q7862.6875,1355.1875 7861.5469,1356.3438 Q7860.5156,1357.3594 7859.1094,1357.3594 Q7857.7031,1357.3594 7856.6719,1356.3438 Q7854.9219,1354.5781 7854.9219,1350.9063 Q7854.9219,1346.6563 7856.7969,1344.75 Q7857.8438,1343.7344 7859.1719,1343.7344 Q7860.5781,1343.7344 7861.4219,1344.5469 Q7862.9063,1346.0625 7862.8281,1348.9375 L7860.7031,1348.9375 Q7860.625,1346.6094 7859.9844,1345.9688 Q7859.7031,1345.6719 7859.1719,1345.6719 Q7858.7188,1345.6719 7858.3594,1346.0469 Q7857.125,1347.2656 7857.125,1350.7813 Q7857.125,1353.8281 7858.1719,1354.8438 Q7858.5938,1355.2813 7859.1094,1355.2813 Q7859.5625,1355.2813 7860,1354.8438 Q7860.5625,1354.2969 7860.6406,1351.7031 L7862.9375,1351.7031 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="113" x="7879.75" y="1356.2285">IntersectionResult</text><line style="stroke:#181818;stroke-width:0.5;" x1="7292" x2="8548" y1="1366.5" y2="1366.5"/><rect fill="none" height="6" style="stroke:#C82930;stroke-width:1.0;" width="6" x="7299" y="1377.8047"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="202" x="7311" y="1385.0332">m_type : INTERSECTION_TYPE</text><rect fill="none" height="6" style="stroke:#C82930;stroke-width:1.0;" width="6" x="7299" y="1395.4141"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="225" x="7311" y="1402.6426">m_triangleMask : TRIANGLE_MASK</text><rect fill="none" height="6" style="stroke:#C82930;stroke-width:1.0;" width="6" x="7299" y="1413.0234"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="123" x="7311" y="1420.252">m_normal : Vector3</text><rect fill="none" height="6" style="stroke:#C82930;stroke-width:1.0;" width="6" x="7299" y="1430.6328"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="129" x="7311" y="1437.8613">m_position : Vector3</text><rect fill="none" height="6" style="stroke:#C82930;stroke-width:1.0;" width="6" x="7299" y="1448.2422"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="111" x="7311" y="1455.4707">m_distance : float</text><rect fill="none" height="6" style="stroke:#C82930;stroke-width:1.0;" width="6" x="7299" y="1465.8516"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="159" x="7311" y="1473.0801">m_objectID : unsigned int</text><line style="stroke:#181818;stroke-width:0.5;" x1="7292" x2="8548" y1="1480.1563" y2="1480.1563"/><ellipse cx="7302" cy="1494.4609" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="123" x="7311" y="1498.6895">IntersectionResult()</text><ellipse cx="7302" cy="1512.0703" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="1232" x="7311" y="1516.2988">IntersectionResult(const Vector3&amp; position, const Vector3&amp; normal, const float&amp; distance, const unsigned int&amp; objectID, const TRIANGLE_MASK&amp; triangleMask, const INTERSECTION_TYPE&amp; type)</text><ellipse cx="7302" cy="1529.6797" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="131" x="7311" y="1533.9082">~IntersectionResult()</text><ellipse cx="7302" cy="1547.2891" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="147" x="7311" y="1551.5176">GetNormal() : Vector3&amp;</text><ellipse cx="7302" cy="1564.8984" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="153" x="7311" y="1569.127">GetPosition() : Vector3&amp;</text><ellipse cx="7302" cy="1582.5078" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="172" x="7311" y="1586.7363">GetTriangleMask() : char*&amp;</text><ellipse cx="7302" cy="1600.1172" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="136" x="7311" y="1604.3457">GetDistance() : float&amp;</text><ellipse cx="7302" cy="1617.7266" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="101" x="7311" y="1621.9551">GetType() : int&amp;</text><ellipse cx="7302" cy="1635.3359" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="185" x="7311" y="1639.5645">GetObjectID() : unsigned int&amp;</text></g><!--MD5=[c2c40237d0a61060285e9b79cdfc379f]
+class PathTracer.Intersector--><g id="elem_PathTracer.Intersector"><rect codeLine="121" fill="#F1F1F1" height="171.2656" id="PathTracer.Intersector" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="1113" x="5584.5" y="475.5"/><ellipse cx="6103.25" cy="491.5" fill="#ADD1B2" rx="11" ry="11" style="stroke:#181818;stroke-width:1.0;"/><path d="M6106.9375,492.7031 Q6106.6875,496.1875 6105.5469,497.3438 Q6104.5156,498.3594 6103.1094,498.3594 Q6101.7031,498.3594 6100.6719,497.3438 Q6098.9219,495.5781 6098.9219,491.9063 Q6098.9219,487.6563 6100.7969,485.75 Q6101.8438,484.7344 6103.1719,484.7344 Q6104.5781,484.7344 6105.4219,485.5469 Q6106.9063,487.0625 6106.8281,489.9375 L6104.7031,489.9375 Q6104.625,487.6094 6103.9844,486.9688 Q6103.7031,486.6719 6103.1719,486.6719 Q6102.7188,486.6719 6102.3594,487.0469 Q6101.125,488.2656 6101.125,491.7813 Q6101.125,494.8281 6102.1719,495.8438 Q6102.5938,496.2813 6103.1094,496.2813 Q6103.5625,496.2813 6104,495.8438 Q6104.5625,495.2969 6104.6406,492.7031 L6106.9375,492.7031 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="67" x="6123.75" y="497.2285">Intersector</text><line style="stroke:#181818;stroke-width:0.5;" x1="5585.5" x2="6696.5" y1="507.5" y2="507.5"/><line style="stroke:#181818;stroke-width:0.5;" x1="5585.5" x2="6696.5" y1="515.5" y2="515.5"/><ellipse cx="5595.5" cy="529.8047" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="77" x="5604.5" y="534.0332">Intersector()</text><ellipse cx="5595.5" cy="547.4141" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="85" x="5604.5" y="551.6426">~Intersector()</text><ellipse cx="5595.5" cy="565.0234" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="1087" x="5604.5" y="569.252">IntersectTriangle(const Ray&amp; ray, const Vector3&amp; v0, const Vector3&amp; v1, const Vector3&amp; v2, float&amp; enlarge, float&amp; barycentricU, float&amp; barycentricV) : INTERSECTION_TYPE</text><ellipse cx="5595.5" cy="582.6328" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="838" x="5604.5" y="586.8613">IntersctPolygons(const Ray&amp; ray, const std::vector&lt;Polygon&gt;&amp; polygons, bool isWireFrame, bool exitOnceFound) : IntersectionResult</text><ellipse cx="5595.5" cy="600.2422" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="676" x="5604.5" y="604.4707">Intersect(const Ray&amp; ray, const Scene&amp; scene, bool isWireFrame, bool exitOnceFound) : IntersectionResult</text><ellipse cx="5595.5" cy="617.8516" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="584" x="5604.5" y="622.0801">IntersectBVH(const Ray&amp; ray, const Scene&amp; scene, bool exitOnceFound) : IntersectionResult</text><ellipse cx="5595.5" cy="635.4609" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="898" x="5604.5" y="639.6895">IntersectBVH(const Ray&amp; ray, const std::vector&lt;AABB&gt;&amp; bvhNodes, int nodeIndex, bool isWireFrame, bool exitOnceFound) : IntersectionResult</text></g><!--MD5=[1c65e7795e79fb64567864821ede4120]
+class PathTracer.LightSource--><g id="elem_PathTracer.LightSource"><rect codeLine="131" fill="#F1F1F1" height="100.8281" id="PathTracer.LightSource" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="299" x="827.5" y="510.5"/><ellipse cx="934.75" cy="526.5" fill="#A9DCDF" rx="11" ry="11" style="stroke:#181818;stroke-width:1.0;"/><path d="M932.7188,532.8594 L930.4219,532.8594 L933.9219,519.2344 L935.7813,519.2344 L939.2656,532.8594 L936.9688,532.8594 L936.0469,529.0781 L933.6563,529.0781 L932.7188,532.8594 Z M934.7813,523.25 L934.9063,523.25 L934.1563,527.125 L935.5313,527.125 L934.7813,523.25 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="14" font-style="italic" lengthAdjust="spacing" textLength="76" x="955.25" y="532.2285">LightSource</text><line style="stroke:#181818;stroke-width:0.5;" x1="828.5" x2="1125.5" y1="542.5" y2="542.5"/><line style="stroke:#181818;stroke-width:0.5;" x1="828.5" x2="1125.5" y1="550.5" y2="550.5"/><ellipse cx="838.5" cy="564.8047" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="86" x="847.5" y="569.0332">LightSource()</text><ellipse cx="838.5" cy="582.4141" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="94" x="847.5" y="586.6426">~LightSource()</text><ellipse cx="838.5" cy="600.0234" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" font-style="italic" lengthAdjust="spacing" textLength="273" x="847.5" y="604.252">Sample(const Vector3&amp; position) : LightInfo</text></g><!--MD5=[11c092b145a263120585a400f7fc1c3e]
+class PathTracer.Material--><g id="elem_PathTracer.Material"><rect codeLine="137" fill="#F1F1F1" height="347.3594" id="PathTracer.Material" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="1145" x="3824.5" y="1317"/><ellipse cx="4367.75" cy="1333" fill="#ADD1B2" rx="11" ry="11" style="stroke:#181818;stroke-width:1.0;"/><path d="M4371.4375,1334.2031 Q4371.1875,1337.6875 4370.0469,1338.8438 Q4369.0156,1339.8594 4367.6094,1339.8594 Q4366.2031,1339.8594 4365.1719,1338.8438 Q4363.4219,1337.0781 4363.4219,1333.4063 Q4363.4219,1329.1563 4365.2969,1327.25 Q4366.3438,1326.2344 4367.6719,1326.2344 Q4369.0781,1326.2344 4369.9219,1327.0469 Q4371.4063,1328.5625 4371.3281,1331.4375 L4369.2031,1331.4375 Q4369.125,1329.1094 4368.4844,1328.4688 Q4368.2031,1328.1719 4367.6719,1328.1719 Q4367.2188,1328.1719 4366.8594,1328.5469 Q4365.625,1329.7656 4365.625,1333.2813 Q4365.625,1336.3281 4366.6719,1337.3438 Q4367.0938,1337.7813 4367.6094,1337.7813 Q4368.0625,1337.7813 4368.5,1337.3438 Q4369.0625,1336.7969 4369.1406,1334.2031 L4371.4375,1334.2031 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="50" x="4388.25" y="1338.7285">Material</text><line style="stroke:#181818;stroke-width:0.5;" x1="3825.5" x2="4968.5" y1="1349" y2="1349"/><rect fill="none" height="6" style="stroke:#C82930;stroke-width:1.0;" width="6" x="3832.5" y="1360.3047"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="145" x="3844.5" y="1367.5332">m_baseColor : Vector3</text><rect fill="none" height="6" style="stroke:#C82930;stroke-width:1.0;" width="6" x="3832.5" y="1377.9141"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="160" x="3844.5" y="1385.1426">m_emittedColor : Vector3</text><rect fill="none" height="6" style="stroke:#C82930;stroke-width:1.0;" width="6" x="3832.5" y="1395.5234"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="130" x="3844.5" y="1402.752">m_isReflective : bool</text><rect fill="none" height="6" style="stroke:#C82930;stroke-width:1.0;" width="6" x="3832.5" y="1413.1328"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="132" x="3844.5" y="1420.3613">m_isRefractive : bool</text><rect fill="none" height="6" style="stroke:#C82930;stroke-width:1.0;" width="6" x="3832.5" y="1430.7422"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="74" x="3844.5" y="1437.9707">m_ior : float</text><rect fill="none" height="6" style="stroke:#C82930;stroke-width:1.0;" width="6" x="3832.5" y="1448.3516"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="105" x="3844.5" y="1455.5801">m_metallic : float</text><rect fill="none" height="6" style="stroke:#C82930;stroke-width:1.0;" width="6" x="3832.5" y="1465.9609"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="125" x="3844.5" y="1473.1895">m_roughness : float</text><line style="stroke:#181818;stroke-width:0.5;" x1="3825.5" x2="4968.5" y1="1480.2656" y2="1480.2656"/><ellipse cx="3835.5" cy="1494.5703" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="60" x="3844.5" y="1498.7988">Material()</text><ellipse cx="3835.5" cy="1512.1797" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="1119" x="3844.5" y="1516.4082">Material(const Vector3&amp; baseColor, const float&amp; metallic, const float&amp; roughness, const Vector3&amp; emittedColor, const bool&amp; isReflective, const bool&amp; isRefractive, const float&amp; ior)</text><ellipse cx="3835.5" cy="1529.7891" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="68" x="3844.5" y="1534.0176">~Material()</text><ellipse cx="3835.5" cy="1547.3984" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="219" x="3844.5" y="1551.627">GetBaseColor() : Vector3&amp; {query}</text><ellipse cx="3835.5" cy="1565.0078" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="234" x="3844.5" y="1569.2363">GetEmittedColor() : Vector3&amp; {query}</text><ellipse cx="3835.5" cy="1582.6172" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="180" x="3844.5" y="1586.8457">isReflective() : bool&amp; {query}</text><ellipse cx="3835.5" cy="1600.2266" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="182" x="3844.5" y="1604.4551">isRefractive() : bool&amp; {query}</text><ellipse cx="3835.5" cy="1617.8359" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="155" x="3844.5" y="1622.0645">GetIOR() : float&amp; {query}</text><ellipse cx="3835.5" cy="1635.4453" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="178" x="3844.5" y="1639.6738">GetMetallic() : float&amp; {query}</text><ellipse cx="3835.5" cy="1653.0547" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="203" x="3844.5" y="1657.2832">GetRoughness() : float&amp; {query}</text></g><!--MD5=[a24befc409d7c6bdce29e229931a6368]
+class PathTracer.Mesh--><g id="elem_PathTracer.Mesh"><rect codeLine="157" fill="#F1F1F1" height="312.1406" id="PathTracer.Mesh" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="279" x="2883.5" y="830"/><ellipse cx="3001.75" cy="846" fill="#ADD1B2" rx="11" ry="11" style="stroke:#181818;stroke-width:1.0;"/><path d="M3005.4375,847.2031 Q3005.1875,850.6875 3004.0469,851.8438 Q3003.0156,852.8594 3001.6094,852.8594 Q3000.2031,852.8594 2999.1719,851.8438 Q2997.4219,850.0781 2997.4219,846.4063 Q2997.4219,842.1563 2999.2969,840.25 Q3000.3438,839.2344 3001.6719,839.2344 Q3003.0781,839.2344 3003.9219,840.0469 Q3005.4063,841.5625 3005.3281,844.4375 L3003.2031,844.4375 Q3003.125,842.1094 3002.4844,841.4688 Q3002.2031,841.1719 3001.6719,841.1719 Q3001.2188,841.1719 3000.8594,841.5469 Q2999.625,842.7656 2999.625,846.2813 Q2999.625,849.3281 3000.6719,850.3438 Q3001.0938,850.7813 3001.6094,850.7813 Q3002.0625,850.7813 3002.5,850.3438 Q3003.0625,849.7969 3003.1406,847.2031 L3005.4375,847.2031 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="34" x="3022.25" y="851.7285">Mesh</text><line style="stroke:#181818;stroke-width:0.5;" x1="2884.5" x2="3161.5" y1="862" y2="862"/><polygon fill="none" points="2894.5,871.3047,2898.5,875.3047,2894.5,879.3047,2890.5,875.3047" style="stroke:#B38D22;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="131" x="2903.5" y="880.5332">m_material : Material</text><polygon fill="none" points="2894.5,888.9141,2898.5,892.9141,2894.5,896.9141,2890.5,892.9141" style="stroke:#B38D22;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="225" x="2903.5" y="898.1426">m_triangleMask : TRIANGLE_MASK</text><polygon fill="none" points="2894.5,906.5234,2898.5,910.5234,2894.5,914.5234,2890.5,910.5234" style="stroke:#B38D22;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="156" x="2903.5" y="915.752">m_transform : Transform</text><polygon fill="none" points="2894.5,924.1328,2898.5,928.1328,2894.5,932.1328,2890.5,928.1328" style="stroke:#B38D22;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="221" x="2903.5" y="933.3613">m_polygons : std::vector&lt;Polygon&gt;</text><polygon fill="none" points="2894.5,941.7422,2898.5,945.7422,2894.5,949.7422,2890.5,945.7422" style="stroke:#B38D22;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="212" x="2903.5" y="950.9707">m_normals : std::vector&lt;Vector3&gt;</text><polygon fill="none" points="2894.5,959.3516,2898.5,963.3516,2894.5,967.3516,2890.5,963.3516" style="stroke:#B38D22;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="211" x="2903.5" y="968.5801">m_vertices : std::vector&lt;Vector3&gt;</text><polygon fill="none" points="2894.5,976.9609,2898.5,980.9609,2894.5,984.9609,2890.5,980.9609" style="stroke:#B38D22;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="234" x="2903.5" y="986.1895">m_indices : std::vector&lt;unsigned int&gt;</text><polygon fill="none" points="2894.5,994.5703,2898.5,998.5703,2894.5,1002.5703,2890.5,998.5703" style="stroke:#B38D22;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="159" x="2903.5" y="1003.7988">m_objectID : unsigned int</text><line style="stroke:#181818;stroke-width:0.5;" x1="2884.5" x2="3161.5" y1="1010.875" y2="1010.875"/><ellipse cx="2894.5" cy="1025.1797" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="44" x="2903.5" y="1029.4082">Mesh()</text><ellipse cx="2894.5" cy="1042.7891" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="52" x="2903.5" y="1047.0176">~Mesh()</text><ellipse cx="2894.5" cy="1060.3984" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="154" x="2903.5" y="1064.627">GetMaterial() : Material&amp;</text><ellipse cx="2894.5" cy="1078.0078" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="253" x="2903.5" y="1082.2363">GetTriangleMask() : TRIANGLE_MASK&amp;</text><ellipse cx="2894.5" cy="1095.6172" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="184" x="2903.5" y="1099.8457">GetTransform() : Transform&amp;</text><ellipse cx="2894.5" cy="1113.2266" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="245" x="2903.5" y="1117.4551">GetPolygons() : std::vector&lt;Polygon&gt;&amp;</text><ellipse cx="2894.5" cy="1130.8359" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="185" x="2903.5" y="1135.0645">GetObjectID() : unsigned int&amp;</text></g><!--MD5=[15a7722e746ba0a4c873899ad80e8586]
+class PathTracer.OBJModel--><g id="elem_PathTracer.OBJModel"><rect codeLine="175" fill="#F1F1F1" height="100.8281" id="PathTracer.OBJModel" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="1003" x="5004.5" y="1440"/><ellipse cx="5469.75" cy="1456" fill="#ADD1B2" rx="11" ry="11" style="stroke:#181818;stroke-width:1.0;"/><path d="M5473.4375,1457.2031 Q5473.1875,1460.6875 5472.0469,1461.8438 Q5471.0156,1462.8594 5469.6094,1462.8594 Q5468.2031,1462.8594 5467.1719,1461.8438 Q5465.4219,1460.0781 5465.4219,1456.4063 Q5465.4219,1452.1563 5467.2969,1450.25 Q5468.3438,1449.2344 5469.6719,1449.2344 Q5471.0781,1449.2344 5471.9219,1450.0469 Q5473.4063,1451.5625 5473.3281,1454.4375 L5471.2031,1454.4375 Q5471.125,1452.1094 5470.4844,1451.4688 Q5470.2031,1451.1719 5469.6719,1451.1719 Q5469.2188,1451.1719 5468.8594,1451.5469 Q5467.625,1452.7656 5467.625,1456.2813 Q5467.625,1459.3281 5468.6719,1460.3438 Q5469.0938,1460.7813 5469.6094,1460.7813 Q5470.0625,1460.7813 5470.5,1460.3438 Q5471.0625,1459.7969 5471.1406,1457.2031 L5473.4375,1457.2031 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="64" x="5490.25" y="1461.7285">OBJModel</text><line style="stroke:#181818;stroke-width:0.5;" x1="5005.5" x2="6006.5" y1="1472" y2="1472"/><line style="stroke:#181818;stroke-width:0.5;" x1="5005.5" x2="6006.5" y1="1480" y2="1480"/><ellipse cx="5015.5" cy="1494.3047" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="977" x="5024.5" y="1498.5332">OBJModel(const std::string&amp; fileName, const Transform&amp; transform, const Material&amp; material, const unsigned int&amp; objectID, const TRIANGLE_MASK&amp; mask)</text><ellipse cx="5015.5" cy="1511.9141" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="82" x="5024.5" y="1516.1426">~OBJModel()</text><rect fill="#F24D5C" height="6" style="stroke:#C82930;stroke-width:1.0;" width="6" x="5012.5" y="1526.5234"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="292" x="5024.5" y="1533.752">LoadObjFile(const std::string&amp; fileName) : void</text></g><!--MD5=[2566312a147eaee5951364a306d363d0]
+class PathTracer.PixelBuffer--><g id="elem_PathTracer.PixelBuffer"><rect codeLine="181" fill="#F1F1F1" height="224.0938" id="PathTracer.PixelBuffer" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="428" x="6733" y="449"/><ellipse cx="6909.25" cy="465" fill="#ADD1B2" rx="11" ry="11" style="stroke:#181818;stroke-width:1.0;"/><path d="M6912.9375,466.2031 Q6912.6875,469.6875 6911.5469,470.8438 Q6910.5156,471.8594 6909.1094,471.8594 Q6907.7031,471.8594 6906.6719,470.8438 Q6904.9219,469.0781 6904.9219,465.4063 Q6904.9219,461.1563 6906.7969,459.25 Q6907.8438,458.2344 6909.1719,458.2344 Q6910.5781,458.2344 6911.4219,459.0469 Q6912.9063,460.5625 6912.8281,463.4375 L6910.7031,463.4375 Q6910.625,461.1094 6909.9844,460.4688 Q6909.7031,460.1719 6909.1719,460.1719 Q6908.7188,460.1719 6908.3594,460.5469 Q6907.125,461.7656 6907.125,465.2813 Q6907.125,468.3281 6908.1719,469.3438 Q6908.5938,469.7813 6909.1094,469.7813 Q6909.5625,469.7813 6910,469.3438 Q6910.5625,468.7969 6910.6406,466.2031 L6912.9375,466.2031 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="67" x="6929.75" y="470.7285">PixelBuffer</text><line style="stroke:#181818;stroke-width:0.5;" x1="6734" x2="7160" y1="481" y2="481"/><rect fill="none" height="6" style="stroke:#C82930;stroke-width:1.0;" width="6" x="6741" y="492.3047"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="164" x="6753" y="499.5332">Vector3 : std::unique_ptr&lt;</text><rect fill="none" height="6" style="stroke:#C82930;stroke-width:1.0;" width="6" x="6741" y="509.9141"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="147" x="6753" y="517.1426">m_height : unsigned int</text><rect fill="none" height="6" style="stroke:#C82930;stroke-width:1.0;" width="6" x="6741" y="527.5234"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="140" x="6753" y="534.752">m_width : unsigned int</text><line style="stroke:#181818;stroke-width:0.5;" x1="6734" x2="7160" y1="541.8281" y2="541.8281"/><ellipse cx="6744" cy="556.1328" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="77" x="6753" y="560.3613">PixelBuffer()</text><ellipse cx="6744" cy="573.7422" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="85" x="6753" y="577.9707">~PixelBuffer()</text><ellipse cx="6744" cy="591.3516" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="162" x="6753" y="595.5801">GetHeight() : unsigned int</text><ellipse cx="6744" cy="608.9609" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="158" x="6753" y="613.1895">GetWidth() : unsigned int</text><ellipse cx="6744" cy="626.5703" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="332" x="6753" y="630.7988">Create(unsigned int width, unsigned int height) : void</text><ellipse cx="6744" cy="644.1797" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="289" x="6753" y="648.4082">OutputImage(const std::string&amp; filePath) : void</text><ellipse cx="6744" cy="661.7891" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="402" x="6753" y="666.0176">Write(unsigned int x, unsigned int y, float r, float g, float b) : void</text></g><!--MD5=[e91b250e2d72291511f58e800c580c65]
+class PathTracer.Plane--><g id="elem_PathTracer.Plane"><rect codeLine="194" fill="#F1F1F1" height="100.8281" id="PathTracer.Plane" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="800" x="728" y="1440"/><ellipse cx="1105.75" cy="1456" fill="#ADD1B2" rx="11" ry="11" style="stroke:#181818;stroke-width:1.0;"/><path d="M1109.4375,1457.2031 Q1109.1875,1460.6875 1108.0469,1461.8438 Q1107.0156,1462.8594 1105.6094,1462.8594 Q1104.2031,1462.8594 1103.1719,1461.8438 Q1101.4219,1460.0781 1101.4219,1456.4063 Q1101.4219,1452.1563 1103.2969,1450.25 Q1104.3438,1449.2344 1105.6719,1449.2344 Q1107.0781,1449.2344 1107.9219,1450.0469 Q1109.4063,1451.5625 1109.3281,1454.4375 L1107.2031,1454.4375 Q1107.125,1452.1094 1106.4844,1451.4688 Q1106.2031,1451.1719 1105.6719,1451.1719 Q1105.2188,1451.1719 1104.8594,1451.5469 Q1103.625,1452.7656 1103.625,1456.2813 Q1103.625,1459.3281 1104.6719,1460.3438 Q1105.0938,1460.7813 1105.6094,1460.7813 Q1106.0625,1460.7813 1106.5,1460.3438 Q1107.0625,1459.7969 1107.1406,1457.2031 L1109.4375,1457.2031 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="36" x="1126.25" y="1461.7285">Plane</text><line style="stroke:#181818;stroke-width:0.5;" x1="729" x2="1527" y1="1472" y2="1472"/><line style="stroke:#181818;stroke-width:0.5;" x1="729" x2="1527" y1="1480" y2="1480"/><ellipse cx="739" cy="1494.3047" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="774" x="748" y="1498.5332">Plane(const Transform&amp; transform, const Material&amp; material, const unsigned int&amp; objectID, const TRIANGLE_MASK&amp; mask)</text><ellipse cx="739" cy="1511.9141" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="46" x="748" y="1516.1426">Plane()</text><rect fill="#F24D5C" height="6" style="stroke:#C82930;stroke-width:1.0;" width="6" x="736" y="1526.5234"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="149" x="748" y="1533.752">CreatePolygons() : void</text></g><!--MD5=[f49a066932fdaa651e99397e38272219]
+class PathTracer.PointLight--><g id="elem_PathTracer.PointLight"><rect codeLine="200" fill="#F1F1F1" height="153.6563" id="PathTracer.PointLight" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="387" x="22.5" y="909"/><ellipse cx="180.25" cy="925" fill="#ADD1B2" rx="11" ry="11" style="stroke:#181818;stroke-width:1.0;"/><path d="M183.9375,926.2031 Q183.6875,929.6875 182.5469,930.8438 Q181.5156,931.8594 180.1094,931.8594 Q178.7031,931.8594 177.6719,930.8438 Q175.9219,929.0781 175.9219,925.4063 Q175.9219,921.1563 177.7969,919.25 Q178.8438,918.2344 180.1719,918.2344 Q181.5781,918.2344 182.4219,919.0469 Q183.9063,920.5625 183.8281,923.4375 L181.7031,923.4375 Q181.625,921.1094 180.9844,920.4688 Q180.7031,920.1719 180.1719,920.1719 Q179.7188,920.1719 179.3594,920.5469 Q178.125,921.7656 178.125,925.2813 Q178.125,928.3281 179.1719,929.3438 Q179.5938,929.7813 180.1094,929.7813 Q180.5625,929.7813 181,929.3438 Q181.5625,928.7969 181.6406,926.2031 L183.9375,926.2031 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="63" x="200.75" y="930.7285">PointLight</text><line style="stroke:#181818;stroke-width:0.5;" x1="23.5" x2="408.5" y1="941" y2="941"/><rect fill="none" height="6" style="stroke:#C82930;stroke-width:1.0;" width="6" x="30.5" y="952.3047"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="142" x="42.5" y="959.5332">m_type : LIGHT_TYPE</text><rect fill="none" height="6" style="stroke:#C82930;stroke-width:1.0;" width="6" x="30.5" y="969.9141"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="111" x="42.5" y="977.1426">m_color : Vector3</text><rect fill="none" height="6" style="stroke:#C82930;stroke-width:1.0;" width="6" x="30.5" y="987.5234"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="129" x="42.5" y="994.752">m_position : Vector3</text><line style="stroke:#181818;stroke-width:0.5;" x1="23.5" x2="408.5" y1="1001.8281" y2="1001.8281"/><ellipse cx="33.5" cy="1016.1328" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="361" x="42.5" y="1020.3613">PointLight(const Vector3&amp; position, const Vector3&amp; color)</text><ellipse cx="33.5" cy="1033.7422" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="81" x="42.5" y="1037.9707">~PointLight()</text><ellipse cx="33.5" cy="1051.3516" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="272" x="42.5" y="1055.5801">Sample(const Vector3&amp; position) : LightInfo</text></g><!--MD5=[ab3af5e53024c23c58e66fa0de7e522f]
+class PathTracer.Polygon--><g id="elem_PathTracer.Polygon"><rect codeLine="209" fill="#F1F1F1" height="276.9219" id="PathTracer.Polygon" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="1213" x="6042.5" y="1352"/><ellipse cx="6619.25" cy="1368" fill="#ADD1B2" rx="11" ry="11" style="stroke:#181818;stroke-width:1.0;"/><path d="M6622.9375,1369.2031 Q6622.6875,1372.6875 6621.5469,1373.8438 Q6620.5156,1374.8594 6619.1094,1374.8594 Q6617.7031,1374.8594 6616.6719,1373.8438 Q6614.9219,1372.0781 6614.9219,1368.4063 Q6614.9219,1364.1563 6616.7969,1362.25 Q6617.8438,1361.2344 6619.1719,1361.2344 Q6620.5781,1361.2344 6621.4219,1362.0469 Q6622.9063,1363.5625 6622.8281,1366.4375 L6620.7031,1366.4375 Q6620.625,1364.1094 6619.9844,1363.4688 Q6619.7031,1363.1719 6619.1719,1363.1719 Q6618.7188,1363.1719 6618.3594,1363.5469 Q6617.125,1364.7656 6617.125,1368.2813 Q6617.125,1371.3281 6618.1719,1372.3438 Q6618.5938,1372.7813 6619.1094,1372.7813 Q6619.5625,1372.7813 6620,1372.3438 Q6620.5625,1371.7969 6620.6406,1369.2031 L6622.9375,1369.2031 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="51" x="6639.75" y="1373.7285">Polygon</text><line style="stroke:#181818;stroke-width:0.5;" x1="6043.5" x2="7254.5" y1="1384" y2="1384"/><rect fill="none" height="6" style="stroke:#C82930;stroke-width:1.0;" width="6" x="6050.5" y="1395.3047"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="225" x="6062.5" y="1402.5332">m_triangleMask : TRIANGLE_MASK</text><rect fill="none" height="6" style="stroke:#C82930;stroke-width:1.0;" width="6" x="6050.5" y="1412.9141"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="120" x="6062.5" y="1420.1426">m_center : Vector3</text><rect fill="none" height="6" style="stroke:#C82930;stroke-width:1.0;" width="6" x="6050.5" y="1430.5234"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="212" x="6062.5" y="1437.752">m_normals : std::vector&lt;Vector3&gt;</text><rect fill="none" height="6" style="stroke:#C82930;stroke-width:1.0;" width="6" x="6050.5" y="1448.1328"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="211" x="6062.5" y="1455.3613">m_vertices : std::vector&lt;Vector3&gt;</text><rect fill="none" height="6" style="stroke:#C82930;stroke-width:1.0;" width="6" x="6050.5" y="1465.7422"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="159" x="6062.5" y="1472.9707">m_objectID : unsigned int</text><line style="stroke:#181818;stroke-width:0.5;" x1="6043.5" x2="7254.5" y1="1480.0469" y2="1480.0469"/><ellipse cx="6053.5" cy="1494.3516" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="61" x="6062.5" y="1498.5801">Polygon()</text><ellipse cx="6053.5" cy="1511.9609" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="1187" x="6062.5" y="1516.1895">Polygon(const Vector3&amp; v0, const Vector3&amp; v1, const Vector3&amp; v2, const Vector3&amp; n0, const Vector3&amp; n1, const Vector3&amp; n2, const unsigned int&amp; objectID, const TRIANGLE_MASK&amp; mask)</text><ellipse cx="6053.5" cy="1529.5703" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="69" x="6062.5" y="1533.7988">~Polygon()</text><ellipse cx="6053.5" cy="1547.1797" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="196" x="6062.5" y="1551.4082">GetCenter() : Vector3&amp; {query}</text><ellipse cx="6053.5" cy="1564.7891" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="204" x="6062.5" y="1569.0176">GetTriangleMask() : int&amp; {query}</text><ellipse cx="6053.5" cy="1582.3984" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="286" x="6062.5" y="1586.627">GetNormals() : std::vector&lt;Vector3&gt;&amp; {query}</text><ellipse cx="6053.5" cy="1600.0078" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="286" x="6062.5" y="1604.2363">GetVertices() : std::vector&lt;Vector3&gt;&amp; {query}</text><ellipse cx="6053.5" cy="1617.6172" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="235" x="6062.5" y="1621.8457">GetObjectID() : unsigned int&amp; {query}</text></g><!--MD5=[f36b22b6a4dd5794c6cb845605ddcd51]
+class PathTracer.Ray--><g id="elem_PathTracer.Ray"><rect codeLine="225" fill="#F1F1F1" height="188.875" id="PathTracer.Ray" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="524" x="7957" y="121"/><ellipse cx="8202.25" cy="137" fill="#ADD1B2" rx="11" ry="11" style="stroke:#181818;stroke-width:1.0;"/><path d="M8205.9375,138.2031 Q8205.6875,141.6875 8204.5469,142.8438 Q8203.5156,143.8594 8202.1094,143.8594 Q8200.7031,143.8594 8199.6719,142.8438 Q8197.9219,141.0781 8197.9219,137.4063 Q8197.9219,133.1563 8199.7969,131.25 Q8200.8438,130.2344 8202.1719,130.2344 Q8203.5781,130.2344 8204.4219,131.0469 Q8205.9063,132.5625 8205.8281,135.4375 L8203.7031,135.4375 Q8203.625,133.1094 8202.9844,132.4688 Q8202.7031,132.1719 8202.1719,132.1719 Q8201.7188,132.1719 8201.3594,132.5469 Q8200.125,133.7656 8200.125,137.2813 Q8200.125,140.3281 8201.1719,141.3438 Q8201.5938,141.7813 8202.1094,141.7813 Q8202.5625,141.7813 8203,141.3438 Q8203.5625,140.7969 8203.6406,138.2031 L8205.9375,138.2031 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="25" x="8222.75" y="142.7285">Ray</text><line style="stroke:#181818;stroke-width:0.5;" x1="7958" x2="8480" y1="153" y2="153"/><rect fill="none" height="6" style="stroke:#C82930;stroke-width:1.0;" width="6" x="7965" y="164.3047"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="134" x="7977" y="171.5332">m_direction : Vector3</text><rect fill="none" height="6" style="stroke:#C82930;stroke-width:1.0;" width="6" x="7965" y="181.9141"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="115" x="7977" y="189.1426">m_origin : Vector3</text><rect fill="none" height="6" style="stroke:#C82930;stroke-width:1.0;" width="6" x="7965" y="199.5234"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="138" x="7977" y="206.752">m_maxDistance : float</text><line style="stroke:#181818;stroke-width:0.5;" x1="7958" x2="8480" y1="213.8281" y2="213.8281"/><ellipse cx="7968" cy="228.1328" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="498" x="7977" y="232.3613">Ray(const Vector3&amp; origin, const Vector3&amp; direction, const float&amp; maxDistance)</text><ellipse cx="7968" cy="245.7422" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="43" x="7977" y="249.9707">~Ray()</text><ellipse cx="7968" cy="263.3516" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="209" x="7977" y="267.5801">GetDirection() : Vector3&amp; {query}</text><ellipse cx="7968" cy="280.9609" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="191" x="7977" y="285.1895">GetOrigin() : Vector3&amp; {query}</text><ellipse cx="7968" cy="298.5703" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="211" x="7977" y="302.7988">GetMaxDistance() : float&amp; {query}</text></g><!--MD5=[52c2b787eadbc39e106861b380fb20cc]
+class PathTracer.Renderer--><g id="elem_PathTracer.Renderer"><rect codeLine="236" fill="#F1F1F1" height="347.3594" id="PathTracer.Renderer" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="646" x="5818" y="42"/><ellipse cx="6106.75" cy="58" fill="#ADD1B2" rx="11" ry="11" style="stroke:#181818;stroke-width:1.0;"/><path d="M6110.4375,59.2031 Q6110.1875,62.6875 6109.0469,63.8438 Q6108.0156,64.8594 6106.6094,64.8594 Q6105.2031,64.8594 6104.1719,63.8438 Q6102.4219,62.0781 6102.4219,58.4063 Q6102.4219,54.1563 6104.2969,52.25 Q6105.3438,51.2344 6106.6719,51.2344 Q6108.0781,51.2344 6108.9219,52.0469 Q6110.4063,53.5625 6110.3281,56.4375 L6108.2031,56.4375 Q6108.125,54.1094 6107.4844,53.4688 Q6107.2031,53.1719 6106.6719,53.1719 Q6106.2188,53.1719 6105.8594,53.5469 Q6104.625,54.7656 6104.625,58.2813 Q6104.625,61.3281 6105.6719,62.3438 Q6106.0938,62.7813 6106.6094,62.7813 Q6107.0625,62.7813 6107.5,62.3438 Q6108.0625,61.7969 6108.1406,59.2031 L6110.4375,59.2031 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="60" x="6127.25" y="63.7285">Renderer</text><line style="stroke:#181818;stroke-width:0.5;" x1="5819" x2="6463" y1="74" y2="74"/><rect fill="none" height="6" style="stroke:#C82930;stroke-width:1.0;" width="6" x="5826" y="85.3047"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="128" x="5838" y="92.5332">m_camera : Camera</text><rect fill="none" height="6" style="stroke:#C82930;stroke-width:1.0;" width="6" x="5826" y="102.9141"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="165" x="5838" y="110.1426">m_intersector : Intersector</text><rect fill="none" height="6" style="stroke:#C82930;stroke-width:1.0;" width="6" x="5826" y="120.5234"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="182" x="5838" y="127.752">m_renderTarget : PixelBuffer</text><rect fill="none" height="6" style="stroke:#C82930;stroke-width:1.0;" width="6" x="5826" y="138.1328"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="147" x="5838" y="145.3613">m_height : unsigned int</text><rect fill="none" height="6" style="stroke:#C82930;stroke-width:1.0;" width="6" x="5826" y="155.7422"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="191" x="5838" y="162.9707">m_sampleCount : unsigned int</text><rect fill="none" height="6" style="stroke:#C82930;stroke-width:1.0;" width="6" x="5826" y="173.3516"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="140" x="5838" y="180.5801">m_width : unsigned int</text><line style="stroke:#181818;stroke-width:0.5;" x1="5819" x2="6463" y1="187.6563" y2="187.6563"/><ellipse cx="5829" cy="201.9609" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="70" x="5838" y="206.1895">Renderer()</text><ellipse cx="5829" cy="219.5703" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="78" x="5838" y="223.7988">~Renderer()</text><rect fill="#F24D5C" height="6" style="stroke:#C82930;stroke-width:1.0;" width="6" x="5826" y="234.1797"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="502" x="5838" y="241.4082">RayTrace(const Ray&amp; ray, const Scene&amp; scene, unsigned int bounce) : Vector3</text><rect fill="#F24D5C" height="6" style="stroke:#C82930;stroke-width:1.0;" width="6" x="5826" y="251.7891"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="529" x="5838" y="259.0176">RayTraceBVH(const Ray&amp; ray, const Scene&amp; scene, unsigned int bounce) : Vector3</text><rect fill="#F24D5C" height="6" style="stroke:#C82930;stroke-width:1.0;" width="6" x="5826" y="269.3984"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="393" x="5838" y="276.627">RayTraceNEE(const Ray&amp; ray, const Scene&amp; scene) : Vector3</text><rect fill="#F24D5C" height="6" style="stroke:#C82930;stroke-width:1.0;" width="6" x="5826" y="287.0078"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="420" x="5838" y="294.2363">RayTraceNEEBVH(const Ray&amp; ray, const Scene&amp; scene) : Vector3</text><rect fill="#F24D5C" height="6" style="stroke:#C82930;stroke-width:1.0;" width="6" x="5826" y="304.6172"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="435" x="5838" y="311.8457">SamplePointOnHemisphere(const Vector3&amp; surfaceNormal) : Vector3</text><rect fill="#F24D5C" height="6" style="stroke:#C82930;stroke-width:1.0;" width="6" x="5826" y="322.2266"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="304" x="5838" y="329.4551">RussianRoulette(const Material&amp; material) : bool</text><rect fill="#F24D5C" height="6" style="stroke:#C82930;stroke-width:1.0;" width="6" x="5826" y="339.8359"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="319" x="5838" y="347.0645">SchlickFresnel(float etai, float etat, float cos) : float</text><ellipse cx="5829" cy="360.4453" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="620" x="5838" y="364.6738">Init(const unsigned int&amp; width, const unsigned int&amp; height, const unsigned int&amp; sampleCount) : void</text><ellipse cx="5829" cy="378.0547" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="224" x="5838" y="382.2832">Render(const Scene&amp; scene) : void</text></g><!--MD5=[1264775ba751b8d2555d75e58bf8a485]
+class PathTracer.Scene--><g id="elem_PathTracer.Scene"><rect codeLine="256" fill="#F1F1F1" height="224.0938" id="PathTracer.Scene" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="483" x="3067.5" y="103.5"/><ellipse cx="3284.75" cy="119.5" fill="#A9DCDF" rx="11" ry="11" style="stroke:#181818;stroke-width:1.0;"/><path d="M3282.7188,125.8594 L3280.4219,125.8594 L3283.9219,112.2344 L3285.7813,112.2344 L3289.2656,125.8594 L3286.9688,125.8594 L3286.0469,122.0781 L3283.6563,122.0781 L3282.7188,125.8594 Z M3284.7813,116.25 L3284.9063,116.25 L3284.1563,120.125 L3285.5313,120.125 L3284.7813,116.25 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="14" font-style="italic" lengthAdjust="spacing" textLength="40" x="3305.25" y="125.2285">Scene</text><line style="stroke:#181818;stroke-width:0.5;" x1="3068.5" x2="3549.5" y1="135.5" y2="135.5"/><polygon fill="none" points="3078.5,144.8047,3082.5,148.8047,3078.5,152.8047,3074.5,148.8047" style="stroke:#B38D22;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="81" x="3087.5" y="154.0332">m_bvh : BVH</text><polygon fill="none" points="3078.5,162.4141,3082.5,166.4141,3078.5,170.4141,3074.5,166.4141" style="stroke:#B38D22;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="334" x="3087.5" y="171.6426">m_lights : std::vector&lt;std::shared_ptr&lt;LightSource&gt;&gt;</text><polygon fill="none" points="3078.5,180.0234,3082.5,184.0234,3078.5,188.0234,3074.5,184.0234" style="stroke:#B38D22;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="308" x="3087.5" y="189.252">m_meshes : std::vector&lt;std::shared_ptr&lt;Mesh&gt;&gt;</text><line style="stroke:#181818;stroke-width:0.5;" x1="3068.5" x2="3549.5" y1="196.3281" y2="196.3281"/><ellipse cx="3078.5" cy="210.6328" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="50" x="3087.5" y="214.8613">Scene()</text><ellipse cx="3078.5" cy="228.2422" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="58" x="3087.5" y="232.4707">~Scene()</text><ellipse cx="3078.5" cy="245.8516" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="158" x="3087.5" y="250.0801">GetBVH() : BVH&amp; {query}</text><ellipse cx="3078.5" cy="263.4609" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="403" x="3087.5" y="267.6895">GetMesh(unsigned int meshID) : std::shared_ptr&lt;Mesh&gt; {query}</text><ellipse cx="3078.5" cy="281.0703" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="457" x="3087.5" y="285.2988">GetLightSources() : std::vector&lt;std::shared_ptr&lt;LightSource&gt;&gt;&amp; {query}</text><ellipse cx="3078.5" cy="298.6797" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="381" x="3087.5" y="302.9082">GetMeshes() : std::vector&lt;std::shared_ptr&lt;Mesh&gt;&gt;&amp; {query}</text><ellipse cx="3078.5" cy="316.2891" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" font-style="italic" lengthAdjust="spacing" textLength="66" x="3087.5" y="320.5176">Init() : void</text></g><!--MD5=[a3702be30bab44b743d21019dae531f2]
+class PathTracer.SpecularBRDF--><g id="elem_PathTracer.SpecularBRDF"><rect codeLine="269" fill="#F1F1F1" height="188.875" id="PathTracer.SpecularBRDF" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="806" x="7331" y="466.5"/><ellipse cx="7682.75" cy="482.5" fill="#ADD1B2" rx="11" ry="11" style="stroke:#181818;stroke-width:1.0;"/><path d="M7686.4375,483.7031 Q7686.1875,487.1875 7685.0469,488.3438 Q7684.0156,489.3594 7682.6094,489.3594 Q7681.2031,489.3594 7680.1719,488.3438 Q7678.4219,486.5781 7678.4219,482.9063 Q7678.4219,478.6563 7680.2969,476.75 Q7681.3438,475.7344 7682.6719,475.7344 Q7684.0781,475.7344 7684.9219,476.5469 Q7686.4063,478.0625 7686.3281,480.9375 L7684.2031,480.9375 Q7684.125,478.6094 7683.4844,477.9688 Q7683.2031,477.6719 7682.6719,477.6719 Q7682.2188,477.6719 7681.8594,478.0469 Q7680.625,479.2656 7680.625,482.7813 Q7680.625,485.8281 7681.6719,486.8438 Q7682.0938,487.2813 7682.6094,487.2813 Q7683.0625,487.2813 7683.5,486.8438 Q7684.0625,486.2969 7684.1406,483.7031 L7686.4375,483.7031 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="94" x="7703.25" y="488.2285">SpecularBRDF</text><line style="stroke:#181818;stroke-width:0.5;" x1="7332" x2="8136" y1="498.5" y2="498.5"/><line style="stroke:#181818;stroke-width:0.5;" x1="7332" x2="8136" y1="506.5" y2="506.5"/><ellipse cx="7342" cy="520.8047" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" text-decoration="underline" textLength="780" x="7351" y="525.0332">CookTorrance(const Material&amp; material, const Vector3&amp; N, const Vector3&amp; H, const Vector3&amp; V, const Vector3&amp; L) : Vector3</text><ellipse cx="7342" cy="538.4141" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" text-decoration="underline" textLength="719" x="7351" y="542.6426">GGX(const Material&amp; material, const Vector3&amp; N, const Vector3&amp; H, const Vector3&amp; V, const Vector3&amp; L) : Vector3</text><rect fill="#F24D5C" height="6" style="stroke:#C82930;stroke-width:1.0;" width="6" x="7339" y="553.0234"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" text-decoration="underline" textLength="565" x="7351" y="560.252">SchlickFresnel(const Vector3&amp; baseColor, const float&amp; metallic, const float&amp; VH) : Vector3</text><rect fill="#F24D5C" height="6" style="stroke:#C82930;stroke-width:1.0;" width="6" x="7339" y="570.6328"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" text-decoration="underline" textLength="731" x="7351" y="577.8613">TorranceSparrow(const float&amp; D, const float&amp; G, const Vector3&amp; Fr, const float&amp; cos_o, const float&amp; cos_i) : Vector3</text><rect fill="#F24D5C" height="6" style="stroke:#C82930;stroke-width:1.0;" width="6" x="7339" y="588.2422"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" text-decoration="underline" textLength="356" x="7351" y="595.4707">Beckman(const float&amp; roughness, const float&amp; VH) : float</text><rect fill="#F24D5C" height="6" style="stroke:#C82930;stroke-width:1.0;" width="6" x="7339" y="605.8516"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" text-decoration="underline" textLength="328" x="7351" y="613.0801">GGX(const float&amp; roughness, const float&amp; NH) : float</text><rect fill="#F24D5C" height="6" style="stroke:#C82930;stroke-width:1.0;" width="6" x="7339" y="623.4609"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" text-decoration="underline" textLength="436" x="7351" y="630.6895">Smith(const float&amp; roughness, const float&amp; NL, const float&amp; NV) : float</text><rect fill="#F24D5C" height="6" style="stroke:#C82930;stroke-width:1.0;" width="6" x="7339" y="641.0703"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" text-decoration="underline" textLength="501" x="7351" y="648.2988">Vcavity(const float&amp; NH, const float&amp; NV, const float&amp; NL, const float&amp; VH) : float</text></g><!--MD5=[9ec9b14fe7fc5a13a3f21c84f6b7a2f8]
+class PathTracer.Sphere--><g id="elem_PathTracer.Sphere"><rect codeLine="280" fill="#F1F1F1" height="136.0469" id="PathTracer.Sphere" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="1355" x="1563.5" y="1422.5"/><ellipse cx="2213.75" cy="1438.5" fill="#ADD1B2" rx="11" ry="11" style="stroke:#181818;stroke-width:1.0;"/><path d="M2217.4375,1439.7031 Q2217.1875,1443.1875 2216.0469,1444.3438 Q2215.0156,1445.3594 2213.6094,1445.3594 Q2212.2031,1445.3594 2211.1719,1444.3438 Q2209.4219,1442.5781 2209.4219,1438.9063 Q2209.4219,1434.6563 2211.2969,1432.75 Q2212.3438,1431.7344 2213.6719,1431.7344 Q2215.0781,1431.7344 2215.9219,1432.5469 Q2217.4063,1434.0625 2217.3281,1436.9375 L2215.2031,1436.9375 Q2215.125,1434.6094 2214.4844,1433.9688 Q2214.2031,1433.6719 2213.6719,1433.6719 Q2213.2188,1433.6719 2212.8594,1434.0469 Q2211.625,1435.2656 2211.625,1438.7813 Q2211.625,1441.8281 2212.6719,1442.8438 Q2213.0938,1443.2813 2213.6094,1443.2813 Q2214.0625,1443.2813 2214.5,1442.8438 Q2215.0625,1442.2969 2215.1406,1439.7031 L2217.4375,1439.7031 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="46" x="2234.25" y="1444.2285">Sphere</text><line style="stroke:#181818;stroke-width:0.5;" x1="1564.5" x2="2917.5" y1="1454.5" y2="1454.5"/><line style="stroke:#181818;stroke-width:0.5;" x1="1564.5" x2="2917.5" y1="1462.5" y2="1462.5"/><ellipse cx="1574.5" cy="1476.8047" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="1329" x="1583.5" y="1481.0332">Sphere(const float&amp; radius, const unsigned int&amp; stackCount, const unsigned int&amp; sectorCount, const Transform&amp; transform, const Material&amp; material, const unsigned int&amp; objectID, const TRIANGLE_MASK&amp; mask)</text><ellipse cx="1574.5" cy="1494.4141" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="64" x="1583.5" y="1498.6426">~Sphere()</text><rect fill="#F24D5C" height="6" style="stroke:#C82930;stroke-width:1.0;" width="6" x="1571.5" y="1509.0234"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="547" x="1583.5" y="1516.252">CreateIndices(const unsigned int&amp; stackCount, const unsigned int&amp; sectorCount) : void</text><rect fill="#F24D5C" height="6" style="stroke:#C82930;stroke-width:1.0;" width="6" x="1571.5" y="1526.6328"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="149" x="1583.5" y="1533.8613">CreatePolygons() : void</text><rect fill="#F24D5C" height="6" style="stroke:#C82930;stroke-width:1.0;" width="6" x="1571.5" y="1544.2422"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="728" x="1583.5" y="1551.4707">CreateVertexAttributes(const float&amp; radius, const unsigned int&amp; stackCount, const unsigned int&amp; sectorCount) : void</text></g><!--MD5=[bf707beeea34a1add55b70ff2a06d18d]
+class PathTracer.TestScene--><g id="elem_PathTracer.TestScene"><rect codeLine="288" fill="#F1F1F1" height="100.8281" id="PathTracer.TestScene" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="112" x="3059" y="510.5"/><ellipse cx="3079.4" cy="526.5" fill="#ADD1B2" rx="11" ry="11" style="stroke:#181818;stroke-width:1.0;"/><path d="M3083.0875,527.7031 Q3082.8375,531.1875 3081.6969,532.3438 Q3080.6656,533.3594 3079.2594,533.3594 Q3077.8531,533.3594 3076.8219,532.3438 Q3075.0719,530.5781 3075.0719,526.9063 Q3075.0719,522.6563 3076.9469,520.75 Q3077.9938,519.7344 3079.3219,519.7344 Q3080.7281,519.7344 3081.5719,520.5469 Q3083.0563,522.0625 3082.9781,524.9375 L3080.8531,524.9375 Q3080.775,522.6094 3080.1344,521.9688 Q3079.8531,521.6719 3079.3219,521.6719 Q3078.8688,521.6719 3078.5094,522.0469 Q3077.275,523.2656 3077.275,526.7813 Q3077.275,529.8281 3078.3219,530.8438 Q3078.7438,531.2813 3079.2594,531.2813 Q3079.7125,531.2813 3080.15,530.8438 Q3080.7125,530.2969 3080.7906,527.7031 L3083.0875,527.7031 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="68" x="3094.6" y="532.2285">TestScene</text><line style="stroke:#181818;stroke-width:0.5;" x1="3060" x2="3170" y1="542.5" y2="542.5"/><line style="stroke:#181818;stroke-width:0.5;" x1="3060" x2="3170" y1="550.5" y2="550.5"/><ellipse cx="3070" cy="564.8047" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="78" x="3079" y="569.0332">TestScene()</text><ellipse cx="3070" cy="582.4141" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="86" x="3079" y="586.6426">~TestScene()</text><ellipse cx="3070" cy="600.0234" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="66" x="3079" y="604.252">Init() : void</text></g><!--MD5=[5033be7d166bef6fc70e61e824ae72b4]
+class PathTracer.Transform--><g id="elem_PathTracer.Transform"><rect codeLine="294" fill="#F1F1F1" height="382.5781" id="PathTracer.Transform" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="519" x="173.5" y="1299"/><ellipse cx="396.25" cy="1315" fill="#ADD1B2" rx="11" ry="11" style="stroke:#181818;stroke-width:1.0;"/><path d="M399.9375,1316.2031 Q399.6875,1319.6875 398.5469,1320.8438 Q397.5156,1321.8594 396.1094,1321.8594 Q394.7031,1321.8594 393.6719,1320.8438 Q391.9219,1319.0781 391.9219,1315.4063 Q391.9219,1311.1563 393.7969,1309.25 Q394.8438,1308.2344 396.1719,1308.2344 Q397.5781,1308.2344 398.4219,1309.0469 Q399.9063,1310.5625 399.8281,1313.4375 L397.7031,1313.4375 Q397.625,1311.1094 396.9844,1310.4688 Q396.7031,1310.1719 396.1719,1310.1719 Q395.7188,1310.1719 395.3594,1310.5469 Q394.125,1311.7656 394.125,1315.2813 Q394.125,1318.3281 395.1719,1319.3438 Q395.5938,1319.7813 396.1094,1319.7813 Q396.5625,1319.7813 397,1319.3438 Q397.5625,1318.7969 397.6406,1316.2031 L399.9375,1316.2031 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="65" x="416.75" y="1320.7285">Transform</text><line style="stroke:#181818;stroke-width:0.5;" x1="174.5" x2="691.5" y1="1331" y2="1331"/><rect fill="none" height="6" style="stroke:#C82930;stroke-width:1.0;" width="6" x="181.5" y="1342.3047"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="157" x="193.5" y="1349.5332">m_degRotation : Vector3</text><rect fill="none" height="6" style="stroke:#C82930;stroke-width:1.0;" width="6" x="181.5" y="1359.9141"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="127" x="193.5" y="1367.1426">m_forward : Vector3</text><rect fill="none" height="6" style="stroke:#C82930;stroke-width:1.0;" width="6" x="181.5" y="1377.5234"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="129" x="193.5" y="1384.752">m_position : Vector3</text><rect fill="none" height="6" style="stroke:#C82930;stroke-width:1.0;" width="6" x="181.5" y="1395.1328"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="108" x="193.5" y="1402.3613">m_right : Vector3</text><rect fill="none" height="6" style="stroke:#C82930;stroke-width:1.0;" width="6" x="181.5" y="1412.7422"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="113" x="193.5" y="1419.9707">m_scale : Vector3</text><rect fill="none" height="6" style="stroke:#C82930;stroke-width:1.0;" width="6" x="181.5" y="1430.3516"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="96" x="193.5" y="1437.5801">m_up : Vector3</text><line style="stroke:#181818;stroke-width:0.5;" x1="174.5" x2="691.5" y1="1444.6563" y2="1444.6563"/><ellipse cx="184.5" cy="1458.9609" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="75" x="193.5" y="1463.1895">Transform()</text><ellipse cx="184.5" cy="1476.5703" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="493" x="193.5" y="1480.7988">Transform(const Vector3&amp; pos, const Vector3&amp; degRot, const Vector3&amp; scale)</text><ellipse cx="184.5" cy="1494.1797" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="83" x="193.5" y="1498.4082">~Transform()</text><ellipse cx="184.5" cy="1511.7891" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="229" x="193.5" y="1516.0176">GetModelMatrix() : Matrix4x4 {query}</text><ellipse cx="184.5" cy="1529.3984" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="196" x="193.5" y="1533.627">GetForward() : Vector3 {query}</text><ellipse cx="184.5" cy="1547.0078" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="177" x="193.5" y="1551.2363">GetRight() : Vector3 {query}</text><ellipse cx="184.5" cy="1564.6172" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="161" x="193.5" y="1568.8457">GetUp() : Vector3 {query}</text><ellipse cx="184.5" cy="1582.2266" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="232" x="193.5" y="1586.4551">GetDegRotation() : Vector3&amp; {query}</text><ellipse cx="184.5" cy="1599.8359" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="203" x="193.5" y="1604.0645">GetPosition() : Vector3&amp; {query}</text><ellipse cx="184.5" cy="1617.4453" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="188" x="193.5" y="1621.6738">GetScale() : Vector3&amp; {query}</text><ellipse cx="184.5" cy="1635.0547" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="294" x="193.5" y="1639.2832">SetDegRotation(const Vector3&amp; degRot) : void</text><ellipse cx="184.5" cy="1652.6641" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="242" x="193.5" y="1656.8926">SetPosition(const Vector3&amp; pos) : void</text><ellipse cx="184.5" cy="1670.2734" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="237" x="193.5" y="1674.502">SetScale(const Vector3&amp; scale) : void</text></g><!--MD5=[bf6087d6cd7118b207cad445a97184db]
+class PathTracer.INTERSECTION_TYPE--><g id="elem_PathTracer.INTERSECTION_TYPE"><rect codeLine="316" fill="#F1F1F1" height="83.2188" id="PathTracer.INTERSECTION_TYPE" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="176" x="7832" y="1751"/><ellipse cx="7847" cy="1767" fill="#EB937F" rx="11" ry="11" style="stroke:#181818;stroke-width:1.0;"/><path d="M7845.7188,1765.6719 L7850.2344,1765.6719 L7850.2344,1767.625 L7845.7188,1767.625 L7845.7188,1771.9219 L7850.9531,1771.9219 L7850.9531,1773.8594 L7843.5,1773.8594 L7843.5,1760.2344 L7850.625,1760.2344 L7850.625,1762.1719 L7845.7188,1762.1719 L7845.7188,1765.6719 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="144" x="7861" y="1772.7285">INTERSECTION_TYPE</text><line style="stroke:#181818;stroke-width:0.5;" x1="7833" x2="8007" y1="1783" y2="1783"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="21" x="7838" y="1801.5332">HIT</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="38" x="7838" y="1819.1426">NONE</text><line style="stroke:#181818;stroke-width:0.5;" x1="7833" x2="8007" y1="1826.2188" y2="1826.2188"/></g><!--MD5=[e03b9fc8f5977a7d1cffd1154d7baad1]
+class PathTracer.LIGHT_TYPE--><g id="elem_PathTracer.LIGHT_TYPE"><rect codeLine="321" fill="#F1F1F1" height="118.4375" id="PathTracer.LIGHT_TYPE" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="116" x="22" y="1431.5"/><ellipse cx="37" cy="1447.5" fill="#EB937F" rx="11" ry="11" style="stroke:#181818;stroke-width:1.0;"/><path d="M35.7188,1446.1719 L40.2344,1446.1719 L40.2344,1448.125 L35.7188,1448.125 L35.7188,1452.4219 L40.9531,1452.4219 L40.9531,1454.3594 L33.5,1454.3594 L33.5,1440.7344 L40.625,1440.7344 L40.625,1442.6719 L35.7188,1442.6719 L35.7188,1446.1719 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="84" x="51" y="1453.2285">LIGHT_TYPE</text><line style="stroke:#181818;stroke-width:0.5;" x1="23" x2="137" y1="1463.5" y2="1463.5"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="37" x="28" y="1482.0332">AREA</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="91" x="28" y="1499.6426">DIRECTIONAL</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="41" x="28" y="1517.252">POINT</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="38" x="28" y="1534.8613">SPOT</text><line style="stroke:#181818;stroke-width:0.5;" x1="23" x2="137" y1="1541.9375" y2="1541.9375"/></g><!--MD5=[b588552aa2e9e898b883b49c2976f600]
+class PathTracer.TRIANGLE_MASK--><g id="elem_PathTracer.TRIANGLE_MASK"><rect codeLine="334" fill="#F1F1F1" height="100.8281" id="PathTracer.TRIANGLE_MASK" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="146" x="6576" y="1742"/><ellipse cx="6591" cy="1758" fill="#EB937F" rx="11" ry="11" style="stroke:#181818;stroke-width:1.0;"/><path d="M6589.7188,1756.6719 L6594.2344,1756.6719 L6594.2344,1758.625 L6589.7188,1758.625 L6589.7188,1762.9219 L6594.9531,1762.9219 L6594.9531,1764.8594 L6587.5,1764.8594 L6587.5,1751.2344 L6594.625,1751.2344 L6594.625,1753.1719 L6589.7188,1753.1719 L6589.7188,1756.6719 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="114" x="6605" y="1763.7285">TRIANGLE_MASK</text><line style="stroke:#181818;stroke-width:0.5;" x1="6577" x2="6721" y1="1774" y2="1774"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="79" x="6582" y="1792.5332">GEOMETRY</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="40" x="6582" y="1810.1426">LIGHT</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="38" x="6582" y="1827.752">NONE</text><line style="stroke:#181818;stroke-width:0.5;" x1="6577" x2="6721" y1="1834.8281" y2="1834.8281"/></g><!--MD5=[5c3759bacc9825ffae1f4c7297c60872]
+class PathTracer.LightInfo--><g id="elem_PathTracer.LightInfo"><rect codeLine="337" fill="#F1F1F1" height="153.6563" id="PathTracer.LightInfo" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="149" x="906.5" y="909"/><ellipse cx="949.85" cy="925" fill="#ADD1B2" rx="11" ry="11" style="stroke:#181818;stroke-width:1.0;"/><path d="M953.5375,926.2031 Q953.2875,929.6875 952.1469,930.8438 Q951.1156,931.8594 949.7094,931.8594 Q948.3031,931.8594 947.2719,930.8438 Q945.5219,929.0781 945.5219,925.4063 Q945.5219,921.1563 947.3969,919.25 Q948.4438,918.2344 949.7719,918.2344 Q951.1781,918.2344 952.0219,919.0469 Q953.5063,920.5625 953.4281,923.4375 L951.3031,923.4375 Q951.225,921.1094 950.5844,920.4688 Q950.3031,920.1719 949.7719,920.1719 Q949.3188,920.1719 948.9594,920.5469 Q947.725,921.7656 947.725,925.2813 Q947.725,928.3281 948.7719,929.3438 Q949.1938,929.7813 949.7094,929.7813 Q950.1625,929.7813 950.6,929.3438 Q951.1625,928.7969 951.2406,926.2031 L953.5375,926.2031 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="54" x="970.15" y="930.7285">LightInfo</text><line style="stroke:#181818;stroke-width:0.5;" x1="907.5" x2="1054.5" y1="941" y2="941"/><ellipse cx="917.5" cy="955.3047" fill="none" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="123" x="926.5" y="959.5332">type : LIGHT_TYPE</text><ellipse cx="917.5" cy="972.9141" fill="none" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="92" x="926.5" y="977.1426">color : Vector3</text><ellipse cx="917.5" cy="990.5234" fill="none" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="115" x="926.5" y="994.752">direction : Vector3</text><ellipse cx="917.5" cy="1008.1328" fill="none" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="104" x="926.5" y="1012.3613">normal : Vector3</text><ellipse cx="917.5" cy="1025.7422" fill="none" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="92" x="926.5" y="1029.9707">distance : float</text><ellipse cx="917.5" cy="1043.3516" fill="none" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="59" x="926.5" y="1047.5801">pdf : float</text><line style="stroke:#181818;stroke-width:0.5;" x1="907.5" x2="1054.5" y1="1054.6563" y2="1054.6563"/></g><!--MD5=[fe22d084314a0fee43653988fb6d56c7]
+class PathTracer.Vertex--><g id="elem_PathTracer.Vertex"><rect codeLine="346" fill="#F1F1F1" height="83.2188" id="PathTracer.Vertex" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="136" x="8172" y="519.5"/><ellipse cx="8215.8" cy="535.5" fill="#ADD1B2" rx="11" ry="11" style="stroke:#181818;stroke-width:1.0;"/><path d="M8219.4875,536.7031 Q8219.2375,540.1875 8218.0969,541.3438 Q8217.0656,542.3594 8215.6594,542.3594 Q8214.2531,542.3594 8213.2219,541.3438 Q8211.4719,539.5781 8211.4719,535.9063 Q8211.4719,531.6563 8213.3469,529.75 Q8214.3938,528.7344 8215.7219,528.7344 Q8217.1281,528.7344 8217.9719,529.5469 Q8219.4563,531.0625 8219.3781,533.9375 L8217.2531,533.9375 Q8217.175,531.6094 8216.5344,530.9688 Q8216.2531,530.6719 8215.7219,530.6719 Q8215.2688,530.6719 8214.9094,531.0469 Q8213.675,532.2656 8213.675,535.7813 Q8213.675,538.8281 8214.7219,539.8438 Q8215.1438,540.2813 8215.6594,540.2813 Q8216.1125,540.2813 8216.55,539.8438 Q8217.1125,539.2969 8217.1906,536.7031 L8219.4875,536.7031 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="40" x="8236.2" y="541.2285">Vertex</text><line style="stroke:#181818;stroke-width:0.5;" x1="8173" x2="8307" y1="551.5" y2="551.5"/><ellipse cx="8183" cy="565.8047" fill="none" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="104" x="8192" y="570.0332">normal : Vector3</text><ellipse cx="8183" cy="583.4141" fill="none" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="110" x="8192" y="587.6426">position : Vector3</text><line style="stroke:#181818;stroke-width:0.5;" x1="8173" x2="8307" y1="594.7188" y2="594.7188"/></g><!--MD5=[4c247f9a5da19b09c1ff23694062c37c]
+reverse link PathTracer.LightSource to PathTracer.AreaLight--><g id="link_PathTracer.LightSource_PathTracer.AreaLight"><path codeLine="358" d="M1026.75,627.76 C1086.41,706.63 1185.89,838.12 1246.07,917.68 " fill="none" id="PathTracer.LightSource-backto-PathTracer.AreaLight" style="stroke:#181818;stroke-width:1.0;"/><polygon fill="none" points="1021.13,631.94,1014.65,611.77,1032.3,623.49,1021.13,631.94" style="stroke:#181818;stroke-width:1.0;"/></g><!--MD5=[701e62458733629f019a50335c49a848]
+reverse link PathTracer.LightSource to PathTracer.DirectionalLight--><g id="link_PathTracer.LightSource_PathTracer.DirectionalLight"><path codeLine="361" d="M927.12,628.14 C869.82,704.12 775.95,828.6 715.59,908.64 " fill="none" id="PathTracer.LightSource-backto-PathTracer.DirectionalLight" style="stroke:#181818;stroke-width:1.0;"/><polygon fill="none" points="921.84,623.52,939.47,611.77,933.02,631.95,921.84,623.52" style="stroke:#181818;stroke-width:1.0;"/></g><!--MD5=[4e9fd8b6d01299b3366b894a15d92d15]
+reverse link PathTracer.LightSource to PathTracer.PointLight--><g id="link_PathTracer.LightSource_PathTracer.PointLight"><path codeLine="364" d="M807.34,588.75 C692.68,612.8 541.84,656.51 427,733 C358.49,778.63 300.2,852.85 262.36,908.95 " fill="none" id="PathTracer.LightSource-backto-PathTracer.PointLight" style="stroke:#181818;stroke-width:1.0;"/><polygon fill="none" points="806.23,581.83,827.23,584.7,809.03,595.55,806.23,581.83" style="stroke:#181818;stroke-width:1.0;"/></g><!--MD5=[febadb7b4b6bf4e3cf2e6a24bc19f068]
+reverse link PathTracer.Mesh to PathTracer.Cube--><g id="link_PathTracer.Mesh_PathTracer.Cube"><path codeLine="367" d="M3148.29,1158.55 C3220.56,1257.5 3306.26,1374.84 3353.74,1439.85 " fill="none" id="PathTracer.Mesh-backto-PathTracer.Cube" style="stroke:#181818;stroke-width:1.0;"/><polygon fill="none" points="3142.5,1162.49,3136.36,1142.21,3153.81,1154.23,3142.5,1162.49" style="stroke:#181818;stroke-width:1.0;"/></g><!--MD5=[6870a64308db579443f4d951500df999]
+reverse link PathTracer.Mesh to PathTracer.OBJModel--><g id="link_PathTracer.Mesh_PathTracer.OBJModel"><path codeLine="370" d="M3182.8,1001.76 C3520.27,1035.23 4328.67,1127.63 4987,1299 C5129.35,1336.06 5287.26,1397.01 5391.08,1439.98 " fill="none" id="PathTracer.Mesh-backto-PathTracer.OBJModel" style="stroke:#181818;stroke-width:1.0;"/><polygon fill="none" points="3181.93,1008.7,3162.71,999.78,3183.3,994.77,3181.93,1008.7" style="stroke:#181818;stroke-width:1.0;"/></g><!--MD5=[675fe417e65783c9c94e055e4e3c8c1c]
+reverse link PathTracer.Mesh to PathTracer.Plane--><g id="link_PathTracer.Mesh_PathTracer.Plane"><path codeLine="373" d="M2863.39,1008.95 C2589.22,1049.25 2013.23,1145.26 1546,1299 C1430.47,1337.01 1304.25,1397.34 1221.08,1439.9 " fill="none" id="PathTracer.Mesh-backto-PathTracer.Plane" style="stroke:#181818;stroke-width:1.0;"/><polygon fill="none" points="2862.59,1002,2883.4,1006.03,2864.62,1015.85,2862.59,1002" style="stroke:#181818;stroke-width:1.0;"/></g><!--MD5=[2700eec180f8a44705c13d63f3c421dd]
+reverse link PathTracer.Mesh to PathTracer.Sphere--><g id="link_PathTracer.Mesh_PathTracer.Sphere"><path codeLine="376" d="M2866.12,1087.81 C2711.33,1187.27 2479.05,1336.53 2345.53,1422.33 " fill="none" id="PathTracer.Mesh-backto-PathTracer.Sphere" style="stroke:#181818;stroke-width:1.0;"/><polygon fill="none" points="2862.58,1081.76,2883.19,1076.84,2870.15,1093.54,2862.58,1081.76" style="stroke:#181818;stroke-width:1.0;"/></g><!--MD5=[fe0e9bef45507a6977b6017209ff3d6f]
+reverse link PathTracer.Scene to PathTracer.CornellBox--><g id="link_PathTracer.Scene_PathTracer.CornellBox"><path codeLine="379" d="M3569.04,301.58 C3655.03,337.98 3747.24,386.71 3820,449 C3839.71,465.87 3856.2,489.35 3868.48,510.38 " fill="none" id="PathTracer.Scene-backto-PathTracer.CornellBox" style="stroke:#181818;stroke-width:1.0;"/><polygon fill="none" points="3566.29,308.02,3550.51,293.88,3571.66,295.09,3566.29,308.02" style="stroke:#181818;stroke-width:1.0;"/></g><!--MD5=[e014b49910a29e40d7b37ddb4224dade]
+reverse link PathTracer.Scene to PathTracer.CornellBoxInWater--><g id="link_PathTracer.Scene_PathTracer.CornellBoxInWater"><path codeLine="382" d="M3569.91,275.69 C3696.86,312.43 3847.47,368.35 3967,449 C3991.19,465.32 4013.19,488.99 4030.19,510.28 " fill="none" id="PathTracer.Scene-backto-PathTracer.CornellBoxInWater" style="stroke:#181818;stroke-width:1.0;"/><polygon fill="none" points="3567.87,282.39,3550.55,270.18,3571.7,268.92,3567.87,282.39" style="stroke:#181818;stroke-width:1.0;"/></g><!--MD5=[cce51bcfea64a3e5ca3e221430f2eba3]
+reverse link PathTracer.Scene to PathTracer.TestScene--><g id="link_PathTracer.Scene_PathTracer.TestScene"><path codeLine="385" d="M3236.35,345.14 C3203.87,402.65 3167.5,467.05 3143.12,510.21 " fill="none" id="PathTracer.Scene-backto-PathTracer.TestScene" style="stroke:#181818;stroke-width:1.0;"/><polygon fill="none" points="3230.35,341.52,3246.28,327.55,3242.54,348.41,3230.35,341.52" style="stroke:#181818;stroke-width:1.0;"/></g><!--MD5=[3ceee7a208963096640db945c608cec7]
+reverse link PathTracer.AABB to PathTracer.AABB--><g id="link_PathTracer.AABB_PathTracer.AABB"><path codeLine="393" d="M5317.83,927.42 C5332.83,940.66 5342,960.19 5342,986 C5342,1017.47 5328.37,1039.6 5307.18,1052.38 " fill="none" id="PathTracer.AABB-backto-PathTracer.AABB" style="stroke:#181818;stroke-width:1.0;"/><polygon fill="#181818" points="5307.18,919.62,5309.665,926.3894,5316.8694,926.6992,5314.3844,919.9298,5307.18,919.62" style="stroke:#181818;stroke-width:1.0;"/></g><!--MD5=[e9df60a921ee1264d43024c34b1776be]
+reverse link PathTracer.AABB to PathTracer.Polygon--><g id="link_PathTracer.AABB_PathTracer.Polygon"><path codeLine="396" d="M5319.94,1055.55 C5552.36,1131.43 5933.05,1255.73 6227.56,1351.9 " fill="none" id="PathTracer.AABB-backto-PathTracer.Polygon" style="stroke:#181818;stroke-width:1.0;"/><polygon fill="#181818" points="5307.26,1051.41,5311.7247,1057.0727,5318.669,1055.1295,5314.2043,1049.4667,5307.26,1051.41" style="stroke:#181818;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="7" x="5315.1022" y="1051.1576">2</text></g><!--MD5=[b941efdc7a715a52154f6f77b72824e0]
+reverse link PathTracer.AreaLight to PathTracer.Transform--><g id="link_PathTracer.AreaLight_PathTracer.Transform"><path codeLine="399" d="M1249.02,1065.03 C1209.23,1122.69 1147.27,1198.02 1073,1239 C930.21,1317.79 862.3,1238.13 711,1299 C704.89,1301.46 698.79,1304.07 692.69,1306.81 " fill="none" id="PathTracer.AreaLight-backto-PathTracer.Transform" style="stroke:#181818;stroke-width:1.0;"/><polygon fill="#181818" points="1256.44,1054.11,1249.761,1056.8286,1249.7017,1064.0395,1256.3807,1061.3209,1256.44,1054.11" style="stroke:#181818;stroke-width:1.0;"/></g><!--MD5=[9b5de01325e346a978e910dba4abd5fa]
+reverse link PathTracer.BVH to PathTracer.AABB--><g id="link_PathTracer.BVH_PathTracer.AABB"><path codeLine="402" d="M3814.77,671.45 C3816.52,671.97 3818.26,672.49 3820,673 C4202.8,786.21 4658.3,889.09 4912.77,943.76 " fill="none" id="PathTracer.BVH-backto-PathTracer.AABB" style="stroke:#181818;stroke-width:1.0;"/><polygon fill="#181818" points="3802.3,667.68,3806.8818,673.2484,3813.7841,671.1608,3809.2023,665.5924,3802.3,667.68" style="stroke:#181818;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="7" x="3810.3166" y="667.7997">2</text></g><!--MD5=[706164acaf7a4e347d19c5329eab8fa0]
+reverse link PathTracer.DirectionalLight to PathTracer.LIGHT_TYPE--><g id="link_PathTracer.DirectionalLight_PathTracer.LIGHT_TYPE"><path codeLine="405" d="M600.03,1073.77 C558.35,1129.36 497.27,1198.45 427,1239 C320.15,1300.66 249.99,1219.1 156,1299 C116.93,1332.21 97.77,1388.33 88.48,1431.09 " fill="none" id="PathTracer.DirectionalLight-backto-PathTracer.LIGHT_TYPE" style="stroke:#181818;stroke-width:1.0;"/><polygon fill="#181818" points="607.84,1063.2,601.057,1065.6478,600.7077,1072.8504,607.4906,1070.4026,607.84,1063.2" style="stroke:#181818;stroke-width:1.0;"/></g><!--MD5=[b06ac19ec27718be06f1d7d69fe507d9]
+reverse link PathTracer.IntersectionResult to PathTracer.INTERSECTION_TYPE--><g id="link_PathTracer.IntersectionResult_PathTracer.INTERSECTION_TYPE"><path codeLine="408" d="M7920,1659.86 C7920,1693.88 7920,1726.62 7920,1750.94 " fill="none" id="PathTracer.IntersectionResult-backto-PathTracer.INTERSECTION_TYPE" style="stroke:#181818;stroke-width:1.0;"/><polygon fill="#181818" points="7920,1646.77,7916,1652.77,7920,1658.77,7924,1652.77,7920,1646.77" style="stroke:#181818;stroke-width:1.0;"/></g><!--MD5=[50efc92bfcc5262d2846f9df098b4345]
+reverse link PathTracer.IntersectionResult to PathTracer.TRIANGLE_MASK--><g id="link_PathTracer.IntersectionResult_PathTracer.TRIANGLE_MASK"><path codeLine="411" d="M7400.56,1649.98 C7357.56,1661.4 7314.64,1672.25 7273,1682 C7075.68,1728.21 6839.16,1764.62 6722.08,1781.41 " fill="none" id="PathTracer.IntersectionResult-backto-PathTracer.TRIANGLE_MASK" style="stroke:#181818;stroke-width:1.0;"/><polygon fill="#181818" points="7413.29,1646.57,7406.4605,1644.2554,7401.6972,1649.6693,7408.5267,1651.984,7413.29,1646.57" style="stroke:#181818;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="7" x="7381.5767" y="1668.0174">2</text></g><!--MD5=[986bba27b48fa0387f23e15f6878dddb]
+reverse link PathTracer.LightInfo to PathTracer.LIGHT_TYPE--><g id="link_PathTracer.LightInfo_PathTracer.LIGHT_TYPE"><path codeLine="414" d="M972.5,1076 C962.17,1131.97 939.35,1200.63 889,1239 C759.01,1338.07 287.44,1201.87 156,1299 C114.19,1329.9 95.35,1387.51 86.88,1431.32 " fill="none" id="PathTracer.LightInfo-backto-PathTracer.LIGHT_TYPE" style="stroke:#181818;stroke-width:1.0;"/><polygon fill="#181818" points="974.69,1063.17,969.7381,1068.412,972.6723,1074.9992,977.6242,1069.7571,974.69,1063.17" style="stroke:#181818;stroke-width:1.0;"/></g><!--MD5=[25d78fbf925549c70761906b05450d58]
+reverse link PathTracer.Mesh to PathTracer.Material--><g id="link_PathTracer.Mesh_PathTracer.Material"><path codeLine="417" d="M3175.09,1042.62 C3355.06,1108.44 3663.33,1221.18 3925.2,1316.95 " fill="none" id="PathTracer.Mesh-backto-PathTracer.Material" style="stroke:#181818;stroke-width:1.0;"/><polygon fill="#181818" points="3162.63,1038.06,3166.887,1043.8804,3173.8971,1042.1895,3169.64,1036.3691,3162.63,1038.06" style="stroke:#181818;stroke-width:1.0;"/></g><!--MD5=[fa9a14258ddf1460c2fd6c78da278bcf]
+reverse link PathTracer.Mesh to PathTracer.Polygon--><g id="link_PathTracer.Mesh_PathTracer.Polygon"><path codeLine="420" d="M3175.65,1011.79 C3494.36,1062.61 4254.2,1178.87 4896,1239 C5396.29,1285.87 5530.16,1211.66 6025,1299 C6098.62,1311.99 6175.76,1330.95 6249.7,1351.93 " fill="none" id="PathTracer.Mesh-backto-PathTracer.Polygon" style="stroke:#181818;stroke-width:1.0;"/><polygon fill="#181818" points="3162.65,1009.72,3167.9418,1014.6186,3174.499,1011.6179,3169.2071,1006.7193,3162.65,1009.72" style="stroke:#181818;stroke-width:1.0;"/></g><!--MD5=[42252fb5971de6f55ef15f5275877c1e]
+reverse link PathTracer.Mesh to PathTracer.TRIANGLE_MASK--><g id="link_PathTracer.Mesh_PathTracer.TRIANGLE_MASK"><path codeLine="423" d="M2983.67,1155.14 C2945.81,1336.67 2903.76,1609.64 2974,1682 C3039.11,1749.08 6063.74,1785.1 6575.74,1790.72 " fill="none" id="PathTracer.Mesh-backto-PathTracer.TRIANGLE_MASK" style="stroke:#181818;stroke-width:1.0;"/><polygon fill="#181818" points="2986.39,1142.23,2981.2417,1147.2793,2983.9225,1153.9736,2989.0708,1148.9243,2986.39,1142.23" style="stroke:#181818;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="7" x="2977.4472" y="1163.6851">2</text></g><!--MD5=[163f21604ef7eb1b6e1e739db1abad9f]
+reverse link PathTracer.Mesh to PathTracer.Transform--><g id="link_PathTracer.Mesh_PathTracer.Transform"><path codeLine="426" d="M2870.28,1017.42 C2599.55,1070.28 2017.21,1179.13 1521,1239 C1341.81,1260.62 881.32,1239.26 711,1299 C704.93,1301.13 698.86,1303.43 692.82,1305.88 " fill="none" id="PathTracer.Mesh-backto-PathTracer.Transform" style="stroke:#181818;stroke-width:1.0;"/><polygon fill="#181818" points="2883.33,1014.87,2876.6728,1012.0985,2871.554,1017.1777,2878.2112,1019.9492,2883.33,1014.87" style="stroke:#181818;stroke-width:1.0;"/></g><!--MD5=[696064a89ac872f4872307a0d688c2b4]
+reverse link PathTracer.PointLight to PathTracer.LIGHT_TYPE--><g id="link_PathTracer.PointLight_PathTracer.LIGHT_TYPE"><path codeLine="429" d="M191.96,1075.84 C164.22,1178.32 119.41,1343.88 95.77,1431.24 " fill="none" id="PathTracer.PointLight-backto-PathTracer.LIGHT_TYPE" style="stroke:#181818;stroke-width:1.0;"/><polygon fill="#181818" points="195.42,1063.05,189.9946,1067.8003,192.2927,1074.6353,197.7182,1069.8851,195.42,1063.05" style="stroke:#181818;stroke-width:1.0;"/></g><!--MD5=[4c1a267fb55e70fc8e52042b81ba8783]
+reverse link PathTracer.Polygon to PathTracer.TRIANGLE_MASK--><g id="link_PathTracer.Polygon_PathTracer.TRIANGLE_MASK"><path codeLine="432" d="M6649,1642.43 C6649,1678.34 6649,1714.18 6649,1741.72 " fill="none" id="PathTracer.Polygon-backto-PathTracer.TRIANGLE_MASK" style="stroke:#181818;stroke-width:1.0;"/><polygon fill="#181818" points="6649,1629.21,6645,1635.21,6649,1641.21,6653,1635.21,6649,1629.21" style="stroke:#181818;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="7" x="6641.8195" y="1650.2809">2</text></g><!--MD5=[50607f995968d58281c5f085e4a118f8]
+reverse link PathTracer.Renderer to PathTracer.Camera--><g id="link_PathTracer.Renderer_PathTracer.Camera"><path codeLine="435" d="M5805.08,317.63 C5668.05,358.88 5509.16,406.72 5368.92,448.94 " fill="none" id="PathTracer.Renderer-backto-PathTracer.Camera" style="stroke:#181818;stroke-width:1.0;"/><polygon fill="#181818" points="5817.85,313.79,5810.9521,311.6879,5806.3586,317.2466,5813.2565,319.3488,5817.85,313.79" style="stroke:#181818;stroke-width:1.0;"/></g><!--MD5=[3bc6200284a0dcfd3830669150507f2a]
+reverse link PathTracer.Renderer to PathTracer.Intersector--><g id="link_PathTracer.Renderer_PathTracer.Intersector"><path codeLine="438" d="M6141,402.32 C6141,427.74 6141,452.74 6141,475.08 " fill="none" id="PathTracer.Renderer-backto-PathTracer.Intersector" style="stroke:#181818;stroke-width:1.0;"/><polygon fill="#181818" points="6141,389,6137,395,6141,401,6145,395,6141,389" style="stroke:#181818;stroke-width:1.0;"/></g><!--MD5=[dbbe66c63d412b422954b01919688cb9]
+reverse link PathTracer.Renderer to PathTracer.PixelBuffer--><g id="link_PathTracer.Renderer_PathTracer.PixelBuffer"><path codeLine="441" d="M6476.34,348.3 C6555.02,380.34 6638.28,415.15 6715,449 C6720.92,451.61 6726.92,454.29 6732.96,457.01 " fill="none" id="PathTracer.Renderer-backto-PathTracer.PixelBuffer" style="stroke:#181818;stroke-width:1.0;"/><polygon fill="#181818" points="6464.26,343.39,6468.3101,349.3563,6475.3752,347.9125,6471.3251,341.9462,6464.26,343.39" style="stroke:#181818;stroke-width:1.0;"/></g><!--MD5=[50ec1d6b3fafe3eadff88bad79900fec]
+reverse link PathTracer.Scene to PathTracer.BVH--><g id="link_PathTracer.Scene_PathTracer.BVH"><path codeLine="444" d="M3378.57,339.05 C3398.88,374.82 3420.95,413.71 3440.84,448.74 " fill="none" id="PathTracer.Scene-backto-PathTracer.BVH" style="stroke:#181818;stroke-width:1.0;"/><polygon fill="#181818" points="3372.04,327.55,3371.5194,334.7423,3377.9581,337.9891,3378.4788,330.7969,3372.04,327.55" style="stroke:#181818;stroke-width:1.0;"/></g><!--MD5=[cdca0dcf7d3dd34378565d331f5b3e4e]
+reverse link PathTracer.Scene to PathTracer.LightSource--><g id="link_PathTracer.Scene_PathTracer.LightSource"><path codeLine="447" d="M3054.21,254.03 C2566.85,325.82 1516.36,480.55 1126.57,537.97 " fill="none" id="PathTracer.Scene-backto-PathTracer.LightSource" style="stroke:#181818;stroke-width:1.0;"/><polygon fill="#181818" points="3067.4,252.09,3060.8831,249.003,3055.527,253.8314,3062.044,256.9183,3067.4,252.09" style="stroke:#181818;stroke-width:1.0;"/></g><!--MD5=[b38b85d9c281826e00b57d4e55b6990a]
+reverse link PathTracer.Scene to PathTracer.Mesh--><g id="link_PathTracer.Scene_PathTracer.Mesh"><path codeLine="450" d="M3129.2,336.45 C3094.26,368.67 3062.25,406.53 3042,449 C2985.45,567.62 2985.47,718.34 2996.88,829.73 " fill="none" id="PathTracer.Scene-backto-PathTracer.Mesh" style="stroke:#181818;stroke-width:1.0;"/><polygon fill="#181818" points="3139.12,327.52,3131.9849,328.5641,3130.2044,335.5519,3137.3395,334.5078,3139.12,327.52" style="stroke:#181818;stroke-width:1.0;"/></g><!--MD5=[eb5530aae4b37f6fbfbc430799f8dc86]
+@startuml
+
+
+
+
+
+/' Objects '/
+
+namespace PathTracer {
+	class AABB {
+		+AABB()
+		+AABB(std::vector<Polygon>& polygons)
+		+AABB(const Polygon& polygon)
+		+~AABB()
+		+{static} Merge(const AABB& lhs, const AABB& rhs) : AABB
+		-m_center : Vector3
+		-m_maxCoord : Vector3
+		-m_minCoord : Vector3
+		+GetCenter() : Vector3& {query}
+		+GetMaxCoord() : Vector3& {query}
+		+GetMinCoord() : Vector3& {query}
+		+Intersect(const Ray& ray) : bool {query}
+		+IsLeafNode() : bool {query}
+		+SurfaceArea() : float {query}
+		-m_childIndex : int
+		+GetChildIndex() : int* {query}
+		-m_children : std::vector<AABB>
+		+GetChildren() : std::vector<AABB>& {query}
+		-m_aabbPolygons : std::vector<Polygon>
+		-m_polygons : std::vector<Polygon>
+		+GetAABBPolygons() : std::vector<Polygon>& {query}
+		+GetPolygons() : std::vector<Polygon>& {query}
+		-CreateAABBPolygon() : void
+		+SetChildIndex(int child0, int child1) : void
+		+SetChildren(const AABB& aabb) : void
+		+SetPolygons(const std::vector<Polygon>& polygons) : void
+	}
+
+	class AreaLight {
+		+AreaLight(const Vector3& color, const Transform& transform)
+		+~AreaLight()
+		+Sample(const Vector3& position) : LightInfo
+		-m_transform : Transform
+		-m_color : Vector3
+	}
+
+	class BVH {
+		+BVH()
+		+~BVH()
+		-m_rootNode : AABB
+		+GetRootNode() : AABB& {query}
+		-m_usedNodeIndex : int
+		-m_nodes : std::vector<AABB>
+		+GetNodes() : std::vector<AABB>& {query}
+		+Construct(const Scene& scene) : void
+		-ConstructBVH(std::vector<Polygon>& polygons, int nodeIndex, int depth) : void
+		-CreateTransformedPolygons(const Scene& scene, std::vector<Polygon>& polygons) : void
+	}
+
+	class Camera {
+		+Camera()
+		+Camera(const Vector3& pos, const Vector3& forward, const Vector3& right, const Vector3& up, const float& fovDeg, const unsigned int& width, const unsigned int& height)
+		+~Camera()
+		+GetCameraRay(float x, float y, unsigned int width, unsigned int height) : Ray
+		-m_forward : Vector3
+		-m_position : Vector3
+		-m_right : Vector3
+		-m_up : Vector3
+		+GetPosition() : Vector3&
+		-m_fovDeg : float
+	}
+
+	class CornellBox {
+		+CornellBox()
+		+~CornellBox()
+		+Init() : void
+	}
+
+	class CornellBoxInWater {
+		+CornellBoxInWater()
+		+~CornellBoxInWater()
+		+Init() : void
+	}
+
+	class Cube {
+		+Cube(const Transform& transform, const Material& material, const unsigned int& objectID, const TRIANGLE_MASK& mask)
+		+~Cube()
+		-CreatePolygons() : void
+	}
+
+	class DiffuseBRDF {
+		+{static} NormalizeLambert(const Vector3& baseColor) : Vector3
+	}
+
+	class DirectionalLight {
+		+DirectionalLight(const Vector3& direction, const Vector3& color)
+		+~DirectionalLight()
+		-m_type : LIGHT_TYPE
+		+Sample(const Vector3& position) : LightInfo
+		-m_color : Vector3
+		-m_direction : Vector3
+	}
+
+	class IntersectionResult {
+		+IntersectionResult()
+		+IntersectionResult(const Vector3& position, const Vector3& normal, const float& distance, const unsigned int& objectID, const TRIANGLE_MASK& triangleMask, const INTERSECTION_TYPE& type)
+		+~IntersectionResult()
+		-m_type : INTERSECTION_TYPE
+		-m_triangleMask : TRIANGLE_MASK
+		-m_normal : Vector3
+		-m_position : Vector3
+		+GetNormal() : Vector3&
+		+GetPosition() : Vector3&
+		+GetTriangleMask() : char*&
+		-m_distance : float
+		+GetDistance() : float&
+		+GetType() : int&
+		-m_objectID : unsigned int
+		+GetObjectID() : unsigned int&
+	}
+
+	class Intersector {
+		+Intersector()
+		+~Intersector()
+		+IntersectTriangle(const Ray& ray, const Vector3& v0, const Vector3& v1, const Vector3& v2, float& enlarge, float& barycentricU, float& barycentricV) : INTERSECTION_TYPE
+		+IntersctPolygons(const Ray& ray, const std::vector<Polygon>& polygons, bool isWireFrame, bool exitOnceFound) : IntersectionResult
+		+Intersect(const Ray& ray, const Scene& scene, bool isWireFrame, bool exitOnceFound) : IntersectionResult
+		+IntersectBVH(const Ray& ray, const Scene& scene, bool exitOnceFound) : IntersectionResult
+		+IntersectBVH(const Ray& ray, const std::vector<AABB>& bvhNodes, int nodeIndex, bool isWireFrame, bool exitOnceFound) : IntersectionResult
+	}
+
+	abstract class LightSource {
+		+LightSource()
+		+~LightSource()
+		+{abstract} Sample(const Vector3& position) : LightInfo
+	}
+
+	class Material {
+		+Material()
+		+Material(const Vector3& baseColor, const float& metallic, const float& roughness, const Vector3& emittedColor, const bool& isReflective, const bool& isRefractive, const float& ior)
+		+~Material()
+		-m_baseColor : Vector3
+		-m_emittedColor : Vector3
+		+GetBaseColor() : Vector3& {query}
+		+GetEmittedColor() : Vector3& {query}
+		-m_isReflective : bool
+		-m_isRefractive : bool
+		+isReflective() : bool& {query}
+		+isRefractive() : bool& {query}
+		-m_ior : float
+		-m_metallic : float
+		-m_roughness : float
+		+GetIOR() : float& {query}
+		+GetMetallic() : float& {query}
+		+GetRoughness() : float& {query}
+	}
+
+	class Mesh {
+		+Mesh()
+		+~Mesh()
+		#m_material : Material
+		+GetMaterial() : Material&
+		#m_triangleMask : TRIANGLE_MASK
+		+GetTriangleMask() : TRIANGLE_MASK&
+		#m_transform : Transform
+		+GetTransform() : Transform&
+		#m_polygons : std::vector<Polygon>
+		+GetPolygons() : std::vector<Polygon>&
+		#m_normals : std::vector<Vector3>
+		#m_vertices : std::vector<Vector3>
+		#m_indices : std::vector<unsigned int>
+		#m_objectID : unsigned int
+		+GetObjectID() : unsigned int&
+	}
+
+	class OBJModel {
+		+OBJModel(const std::string& fileName, const Transform& transform, const Material& material, const unsigned int& objectID, const TRIANGLE_MASK& mask)
+		+~OBJModel()
+		-LoadObjFile(const std::string& fileName) : void
+	}
+
+	class PixelBuffer {
+		+PixelBuffer()
+		+~PixelBuffer()
+		-Vector3 : std::unique_ptr<
+		+GetHeight() : unsigned int
+		+GetWidth() : unsigned int
+		-m_height : unsigned int
+		-m_width : unsigned int
+		+Create(unsigned int width, unsigned int height) : void
+		+OutputImage(const std::string& filePath) : void
+		+Write(unsigned int x, unsigned int y, float r, float g, float b) : void
+	}
+
+	class Plane {
+		+Plane(const Transform& transform, const Material& material, const unsigned int& objectID, const TRIANGLE_MASK& mask)
+		+Plane()
+		-CreatePolygons() : void
+	}
+
+	class PointLight {
+		+PointLight(const Vector3& position, const Vector3& color)
+		+~PointLight()
+		-m_type : LIGHT_TYPE
+		+Sample(const Vector3& position) : LightInfo
+		-m_color : Vector3
+		-m_position : Vector3
+	}
+
+	class Polygon {
+		+Polygon()
+		+Polygon(const Vector3& v0, const Vector3& v1, const Vector3& v2, const Vector3& n0, const Vector3& n1, const Vector3& n2, const unsigned int& objectID, const TRIANGLE_MASK& mask)
+		+~Polygon()
+		-m_triangleMask : TRIANGLE_MASK
+		-m_center : Vector3
+		+GetCenter() : Vector3& {query}
+		+GetTriangleMask() : int& {query}
+		-m_normals : std::vector<Vector3>
+		-m_vertices : std::vector<Vector3>
+		+GetNormals() : std::vector<Vector3>& {query}
+		+GetVertices() : std::vector<Vector3>& {query}
+		-m_objectID : unsigned int
+		+GetObjectID() : unsigned int& {query}
+	}
+
+	class Ray {
+		+Ray(const Vector3& origin, const Vector3& direction, const float& maxDistance)
+		+~Ray()
+		-m_direction : Vector3
+		-m_origin : Vector3
+		+GetDirection() : Vector3& {query}
+		+GetOrigin() : Vector3& {query}
+		-m_maxDistance : float
+		+GetMaxDistance() : float& {query}
+	}
+
+	class Renderer {
+		+Renderer()
+		+~Renderer()
+		-m_camera : Camera
+		-m_intersector : Intersector
+		-m_renderTarget : PixelBuffer
+		-RayTrace(const Ray& ray, const Scene& scene, unsigned int bounce) : Vector3
+		-RayTraceBVH(const Ray& ray, const Scene& scene, unsigned int bounce) : Vector3
+		-RayTraceNEE(const Ray& ray, const Scene& scene) : Vector3
+		-RayTraceNEEBVH(const Ray& ray, const Scene& scene) : Vector3
+		-SamplePointOnHemisphere(const Vector3& surfaceNormal) : Vector3
+		-RussianRoulette(const Material& material) : bool
+		-SchlickFresnel(float etai, float etat, float cos) : float
+		-m_height : unsigned int
+		-m_sampleCount : unsigned int
+		-m_width : unsigned int
+		+Init(const unsigned int& width, const unsigned int& height, const unsigned int& sampleCount) : void
+		+Render(const Scene& scene) : void
+	}
+
+	abstract class Scene {
+		+Scene()
+		+~Scene()
+		#m_bvh : BVH
+		+GetBVH() : BVH& {query}
+		+GetMesh(unsigned int meshID) : std::shared_ptr<Mesh> {query}
+		#m_lights : std::vector<std::shared_ptr<LightSource>>
+		+GetLightSources() : std::vector<std::shared_ptr<LightSource>>& {query}
+		#m_meshes : std::vector<std::shared_ptr<Mesh>>
+		+GetMeshes() : std::vector<std::shared_ptr<Mesh>>& {query}
+		+{abstract} Init() : void
+	}
+
+	class SpecularBRDF {
+		+{static} CookTorrance(const Material& material, const Vector3& N, const Vector3& H, const Vector3& V, const Vector3& L) : Vector3
+		+{static} GGX(const Material& material, const Vector3& N, const Vector3& H, const Vector3& V, const Vector3& L) : Vector3
+		-{static} SchlickFresnel(const Vector3& baseColor, const float& metallic, const float& VH) : Vector3
+		-{static} TorranceSparrow(const float& D, const float& G, const Vector3& Fr, const float& cos_o, const float& cos_i) : Vector3
+		-{static} Beckman(const float& roughness, const float& VH) : float
+		-{static} GGX(const float& roughness, const float& NH) : float
+		-{static} Smith(const float& roughness, const float& NL, const float& NV) : float
+		-{static} Vcavity(const float& NH, const float& NV, const float& NL, const float& VH) : float
+	}
+
+	class Sphere {
+		+Sphere(const float& radius, const unsigned int& stackCount, const unsigned int& sectorCount, const Transform& transform, const Material& material, const unsigned int& objectID, const TRIANGLE_MASK& mask)
+		+~Sphere()
+		-CreateIndices(const unsigned int& stackCount, const unsigned int& sectorCount) : void
+		-CreatePolygons() : void
+		-CreateVertexAttributes(const float& radius, const unsigned int& stackCount, const unsigned int& sectorCount) : void
+	}
+
+	class TestScene {
+		+TestScene()
+		+~TestScene()
+		+Init() : void
+	}
+
+	class Transform {
+		+Transform()
+		+Transform(const Vector3& pos, const Vector3& degRot, const Vector3& scale)
+		+~Transform()
+		+GetModelMatrix() : Matrix4x4 {query}
+		+GetForward() : Vector3 {query}
+		+GetRight() : Vector3 {query}
+		+GetUp() : Vector3 {query}
+		-m_degRotation : Vector3
+		-m_forward : Vector3
+		-m_position : Vector3
+		-m_right : Vector3
+		-m_scale : Vector3
+		-m_up : Vector3
+		+GetDegRotation() : Vector3& {query}
+		+GetPosition() : Vector3& {query}
+		+GetScale() : Vector3& {query}
+		+SetDegRotation(const Vector3& degRot) : void
+		+SetPosition(const Vector3& pos) : void
+		+SetScale(const Vector3& scale) : void
+	}
+
+	enum INTERSECTION_TYPE {
+		HIT
+		NONE
+	}
+
+	enum LIGHT_TYPE {
+		AREA
+		DIRECTIONAL
+		POINT
+		SPOT
+	}
+
+	enum TRIANGLE_MASK {
+		GEOMETRY
+		LIGHT
+		NONE
+	}
+
+	enum TRIANGLE_MASK {
+	}
+
+	class LightInfo {
+		+type : LIGHT_TYPE
+		+color : Vector3
+		+direction : Vector3
+		+normal : Vector3
+		+distance : float
+		+pdf : float
+	}
+
+	class Vertex {
+		+normal : Vector3
+		+position : Vector3
+	}
+}
+
+
+
+
+
+/' Inheritance relationships '/
+
+PathTracer.LightSource <|- - PathTracer.AreaLight
+
+
+PathTracer.LightSource <|- - PathTracer.DirectionalLight
+
+
+PathTracer.LightSource <|- - PathTracer.PointLight
+
+
+PathTracer.Mesh <|- - PathTracer.Cube
+
+
+PathTracer.Mesh <|- - PathTracer.OBJModel
+
+
+PathTracer.Mesh <|- - PathTracer.Plane
+
+
+PathTracer.Mesh <|- - PathTracer.Sphere
+
+
+PathTracer.Scene <|- - PathTracer.CornellBox
+
+
+PathTracer.Scene <|- - PathTracer.CornellBoxInWater
+
+
+PathTracer.Scene <|- - PathTracer.TestScene
+
+
+
+
+
+/' Aggregation relationships '/
+
+PathTracer.AABB *- - PathTracer.AABB
+
+
+PathTracer.AABB "2" *- - PathTracer.Polygon
+
+
+PathTracer.AreaLight *- - PathTracer.Transform
+
+
+PathTracer.BVH "2" *- - PathTracer.AABB
+
+
+PathTracer.DirectionalLight *- - PathTracer.LIGHT_TYPE
+
+
+PathTracer.IntersectionResult *- - PathTracer.INTERSECTION_TYPE
+
+
+PathTracer.IntersectionResult "2" *- - PathTracer.TRIANGLE_MASK
+
+
+PathTracer.LightInfo *- - PathTracer.LIGHT_TYPE
+
+
+PathTracer.Mesh *- - PathTracer.Material
+
+
+PathTracer.Mesh *- - PathTracer.Polygon
+
+
+PathTracer.Mesh "2" *- - PathTracer.TRIANGLE_MASK
+
+
+PathTracer.Mesh *- - PathTracer.Transform
+
+
+PathTracer.PointLight *- - PathTracer.LIGHT_TYPE
+
+
+PathTracer.Polygon "2" *- - PathTracer.TRIANGLE_MASK
+
+
+PathTracer.Renderer *- - PathTracer.Camera
+
+
+PathTracer.Renderer *- - PathTracer.Intersector
+
+
+PathTracer.Renderer *- - PathTracer.PixelBuffer
+
+
+PathTracer.Scene *- - PathTracer.BVH
+
+
+PathTracer.Scene *- - PathTracer.LightSource
+
+
+PathTracer.Scene *- - PathTracer.Mesh
+
+
+
+
+
+
+/' Nested objects '/
+
+
+
+@enduml
+
+@startuml
+
+
+
+
+
+
+namespace PathTracer {
+	class AABB {
+		+AABB()
+		+AABB(std::vector<Polygon>& polygons)
+		+AABB(const Polygon& polygon)
+		+~AABB()
+		+{static} Merge(const AABB& lhs, const AABB& rhs) : AABB
+		-m_center : Vector3
+		-m_maxCoord : Vector3
+		-m_minCoord : Vector3
+		+GetCenter() : Vector3& {query}
+		+GetMaxCoord() : Vector3& {query}
+		+GetMinCoord() : Vector3& {query}
+		+Intersect(const Ray& ray) : bool {query}
+		+IsLeafNode() : bool {query}
+		+SurfaceArea() : float {query}
+		-m_childIndex : int
+		+GetChildIndex() : int* {query}
+		-m_children : std::vector<AABB>
+		+GetChildren() : std::vector<AABB>& {query}
+		-m_aabbPolygons : std::vector<Polygon>
+		-m_polygons : std::vector<Polygon>
+		+GetAABBPolygons() : std::vector<Polygon>& {query}
+		+GetPolygons() : std::vector<Polygon>& {query}
+		-CreateAABBPolygon() : void
+		+SetChildIndex(int child0, int child1) : void
+		+SetChildren(const AABB& aabb) : void
+		+SetPolygons(const std::vector<Polygon>& polygons) : void
+	}
+
+	class AreaLight {
+		+AreaLight(const Vector3& color, const Transform& transform)
+		+~AreaLight()
+		+Sample(const Vector3& position) : LightInfo
+		-m_transform : Transform
+		-m_color : Vector3
+	}
+
+	class BVH {
+		+BVH()
+		+~BVH()
+		-m_rootNode : AABB
+		+GetRootNode() : AABB& {query}
+		-m_usedNodeIndex : int
+		-m_nodes : std::vector<AABB>
+		+GetNodes() : std::vector<AABB>& {query}
+		+Construct(const Scene& scene) : void
+		-ConstructBVH(std::vector<Polygon>& polygons, int nodeIndex, int depth) : void
+		-CreateTransformedPolygons(const Scene& scene, std::vector<Polygon>& polygons) : void
+	}
+
+	class Camera {
+		+Camera()
+		+Camera(const Vector3& pos, const Vector3& forward, const Vector3& right, const Vector3& up, const float& fovDeg, const unsigned int& width, const unsigned int& height)
+		+~Camera()
+		+GetCameraRay(float x, float y, unsigned int width, unsigned int height) : Ray
+		-m_forward : Vector3
+		-m_position : Vector3
+		-m_right : Vector3
+		-m_up : Vector3
+		+GetPosition() : Vector3&
+		-m_fovDeg : float
+	}
+
+	class CornellBox {
+		+CornellBox()
+		+~CornellBox()
+		+Init() : void
+	}
+
+	class CornellBoxInWater {
+		+CornellBoxInWater()
+		+~CornellBoxInWater()
+		+Init() : void
+	}
+
+	class Cube {
+		+Cube(const Transform& transform, const Material& material, const unsigned int& objectID, const TRIANGLE_MASK& mask)
+		+~Cube()
+		-CreatePolygons() : void
+	}
+
+	class DiffuseBRDF {
+		+{static} NormalizeLambert(const Vector3& baseColor) : Vector3
+	}
+
+	class DirectionalLight {
+		+DirectionalLight(const Vector3& direction, const Vector3& color)
+		+~DirectionalLight()
+		-m_type : LIGHT_TYPE
+		+Sample(const Vector3& position) : LightInfo
+		-m_color : Vector3
+		-m_direction : Vector3
+	}
+
+	class IntersectionResult {
+		+IntersectionResult()
+		+IntersectionResult(const Vector3& position, const Vector3& normal, const float& distance, const unsigned int& objectID, const TRIANGLE_MASK& triangleMask, const INTERSECTION_TYPE& type)
+		+~IntersectionResult()
+		-m_type : INTERSECTION_TYPE
+		-m_triangleMask : TRIANGLE_MASK
+		-m_normal : Vector3
+		-m_position : Vector3
+		+GetNormal() : Vector3&
+		+GetPosition() : Vector3&
+		+GetTriangleMask() : char*&
+		-m_distance : float
+		+GetDistance() : float&
+		+GetType() : int&
+		-m_objectID : unsigned int
+		+GetObjectID() : unsigned int&
+	}
+
+	class Intersector {
+		+Intersector()
+		+~Intersector()
+		+IntersectTriangle(const Ray& ray, const Vector3& v0, const Vector3& v1, const Vector3& v2, float& enlarge, float& barycentricU, float& barycentricV) : INTERSECTION_TYPE
+		+IntersctPolygons(const Ray& ray, const std::vector<Polygon>& polygons, bool isWireFrame, bool exitOnceFound) : IntersectionResult
+		+Intersect(const Ray& ray, const Scene& scene, bool isWireFrame, bool exitOnceFound) : IntersectionResult
+		+IntersectBVH(const Ray& ray, const Scene& scene, bool exitOnceFound) : IntersectionResult
+		+IntersectBVH(const Ray& ray, const std::vector<AABB>& bvhNodes, int nodeIndex, bool isWireFrame, bool exitOnceFound) : IntersectionResult
+	}
+
+	abstract class LightSource {
+		+LightSource()
+		+~LightSource()
+		+{abstract} Sample(const Vector3& position) : LightInfo
+	}
+
+	class Material {
+		+Material()
+		+Material(const Vector3& baseColor, const float& metallic, const float& roughness, const Vector3& emittedColor, const bool& isReflective, const bool& isRefractive, const float& ior)
+		+~Material()
+		-m_baseColor : Vector3
+		-m_emittedColor : Vector3
+		+GetBaseColor() : Vector3& {query}
+		+GetEmittedColor() : Vector3& {query}
+		-m_isReflective : bool
+		-m_isRefractive : bool
+		+isReflective() : bool& {query}
+		+isRefractive() : bool& {query}
+		-m_ior : float
+		-m_metallic : float
+		-m_roughness : float
+		+GetIOR() : float& {query}
+		+GetMetallic() : float& {query}
+		+GetRoughness() : float& {query}
+	}
+
+	class Mesh {
+		+Mesh()
+		+~Mesh()
+		#m_material : Material
+		+GetMaterial() : Material&
+		#m_triangleMask : TRIANGLE_MASK
+		+GetTriangleMask() : TRIANGLE_MASK&
+		#m_transform : Transform
+		+GetTransform() : Transform&
+		#m_polygons : std::vector<Polygon>
+		+GetPolygons() : std::vector<Polygon>&
+		#m_normals : std::vector<Vector3>
+		#m_vertices : std::vector<Vector3>
+		#m_indices : std::vector<unsigned int>
+		#m_objectID : unsigned int
+		+GetObjectID() : unsigned int&
+	}
+
+	class OBJModel {
+		+OBJModel(const std::string& fileName, const Transform& transform, const Material& material, const unsigned int& objectID, const TRIANGLE_MASK& mask)
+		+~OBJModel()
+		-LoadObjFile(const std::string& fileName) : void
+	}
+
+	class PixelBuffer {
+		+PixelBuffer()
+		+~PixelBuffer()
+		-Vector3 : std::unique_ptr<
+		+GetHeight() : unsigned int
+		+GetWidth() : unsigned int
+		-m_height : unsigned int
+		-m_width : unsigned int
+		+Create(unsigned int width, unsigned int height) : void
+		+OutputImage(const std::string& filePath) : void
+		+Write(unsigned int x, unsigned int y, float r, float g, float b) : void
+	}
+
+	class Plane {
+		+Plane(const Transform& transform, const Material& material, const unsigned int& objectID, const TRIANGLE_MASK& mask)
+		+Plane()
+		-CreatePolygons() : void
+	}
+
+	class PointLight {
+		+PointLight(const Vector3& position, const Vector3& color)
+		+~PointLight()
+		-m_type : LIGHT_TYPE
+		+Sample(const Vector3& position) : LightInfo
+		-m_color : Vector3
+		-m_position : Vector3
+	}
+
+	class Polygon {
+		+Polygon()
+		+Polygon(const Vector3& v0, const Vector3& v1, const Vector3& v2, const Vector3& n0, const Vector3& n1, const Vector3& n2, const unsigned int& objectID, const TRIANGLE_MASK& mask)
+		+~Polygon()
+		-m_triangleMask : TRIANGLE_MASK
+		-m_center : Vector3
+		+GetCenter() : Vector3& {query}
+		+GetTriangleMask() : int& {query}
+		-m_normals : std::vector<Vector3>
+		-m_vertices : std::vector<Vector3>
+		+GetNormals() : std::vector<Vector3>& {query}
+		+GetVertices() : std::vector<Vector3>& {query}
+		-m_objectID : unsigned int
+		+GetObjectID() : unsigned int& {query}
+	}
+
+	class Ray {
+		+Ray(const Vector3& origin, const Vector3& direction, const float& maxDistance)
+		+~Ray()
+		-m_direction : Vector3
+		-m_origin : Vector3
+		+GetDirection() : Vector3& {query}
+		+GetOrigin() : Vector3& {query}
+		-m_maxDistance : float
+		+GetMaxDistance() : float& {query}
+	}
+
+	class Renderer {
+		+Renderer()
+		+~Renderer()
+		-m_camera : Camera
+		-m_intersector : Intersector
+		-m_renderTarget : PixelBuffer
+		-RayTrace(const Ray& ray, const Scene& scene, unsigned int bounce) : Vector3
+		-RayTraceBVH(const Ray& ray, const Scene& scene, unsigned int bounce) : Vector3
+		-RayTraceNEE(const Ray& ray, const Scene& scene) : Vector3
+		-RayTraceNEEBVH(const Ray& ray, const Scene& scene) : Vector3
+		-SamplePointOnHemisphere(const Vector3& surfaceNormal) : Vector3
+		-RussianRoulette(const Material& material) : bool
+		-SchlickFresnel(float etai, float etat, float cos) : float
+		-m_height : unsigned int
+		-m_sampleCount : unsigned int
+		-m_width : unsigned int
+		+Init(const unsigned int& width, const unsigned int& height, const unsigned int& sampleCount) : void
+		+Render(const Scene& scene) : void
+	}
+
+	abstract class Scene {
+		+Scene()
+		+~Scene()
+		#m_bvh : BVH
+		+GetBVH() : BVH& {query}
+		+GetMesh(unsigned int meshID) : std::shared_ptr<Mesh> {query}
+		#m_lights : std::vector<std::shared_ptr<LightSource>>
+		+GetLightSources() : std::vector<std::shared_ptr<LightSource>>& {query}
+		#m_meshes : std::vector<std::shared_ptr<Mesh>>
+		+GetMeshes() : std::vector<std::shared_ptr<Mesh>>& {query}
+		+{abstract} Init() : void
+	}
+
+	class SpecularBRDF {
+		+{static} CookTorrance(const Material& material, const Vector3& N, const Vector3& H, const Vector3& V, const Vector3& L) : Vector3
+		+{static} GGX(const Material& material, const Vector3& N, const Vector3& H, const Vector3& V, const Vector3& L) : Vector3
+		-{static} SchlickFresnel(const Vector3& baseColor, const float& metallic, const float& VH) : Vector3
+		-{static} TorranceSparrow(const float& D, const float& G, const Vector3& Fr, const float& cos_o, const float& cos_i) : Vector3
+		-{static} Beckman(const float& roughness, const float& VH) : float
+		-{static} GGX(const float& roughness, const float& NH) : float
+		-{static} Smith(const float& roughness, const float& NL, const float& NV) : float
+		-{static} Vcavity(const float& NH, const float& NV, const float& NL, const float& VH) : float
+	}
+
+	class Sphere {
+		+Sphere(const float& radius, const unsigned int& stackCount, const unsigned int& sectorCount, const Transform& transform, const Material& material, const unsigned int& objectID, const TRIANGLE_MASK& mask)
+		+~Sphere()
+		-CreateIndices(const unsigned int& stackCount, const unsigned int& sectorCount) : void
+		-CreatePolygons() : void
+		-CreateVertexAttributes(const float& radius, const unsigned int& stackCount, const unsigned int& sectorCount) : void
+	}
+
+	class TestScene {
+		+TestScene()
+		+~TestScene()
+		+Init() : void
+	}
+
+	class Transform {
+		+Transform()
+		+Transform(const Vector3& pos, const Vector3& degRot, const Vector3& scale)
+		+~Transform()
+		+GetModelMatrix() : Matrix4x4 {query}
+		+GetForward() : Vector3 {query}
+		+GetRight() : Vector3 {query}
+		+GetUp() : Vector3 {query}
+		-m_degRotation : Vector3
+		-m_forward : Vector3
+		-m_position : Vector3
+		-m_right : Vector3
+		-m_scale : Vector3
+		-m_up : Vector3
+		+GetDegRotation() : Vector3& {query}
+		+GetPosition() : Vector3& {query}
+		+GetScale() : Vector3& {query}
+		+SetDegRotation(const Vector3& degRot) : void
+		+SetPosition(const Vector3& pos) : void
+		+SetScale(const Vector3& scale) : void
+	}
+
+	enum INTERSECTION_TYPE {
+		HIT
+		NONE
+	}
+
+	enum LIGHT_TYPE {
+		AREA
+		DIRECTIONAL
+		POINT
+		SPOT
+	}
+
+	enum TRIANGLE_MASK {
+		GEOMETRY
+		LIGHT
+		NONE
+	}
+
+	enum TRIANGLE_MASK {
+	}
+
+	class LightInfo {
+		+type : LIGHT_TYPE
+		+color : Vector3
+		+direction : Vector3
+		+normal : Vector3
+		+distance : float
+		+pdf : float
+	}
+
+	class Vertex {
+		+normal : Vector3
+		+position : Vector3
+	}
+}
+
+
+
+
+
+
+PathTracer.LightSource <|- - PathTracer.AreaLight
+
+
+PathTracer.LightSource <|- - PathTracer.DirectionalLight
+
+
+PathTracer.LightSource <|- - PathTracer.PointLight
+
+
+PathTracer.Mesh <|- - PathTracer.Cube
+
+
+PathTracer.Mesh <|- - PathTracer.OBJModel
+
+
+PathTracer.Mesh <|- - PathTracer.Plane
+
+
+PathTracer.Mesh <|- - PathTracer.Sphere
+
+
+PathTracer.Scene <|- - PathTracer.CornellBox
+
+
+PathTracer.Scene <|- - PathTracer.CornellBoxInWater
+
+
+PathTracer.Scene <|- - PathTracer.TestScene
+
+
+
+
+
+
+PathTracer.AABB *- - PathTracer.AABB
+
+
+PathTracer.AABB "2" *- - PathTracer.Polygon
+
+
+PathTracer.AreaLight *- - PathTracer.Transform
+
+
+PathTracer.BVH "2" *- - PathTracer.AABB
+
+
+PathTracer.DirectionalLight *- - PathTracer.LIGHT_TYPE
+
+
+PathTracer.IntersectionResult *- - PathTracer.INTERSECTION_TYPE
+
+
+PathTracer.IntersectionResult "2" *- - PathTracer.TRIANGLE_MASK
+
+
+PathTracer.LightInfo *- - PathTracer.LIGHT_TYPE
+
+
+PathTracer.Mesh *- - PathTracer.Material
+
+
+PathTracer.Mesh *- - PathTracer.Polygon
+
+
+PathTracer.Mesh "2" *- - PathTracer.TRIANGLE_MASK
+
+
+PathTracer.Mesh *- - PathTracer.Transform
+
+
+PathTracer.PointLight *- - PathTracer.LIGHT_TYPE
+
+
+PathTracer.Polygon "2" *- - PathTracer.TRIANGLE_MASK
+
+
+PathTracer.Renderer *- - PathTracer.Camera
+
+
+PathTracer.Renderer *- - PathTracer.Intersector
+
+
+PathTracer.Renderer *- - PathTracer.PixelBuffer
+
+
+PathTracer.Scene *- - PathTracer.BVH
+
+
+PathTracer.Scene *- - PathTracer.LightSource
+
+
+PathTracer.Scene *- - PathTracer.Mesh
+
+
+
+
+
+
+
+
+
+@enduml
+
+PlantUML version 1.2022.7(Tue Aug 23 02:01:30 JST 2022)
+(GPL source distribution)
+Java Runtime: Java(TM) SE Runtime Environment
+JVM: Java HotSpot(TM) 64-Bit Server VM
+Default Encoding: MS932
+Language: ja
+Country: JP
+--></g></svg>
