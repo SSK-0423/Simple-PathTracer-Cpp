@@ -15,7 +15,7 @@ namespace PathTracer {
 
 		void Init(const unsigned int& width, const unsigned int& height, const unsigned int& sampleCount);
 
-		void Render(const Scene& scene);
+		void Render(const Scene& scene, const std::string& outputPath);
 	private:
 		unsigned int m_width;
 		unsigned int m_height;

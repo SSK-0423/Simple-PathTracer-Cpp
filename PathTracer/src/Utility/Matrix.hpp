@@ -126,7 +126,6 @@ struct Matrix4x4 {
 		mat[2][2] = 2.f * powf(rot.w, 2.f) + 2.f * powf(rot.z(), 2.f) - 1.f;
 		mat[2][3] = 0.f;
 
-
 		mat[3][0] = 0.f;
 		mat[3][1] = 0.f;
 		mat[3][2] = 0.f;
