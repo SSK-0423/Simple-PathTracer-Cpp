@@ -35,6 +35,7 @@
     <ClCompile Include="src\Scene\BVH.cpp" />
     <ClCompile Include="src\Scene\Camera.cpp" />
     <ClCompile Include="src\Scene\CornellBox.cpp" />
+    <ClCompile Include="src\Scene\CornellBox2024.cpp" />
     <ClCompile Include="src\Scene\CornellBoxInWater.cpp" />
     <ClCompile Include="src\Scene\Scene.cpp" />
     <ClCompile Include="src\Scene\TestScene.cpp" />
@@ -63,6 +64,7 @@
     <ClInclude Include="src\Scene\BVH.hpp" />
     <ClInclude Include="src\Scene\Camera.hpp" />
     <ClInclude Include="src\Scene\CornellBox.hpp" />
+    <ClInclude Include="src\Scene\CornellBox2024.hpp" />
     <ClInclude Include="src\Scene\CornellBoxInWater.hpp" />
     <ClInclude Include="src\Scene\Scene.hpp" />
     <ClInclude Include="src\Scene\TestScene.hpp" />

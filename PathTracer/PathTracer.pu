@@ -1,0 +1,462 @@
+@startuml
+
+
+
+
+
+/' Objects '/
+
+namespace PathTracer {
+	class AABB {
+		+AABB()
+		+AABB(std::vector<Polygon>& polygons)
+		+AABB(const Polygon& polygon)
+		+~AABB()
+		+{static} Merge(const AABB& lhs, const AABB& rhs) : AABB
+		-m_center : Vector3
+		-m_maxCoord : Vector3
+		-m_minCoord : Vector3
+		+GetCenter() : Vector3& {query}
+		+GetMaxCoord() : Vector3& {query}
+		+GetMinCoord() : Vector3& {query}
+		+Intersect(const Ray& ray) : bool {query}
+		+IsLeafNode() : bool {query}
+		+SurfaceArea() : float {query}
+		-m_childIndex : int
+		+GetChildIndex() : int* {query}
+		-m_children : std::vector<AABB>
+		+GetChildren() : std::vector<AABB>& {query}
+		-m_aabbPolygons : std::vector<Polygon>
+		-m_polygons : std::vector<Polygon>
+		+GetAABBPolygons() : std::vector<Polygon>& {query}
+		+GetPolygons() : std::vector<Polygon>& {query}
+		-CreateAABBPolygon() : void
+		+SetChildIndex(int child0, int child1) : void
+		+SetChildren(const AABB& aabb) : void
+		+SetPolygons(const std::vector<Polygon>& polygons) : void
+	}
+
+	class AreaLight {
+		+AreaLight(const Vector3& color, const Transform& transform)
+		+~AreaLight()
+		+Sample(const Vector3& position) : LightInfo
+		-m_transform : Transform
+		-m_color : Vector3
+	}
+
+	class BVH {
+		+BVH()
+		+~BVH()
+		-m_rootNode : AABB
+		+GetRootNode() : AABB& {query}
+		-m_usedNodeIndex : int
+		-m_nodes : std::vector<AABB>
+		+GetNodes() : std::vector<AABB>& {query}
+		+Construct(const Scene& scene) : void
+		-ConstructBVH(std::vector<Polygon>& polygons, int nodeIndex, int depth) : void
+		-CreateTransformedPolygons(const Scene& scene, std::vector<Polygon>& polygons) : void
+	}
+
+	class Camera {
+		+Camera()
+		+Camera(const Vector3& pos, const Vector3& forward, const Vector3& right, const Vector3& up, const float& fovDeg, const unsigned int& width, const unsigned int& height)
+		+~Camera()
+		+GetCameraRay(float x, float y, unsigned int width, unsigned int height) : Ray
+		-m_forward : Vector3
+		-m_position : Vector3
+		-m_right : Vector3
+		-m_up : Vector3
+		+GetPosition() : Vector3&
+		-m_fovDeg : float
+	}
+
+	class CornellBox {
+		+CornellBox()
+		+~CornellBox()
+		+Init() : void
+	}
+
+	class CornellBoxInWater {
+		+CornellBoxInWater()
+		+~CornellBoxInWater()
+		+Init() : void
+	}
+
+	class Cube {
+		+Cube(const Transform& transform, const Material& material, const unsigned int& objectID, const TRIANGLE_MASK& mask)
+		+~Cube()
+		-CreatePolygons() : void
+	}
+
+	class DiffuseBRDF {
+		+{static} NormalizeLambert(const Vector3& baseColor) : Vector3
+	}
+
+	class DirectionalLight {
+		+DirectionalLight(const Vector3& direction, const Vector3& color)
+		+~DirectionalLight()
+		-m_type : LIGHT_TYPE
+		+Sample(const Vector3& position) : LightInfo
+		-m_color : Vector3
+		-m_direction : Vector3
+	}
+
+	class IntersectionResult {
+		+IntersectionResult()
+		+IntersectionResult(const Vector3& position, const Vector3& normal, const float& distance, const unsigned int& objectID, const TRIANGLE_MASK& triangleMask, const INTERSECTION_TYPE& type)
+		+~IntersectionResult()
+		-m_type : INTERSECTION_TYPE
+		-m_triangleMask : TRIANGLE_MASK
+		-m_normal : Vector3
+		-m_position : Vector3
+		+GetNormal() : Vector3&
+		+GetPosition() : Vector3&
+		+GetTriangleMask() : char*&
+		-m_distance : float
+		+GetDistance() : float&
+		+GetType() : int&
+		-m_objectID : unsigned int
+		+GetObjectID() : unsigned int&
+	}
+
+	class Intersector {
+		+Intersector()
+		+~Intersector()
+		+IntersectTriangle(const Ray& ray, const Vector3& v0, const Vector3& v1, const Vector3& v2, float& enlarge, float& barycentricU, float& barycentricV) : INTERSECTION_TYPE
+		+IntersctPolygons(const Ray& ray, const std::vector<Polygon>& polygons, bool isWireFrame, bool exitOnceFound) : IntersectionResult
+		+Intersect(const Ray& ray, const Scene& scene, bool isWireFrame, bool exitOnceFound) : IntersectionResult
+		+IntersectBVH(const Ray& ray, const Scene& scene, bool exitOnceFound) : IntersectionResult
+		+IntersectBVH(const Ray& ray, const std::vector<AABB>& bvhNodes, int nodeIndex, bool isWireFrame, bool exitOnceFound) : IntersectionResult
+	}
+
+	abstract class LightSource {
+		+LightSource()
+		+~LightSource()
+		+{abstract} Sample(const Vector3& position) : LightInfo
+	}
+
+	class Material {
+		+Material()
+		+Material(const Vector3& baseColor, const float& metallic, const float& roughness, const Vector3& emittedColor, const bool& isReflective, const bool& isRefractive, const float& ior)
+		+~Material()
+		-m_baseColor : Vector3
+		-m_emittedColor : Vector3
+		+GetBaseColor() : Vector3& {query}
+		+GetEmittedColor() : Vector3& {query}
+		-m_isReflective : bool
+		-m_isRefractive : bool
+		+isReflective() : bool& {query}
+		+isRefractive() : bool& {query}
+		-m_ior : float
+		-m_metallic : float
+		-m_roughness : float
+		+GetIOR() : float& {query}
+		+GetMetallic() : float& {query}
+		+GetRoughness() : float& {query}
+	}
+
+	class Mesh {
+		+Mesh()
+		+~Mesh()
+		#m_material : Material
+		+GetMaterial() : Material&
+		#m_triangleMask : TRIANGLE_MASK
+		+GetTriangleMask() : TRIANGLE_MASK&
+		#m_transform : Transform
+		+GetTransform() : Transform&
+		#m_polygons : std::vector<Polygon>
+		+GetPolygons() : std::vector<Polygon>&
+		#m_normals : std::vector<Vector3>
+		#m_vertices : std::vector<Vector3>
+		#m_indices : std::vector<unsigned int>
+		#m_objectID : unsigned int
+		+GetObjectID() : unsigned int&
+	}
+
+	class OBJModel {
+		+OBJModel(const std::string& fileName, const Transform& transform, const Material& material, const unsigned int& objectID, const TRIANGLE_MASK& mask)
+		+~OBJModel()
+		-LoadObjFile(const std::string& fileName) : void
+	}
+
+	class PixelBuffer {
+		+PixelBuffer()
+		+~PixelBuffer()
+		-Vector3 : std::unique_ptr<
+		+GetHeight() : unsigned int
+		+GetWidth() : unsigned int
+		-m_height : unsigned int
+		-m_width : unsigned int
+		+Create(unsigned int width, unsigned int height) : void
+		+OutputImage(const std::string& filePath) : void
+		+Write(unsigned int x, unsigned int y, float r, float g, float b) : void
+	}
+
+	class Plane {
+		+Plane(const Transform& transform, const Material& material, const unsigned int& objectID, const TRIANGLE_MASK& mask)
+		+Plane()
+		-CreatePolygons() : void
+	}
+
+	class PointLight {
+		+PointLight(const Vector3& position, const Vector3& color)
+		+~PointLight()
+		-m_type : LIGHT_TYPE
+		+Sample(const Vector3& position) : LightInfo
+		-m_color : Vector3
+		-m_position : Vector3
+	}
+
+	class Polygon {
+		+Polygon()
+		+Polygon(const Vector3& v0, const Vector3& v1, const Vector3& v2, const Vector3& n0, const Vector3& n1, const Vector3& n2, const unsigned int& objectID, const TRIANGLE_MASK& mask)
+		+~Polygon()
+		-m_triangleMask : TRIANGLE_MASK
+		-m_center : Vector3
+		+GetCenter() : Vector3& {query}
+		+GetTriangleMask() : int& {query}
+		-m_normals : std::vector<Vector3>
+		-m_vertices : std::vector<Vector3>
+		+GetNormals() : std::vector<Vector3>& {query}
+		+GetVertices() : std::vector<Vector3>& {query}
+		-m_objectID : unsigned int
+		+GetObjectID() : unsigned int& {query}
+	}
+
+	class Ray {
+		+Ray(const Vector3& origin, const Vector3& direction, const float& maxDistance)
+		+~Ray()
+		-m_direction : Vector3
+		-m_origin : Vector3
+		+GetDirection() : Vector3& {query}
+		+GetOrigin() : Vector3& {query}
+		-m_maxDistance : float
+		+GetMaxDistance() : float& {query}
+	}
+
+	class Renderer {
+		+Renderer()
+		+~Renderer()
+		-m_camera : Camera
+		-m_intersector : Intersector
+		-m_renderTarget : PixelBuffer
+		-RayTrace(const Ray& ray, const Scene& scene, unsigned int bounce) : Vector3
+		-RayTraceBVH(const Ray& ray, const Scene& scene, unsigned int bounce) : Vector3
+		-RayTraceNEE(const Ray& ray, const Scene& scene) : Vector3
+		-RayTraceNEEBVH(const Ray& ray, const Scene& scene) : Vector3
+		-SamplePointOnHemisphere(const Vector3& surfaceNormal) : Vector3
+		-RussianRoulette(const Material& material) : bool
+		-SchlickFresnel(float etai, float etat, float cos) : float
+		-m_height : unsigned int
+		-m_sampleCount : unsigned int
+		-m_width : unsigned int
+		+Init(const unsigned int& width, const unsigned int& height, const unsigned int& sampleCount) : void
+		+Render(const Scene& scene) : void
+	}
+
+	abstract class Scene {
+		+Scene()
+		+~Scene()
+		#m_bvh : BVH
+		+GetBVH() : BVH& {query}
+		+GetMesh(unsigned int meshID) : std::shared_ptr<Mesh> {query}
+		#m_lights : std::vector<std::shared_ptr<LightSource>>
+		+GetLightSources() : std::vector<std::shared_ptr<LightSource>>& {query}
+		#m_meshes : std::vector<std::shared_ptr<Mesh>>
+		+GetMeshes() : std::vector<std::shared_ptr<Mesh>>& {query}
+		+{abstract} Init() : void
+	}
+
+	class SpecularBRDF {
+		+{static} CookTorrance(const Material& material, const Vector3& N, const Vector3& H, const Vector3& V, const Vector3& L) : Vector3
+		+{static} GGX(const Material& material, const Vector3& N, const Vector3& H, const Vector3& V, const Vector3& L) : Vector3
+		-{static} SchlickFresnel(const Vector3& baseColor, const float& metallic, const float& VH) : Vector3
+		-{static} TorranceSparrow(const float& D, const float& G, const Vector3& Fr, const float& cos_o, const float& cos_i) : Vector3
+		-{static} Beckman(const float& roughness, const float& VH) : float
+		-{static} GGX(const float& roughness, const float& NH) : float
+		-{static} Smith(const float& roughness, const float& NL, const float& NV) : float
+		-{static} Vcavity(const float& NH, const float& NV, const float& NL, const float& VH) : float
+	}
+
+	class Sphere {
+		+Sphere(const float& radius, const unsigned int& stackCount, const unsigned int& sectorCount, const Transform& transform, const Material& material, const unsigned int& objectID, const TRIANGLE_MASK& mask)
+		+~Sphere()
+		-CreateIndices(const unsigned int& stackCount, const unsigned int& sectorCount) : void
+		-CreatePolygons() : void
+		-CreateVertexAttributes(const float& radius, const unsigned int& stackCount, const unsigned int& sectorCount) : void
+	}
+
+	class TestScene {
+		+TestScene()
+		+~TestScene()
+		+Init() : void
+	}
+
+	class Transform {
+		+Transform()
+		+Transform(const Vector3& pos, const Vector3& degRot, const Vector3& scale)
+		+~Transform()
+		+GetModelMatrix() : Matrix4x4 {query}
+		+GetForward() : Vector3 {query}
+		+GetRight() : Vector3 {query}
+		+GetUp() : Vector3 {query}
+		-m_degRotation : Vector3
+		-m_forward : Vector3
+		-m_position : Vector3
+		-m_right : Vector3
+		-m_scale : Vector3
+		-m_up : Vector3
+		+GetDegRotation() : Vector3& {query}
+		+GetPosition() : Vector3& {query}
+		+GetScale() : Vector3& {query}
+		+SetDegRotation(const Vector3& degRot) : void
+		+SetPosition(const Vector3& pos) : void
+		+SetScale(const Vector3& scale) : void
+	}
+
+	enum INTERSECTION_TYPE {
+		HIT
+		NONE
+	}
+
+	enum LIGHT_TYPE {
+		AREA
+		DIRECTIONAL
+		POINT
+		SPOT
+	}
+
+	enum TRIANGLE_MASK {
+		GEOMETRY
+		LIGHT
+		NONE
+	}
+
+	enum TRIANGLE_MASK {
+	}
+
+	class LightInfo {
+		+type : LIGHT_TYPE
+		+color : Vector3
+		+direction : Vector3
+		+normal : Vector3
+		+distance : float
+		+pdf : float
+	}
+
+	class Vertex {
+		+normal : Vector3
+		+position : Vector3
+	}
+}
+
+
+
+
+
+/' Inheritance relationships '/
+
+PathTracer.LightSource <|-- PathTracer.AreaLight
+
+
+PathTracer.LightSource <|-- PathTracer.DirectionalLight
+
+
+PathTracer.LightSource <|-- PathTracer.PointLight
+
+
+PathTracer.Mesh <|-- PathTracer.Cube
+
+
+PathTracer.Mesh <|-- PathTracer.OBJModel
+
+
+PathTracer.Mesh <|-- PathTracer.Plane
+
+
+PathTracer.Mesh <|-- PathTracer.Sphere
+
+
+PathTracer.Scene <|-- PathTracer.CornellBox
+
+
+PathTracer.Scene <|-- PathTracer.CornellBoxInWater
+
+
+PathTracer.Scene <|-- PathTracer.TestScene
+
+
+
+
+
+/' Aggregation relationships '/
+
+PathTracer.AABB *-- PathTracer.AABB
+
+
+PathTracer.AABB "2" *-- PathTracer.Polygon
+
+
+PathTracer.AreaLight *-- PathTracer.Transform
+
+
+PathTracer.BVH "2" *-- PathTracer.AABB
+
+
+PathTracer.DirectionalLight *-- PathTracer.LIGHT_TYPE
+
+
+PathTracer.IntersectionResult *-- PathTracer.INTERSECTION_TYPE
+
+
+PathTracer.IntersectionResult "2" *-- PathTracer.TRIANGLE_MASK
+
+
+PathTracer.LightInfo *-- PathTracer.LIGHT_TYPE
+
+
+PathTracer.Mesh *-- PathTracer.Material
+
+
+PathTracer.Mesh *-- PathTracer.Polygon
+
+
+PathTracer.Mesh "2" *-- PathTracer.TRIANGLE_MASK
+
+
+PathTracer.Mesh *-- PathTracer.Transform
+
+
+PathTracer.PointLight *-- PathTracer.LIGHT_TYPE
+
+
+PathTracer.Polygon "2" *-- PathTracer.TRIANGLE_MASK
+
+
+PathTracer.Renderer *-- PathTracer.Camera
+
+
+PathTracer.Renderer *-- PathTracer.Intersector
+
+
+PathTracer.Renderer *-- PathTracer.PixelBuffer
+
+
+PathTracer.Scene *-- PathTracer.BVH
+
+
+PathTracer.Scene *-- PathTracer.LightSource
+
+
+PathTracer.Scene *-- PathTracer.Mesh
+
+
+
+
+
+
+/' Nested objects '/
+
+
+
+@enduml

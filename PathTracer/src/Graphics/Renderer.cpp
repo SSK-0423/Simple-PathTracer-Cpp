@@ -14,9 +14,9 @@
 
 //#define TIME_RENDERING
 
-constexpr unsigned int MINIMUM_BOUNCE = 3;
-constexpr unsigned int BOUNCE_LIMIT = 5;
-constexpr clock_t RENDER_TIME_LIMIT = 1000 * 60 * 60 * 16;
+constexpr unsigned int MINIMUM_BOUNCE = 2;
+constexpr unsigned int BOUNCE_LIMIT = 3;
+constexpr clock_t RENDER_TIME_LIMIT = 1000 * 60 * 60 * 8;
 
 PathTracer::Renderer::Renderer()
 {
@@ -34,10 +34,10 @@ void PathTracer::Renderer::Init(const unsigned int& width, const unsigned int& h
 	m_sampleCount = sampleCount;
 	m_renderTarget.Create(width, height);
 
-	m_camera = Camera(Vector3(0, 0, -3.38 * 5.f), Vector3(0, 0, 1), Vector3(1, 0, 0), Vector3(0, 1, 0), 45.f, width, height);
+	m_camera = Camera(Vector3(0, 0, -3.38 * 15.f), Vector3(0, 0, 1), Vector3(1, 0, 0), Vector3(0, 1, 0), 45.f, width, height);
 }
 
-void PathTracer::Renderer::Render(const Scene& scene)
+void PathTracer::Renderer::Render(const Scene& scene, const std::string& outputPath)
 {
 	unsigned int maxProgress = m_height * m_width * m_sampleCount;
 	unsigned int progress = 0;
@@ -71,12 +71,16 @@ void PathTracer::Renderer::Render(const Scene& scene)
 				float v = randamGenerator(mt);
 				Ray cameraRay = m_camera.GetCameraRay(x + u, y + v, m_width, m_height);
 
-				accumulatedRadiance[y * m_width + x] += RayTraceBVH(cameraRay, scene, 0);
-				//accumulatedRadiance[y * m_width + x] += RayTraceNEEBVH(cameraRay, scene);
-				sampledCount[y * m_width + x] += 1;
+				Vector3 radiance = RayTraceNEEBVH(cameraRay, scene);
+				// 有効な値のみを加算
+				if (isfinite(radiance.r()) && isfinite(radiance.g()) && isfinite(radiance.b()))
+				{
+					accumulatedRadiance[y * m_width + x] += radiance / (radiance + 1.f);
+					sampledCount[y * m_width + x] += 1;
+				}
 
 				clock_t now = clock();
-				//printf("\rRemaining Time(ms) %d", RENDER_TIME_LIMIT - (now - start));
+				printf("\rRemaining Time(ms) %d", RENDER_TIME_LIMIT - (now - start));
 
 				if (now - start > RENDER_TIME_LIMIT) {
 					isEnd = true; break;
@@ -95,11 +99,13 @@ void PathTracer::Renderer::Render(const Scene& scene)
 				float v = randamGenerator(mt);
 				Ray cameraRay = m_camera.GetCameraRay(x + u, y + v, m_width, m_height);
 
-				//accumulatedRadiance[y * m_width + x] += RayTraceBVH(cameraRay, scene, 0);
-				accumulatedRadiance[y * m_width + x] += RayTraceNEEBVH(cameraRay, scene);
-
-				sampledCount[y * m_width + x] += 1;
-
+				Vector3 radiance = RayTraceNEEBVH(cameraRay, scene);
+				// 有効な値のみを加算
+				if (isfinite(radiance.r()) && isfinite(radiance.g()) && isfinite(radiance.b()))
+				{
+					accumulatedRadiance[y * m_width + x] += radiance / (radiance + 1.f);
+					sampledCount[y * m_width + x] += 1;
+				}
 				progress++;
 				printf("\r%7.2f%%", static_cast<double>(progress) / static_cast<double>(maxProgress) * 100.f);
 			}
@@ -118,6 +124,7 @@ void PathTracer::Renderer::Render(const Scene& scene)
 			if (sampledCount[y * m_width + x] == 0) continue;
 
 			Vector3 radiance = accumulatedRadiance[y * m_width + x] / sampledCount[y * m_width + x];
+			//radiance = radiance / (radiance + 1.f);
 
 			m_renderTarget.Write(x, y, radiance.r(), radiance.g(), radiance.b());
 		}
@@ -125,7 +132,7 @@ void PathTracer::Renderer::Render(const Scene& scene)
 
 	printf("\n");
 	// パストレーシング結果を出力
-	m_renderTarget.OutputImage("../RenderImage/CornellBox.ppm");
+	m_renderTarget.OutputImage(outputPath);
 }
 
 const Vector3 PathTracer::Renderer::RayTrace(const Ray& ray, const Scene& scene, unsigned int bounce)
