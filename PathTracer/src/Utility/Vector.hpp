@@ -110,6 +110,14 @@ struct Vector3 {
 		return ret;
 	}
 
+	Vector3 operator /(const Vector3 vec) const {
+		Vector3 ret;
+		ret.x = this->x / vec.x;
+		ret.y = this->y / vec.y;
+		ret.z = this->z / vec.z;
+		return ret;
+	}
+
 	Vector3 operator /=(const float value) {
 		this->x /= value;
 		this->y /= value;
